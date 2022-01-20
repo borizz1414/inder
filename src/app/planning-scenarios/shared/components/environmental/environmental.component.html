@@ -1,0 +1,1994 @@
+<div>
+  <!-- Subheader -->
+  <div class="row pt-8">
+    <div class="col-12">
+      <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Ambiental</h5>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form action="#" class="form form-label-right" [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="form-group row">
+      <div class="col-12">
+        <mat-accordion formGroupName="elementos_sostenibilidad">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Elementos de sostenibilidad
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="senalizacion_imagen_institucional">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Señalización e imagen institucional
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                      <option value="Noaplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="locales_comerciales">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Locales comerciales
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="elementos_seguridad">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Elementos de seguridad fisica
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="lineas_vida">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Líneas de vida
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="senalizacion_emergencia">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Señalización de emergencia
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Suficiente</label>
+                    <select type="text" formControlName="suficiente"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Suficiente">Suficiente</option>
+                      <option value="No">Insuficiente</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="salida_emergencia">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Salidas de emergencia
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Suficiente</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Suficiente">Suficiente</option>
+                      <option value="No">Insuficiente</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="punto_encuentro">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Punto de encuentro
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="botiquin">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Botiquín
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="dea">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    DEA (Desfibrilador)
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="red_contra_incendios">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Red Contra Incendios
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="extintor">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Extintor (es)
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Vigencia</label>
+                    <select type="text" formControlName="vigencia"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Vigente</option>
+                      <option value="Novigente">No vigente</option>
+                      <option value="Noaplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="elementos_accesibilidad">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Elementos de accesibilidad
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="accesos_peatonales">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Accesos Peatonales
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="circulacion_movilidad_reducida">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Circulación movilidad reducida
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                    <input type="checkbox"  />
+                    <span></span>
+                    {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="acceso_movilidad_reducida">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Acceso movilidad reducida
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                    <input type="checkbox"  />
+                    <span></span>
+                    {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="parqueadero">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Parqueadero
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="rutas_buses">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Rutas de buses
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="estaciones_metro">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Estaciones metro
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="ciclo_ruta">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Ciclorruta
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <!-- Content -->
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="elementos_inclusion">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Elementos de inclusion
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="cps_discapacidad">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    CPS discapacidad
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="cps_adulto_mayor">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    CPS adulto mayor
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="senalizacion_movilidad_reducida">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Señalización movilidad reducida
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                    <input type="checkbox"  />
+                    <span></span>
+                    {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="banios_movilidad_reducida">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Baños movilidad reducida
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                    <input type="checkbox"  />
+                    <span></span>
+                    {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="bicicleteros">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Bicicleteros
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="elementos_forestales">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Elementos forestales
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="arboles">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Árboles
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="roceria">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Rocería
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="cobertura_vegetal">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Cobertura vegetal
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Adecuacion</label>
+                    <select type="text" formControlName="adecuacion" class="form-control form-control-lg form-control-solid">
+                      <option value="Adecuado">Adecuado</option>
+                      <option value="Inadecuado">Inadecuado</option>
+                      <option value="Noaplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="conecticidad_ecologica">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Conectividad ecológica
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+              </mat-expansion-panel>
+              <div class="row mb-4">
+                <div class="col-lg-4">
+                  <label>Si / No</label>
+                  <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="col-lg-4" formGroupName="observaciones">
+                  <label>Observaciones</label>
+                  <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                    <input type="checkbox"  />
+                    <span></span>
+                    {{element.label}} -->
+                  <!-- </label> -->
+                </div>
+              </div>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="manejo_residuos">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Manejo de residuos
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="puntos_ecologicos">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Puntos ecológicos
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cantidad</label>
+                    <input type="number" formControlName="cantidad"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Suficiente</label>
+                    <select type="text" formControlName="suficiente"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Suficiente">Suficiente</option>
+                      <option value="Insuficiente">Insuficiente</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Estado</label>
+                    <select type="text" formControlName="estado"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Bueno">Bueno</option>
+                      <option value="Malo">Malo</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="papeleras_banios">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Papeleras Baños
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cantidad</label>
+                    <input type="number" formControlName="cantidad"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Suficiente</label>
+                    <select type="text" formControlName="suficiente"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Suficiente">Suficiente</option>
+                      <option value="Insuficiente">Insuficiente</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Estado</label>
+                    <select type="text" formControlName="estado"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Bueno">Bueno</option>
+                      <option value="Malo">Malo</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="cajas">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Cajas estacionarias/Cajas con ruedas
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cantidad</label>
+                    <input type="number" formControlName="cantidad"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Suficiente</label>
+                    <select type="text" formControlName="suficiente"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Suficiente">Suficiente</option>
+                      <option value="Insuficiente">Insuficiente</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="papeleras">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Papeleras espacio público y espacios internos
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cantidad</label>
+                    <input type="number" formControlName="cantidad"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Suficiente</label>
+                    <select type="text" formControlName="suficiente"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Suficiente">Suficiente</option>
+                      <option value="Insuficiente">Insuficiente</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Estado</label>
+                    <select type="text" formControlName="estado"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Bueno">Bueno</option>
+                      <option value="Malo">Malo</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="guardian">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Guardian o contenedor rojo
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cantidad</label>
+                    <input type="number" formControlName="cantidad"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Suficiente</label>
+                    <select type="text" formControlName="suficiente"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Suficiente">Suficiente</option>
+                      <option value="Insuficiente">Insuficiente</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="punto_recopilas">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Punto Recopilas
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="residuos_especiales">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Residuos Especiales
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Generan</label>
+                    <select type="text" formControlName="generan" class="form-control form-control-lg form-control-solid">
+                      <option value="Generan">Se generan</option>
+                      <option value="No">No se generan</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="residuos_peligrosos">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Residuos peligrosos (CRETIB)
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Generan</label>
+                    <select type="text" formControlName="generan" class="form-control form-control-lg form-control-solid">
+                      <option value="Generan">Se generan</option>
+                      <option value="No">No se generan</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="acopio">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Acopio temporal/aprovechamiento
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Necesidad</label>
+                    <select type="text" formControlName="necesidad"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Necesario">Necesario</option>
+                      <option value="No">No necesario</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="almacenamiento_sustancias">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Almacenamiento de sustancias peligrosas
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="presencia_sustancias">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Presencia sustancias peligrosas
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="matriz_sustancias">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Matriz de compatibilidad almacenamiento sustancias peligrosas:
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="kit_antiderrames">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Kit anti-derrames:
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="tarjetas_emergencia">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Tarjetas de emergencia:
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="epp">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    EPP para manipulación de RESPEL:
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="senalizacion_etiquetado">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Señalización y etiquetado:
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+          
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion formGroupName="cumplimiento_sustancias">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Cumplimiento Guía almacenamiento Sustancias peligrosas:
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="sanidad">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Sanidad
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="vectores_presentes">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Vectores presentes
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="permisos">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Permisos
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="quebradas_aledanias">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Quebradas aledañas
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="emisiones">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Emisiones
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <mat-accordion formGroupName="planta_energia">
+              <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+                <!-- Title -->
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Planta de energía
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Si / No</label>
+                    <select type="text" formControlName="bool" class="form-control form-control-lg form-control-solid">
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Estado</label>
+                    <select type="text" formControlName="estado"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Bueno">Bueno</option>
+                      <option value="Malo">Malo</option>
+                      <option value="No aplica">No aplica</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Cumplimiento</label>
+                    <select type="text" formControlName="cumplimiento"
+                      class="form-control form-control-lg form-control-solid">
+                      <option value="Cumple">Cumple</option>
+                      <option value="Nocumple">No cumple</option>
+                    </select>
+                  </div>
+                  </div>
+                  <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Tipo de combustile</label>
+                    <input type="number" formControlName="tipo_combustible"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Fecha ultimo mantenimiento</label>
+                    <input type="number" formControlName="fecha_ultimo_mantenimiento"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  <div class="col-lg-4" formGroupName="observaciones">
+                    <label>Observaciones</label>
+                    <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                      <input type="checkbox"  />
+                      <span></span>
+                      {{element.label}} -->
+                    <!-- </label> -->
+                  </div>
+                  </div>
+                  <div class="row mb-4">
+                  <div class="col-lg-4">
+                    <label>Calificación general</label>
+                    <input type="number" formControlName="calificacion"
+                      class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+                  </div>
+                  </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="elaborado_por">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Elaborado por
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <div class="form-group row">
+
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="revisado_por">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Revisado por
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Content -->
+            <div class="form-group row">
+
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+<!-- begin: Filtration form -->
+<div class="form form-label-right">
+    <div class="form-group row">
+        <div class="col-lg-6 col-xl-4">
+            <div class="row">
+                <div class="col-lg-5">
+                    <select [value]="filterSelect.value" [formControl]="filterSelect" class="form-control" 
+                        name="filter" (change)="changeFilter()">
+                        <option value="Seleccionar">Seleccionar</option>
+                        <option value="Nombre" *ngIf="type=='all'">Nombre del Escenario</option>
+                        <option value="Comuna" *ngIf="type=='all'">Escenarios en la comuna</option>
+                        <option value="Estado" *ngIf="type=='single'">Estado</option>
+                        <option value="Fecha" *ngIf="type=='single'">Fecha de Actualización</option>
+                    </select>
+                </div>
+                <div class="col-lg-5">
+                    <input *ngIf="filterSelect.value == 'Nombre'" (keyup)="keyUpSearch()" type="text" class="form-control"
+                        name="searchText" [formControl]="valueSearch" placeholder="Buscar" value=""
+                    />
+
+                    <select *ngIf="filterSelect.value === 'Comuna'" (change)="changeNeighborhood()" class="form-control" 
+                        name="neighborhood" [formControl]="neighborhood">
+                         <option *ngFor="let option of neighborhoodOptions" [value]=option.id>{{ option.nombrebarrio }}</option>
+                    </select>
+
+
+                    <select *ngIf="filterSelect.value === 'Estado'" (change)="changeState()" class="form-control" 
+                        name="state" [formControl]="state">
+                        <option *ngFor="let option of stateOptions" [value]=option.id>{{ option.nombre }}</option>
+                    </select>
+
+                    <div *ngIf="filterSelect.value === 'Fecha'" class="input-group">
+                        <input type="text" name="date" class="form-control form-control-date-filter" placeholder="Buscar"
+                            ngbDatepicker #d="ngbDatepicker" [formControl]="date" readonly="true"
+                        />
+                        <div class="input-group-append" (click)="d.toggle()">
+                            <span class="input-group-text input-group-text-filter">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 d-flex align-items-center">
+                    <ng-container *ngIf="loadingOptions">
+                        <span class="spinner spinner-primary"></span>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <small class="form-text text-muted"><b>Filtrar</b> por {{filterSelect.value}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: Filtration form -->

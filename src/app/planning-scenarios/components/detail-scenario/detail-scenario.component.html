@@ -1,0 +1,95 @@
+<div class="card card-custom" [formGroup]="formGroup">
+        <!--begin::Header-->
+        <div class="card-header py-3">
+            <div class="card-title align-items-start justify-content-center flex-column">
+                <h3 class="card-label font-weight-bolder text-dark">{{ formGroup.value.nombre_escenario }}</h3>
+            </div>
+            <div class="card-toolbar">
+                <button class="btn btn-light mr-2 px-9 py-3" (click)="goBack()">
+                    <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md mr-3">
+                    </span>Volver
+                </button>
+                <a type="button" class="btn btn-primary px-9 py-3" [routerLink]="[editRoute, id]">
+                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md mr-3">
+                    </span>Editar
+                </a>
+            </div>
+        </div>
+        <!--end::Header-->
+    
+        <!--begin::Form-->
+        <div class="form">
+            <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading">
+                <span class="spinner spinner-primary ml-5"></span>
+            </div>
+    
+            <div class="card-body" *ngIf="!isLoading">
+                <!--begin::Heading-->
+                <div class="row">
+                    <label class="col-xl-3"></label>
+                    <div class="col-lg-9 col-xl-6">
+                        <h5 class="font-weight-bold mb-6">Información Básica</h5>
+                    </div>
+                </div>
+    
+                <!--begin::Form Group-->
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Nombre del Escenario</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="nombre_escenario" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Teléfono</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="telefono" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Email</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="email" />
+                        </div>
+                    </div>
+                </div>   
+                
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Municipio del Escenario</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="municipio" />
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Barrio</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="barrio" />
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Dirección</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="direccion" />
+                        </div>
+                    </div>
+                </div>         
+            </div>
+        </div>
+        <!--end::Form-->
+</div>
+    

@@ -1,0 +1,50 @@
+<ng-container>
+
+    <!-- Title (Add / Edit)-->
+    <div class="card card-custom gutter-b" *ngIf="!isDetail && !paramsParent.id">
+      <div class="card-header hide-border-bottom">
+        <div class="card-title">
+          <h3 class="card-label font-weight-bolder">
+            Agregar Intervenciones
+          </h3>
+        </div>
+        <div class="card-toolbar">
+          <a type="button" class="btn btn-primary px-9 py-3" (click)="goBack()">
+            <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-md mr-3">
+        </span>Volver
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Forms list -->
+    <!-- Formulario de crear / ver / editar, dentro se importara el componente reutilizable -->
+    <app-form-intervention 
+      *ngFor="let item of itemsCollapsed; index as i"
+      [items]="itemsArr"
+      [index]="i"
+      [params]="paramsParent"
+      [formOptions]="formOptions"
+      [dataChild]="item"
+      (saveForm)="saveForm($event)"
+      (formCollapsed)="formCollapsed($event)"
+      (showDetail)="showDetail($event)"
+      (fetchdataChild)="updateDataChild($event)"
+      (autocompleteEvent)="fetchAutocomplete($event)"
+  
+    >
+    </app-form-intervention>
+  
+    <!-- Add another and Finish buttons -->
+    <div class="d-flex w-100 justify-content-center" *ngIf="showAddAnother && !isDetail">
+      <button class="btn blue-button px-10 py-3 mr-4" (click)="addNewForm()">
+        Agregar otra Intervención
+      </button>
+      <a type="button" class="btn btn-primary px-10 py-3" (click)="goBack()">
+        Terminar
+      </a>
+    </div>
+  
+  </ng-container>
+  

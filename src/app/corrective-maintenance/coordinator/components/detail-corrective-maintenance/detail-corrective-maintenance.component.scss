@@ -1,0 +1,101 @@
+.orange-state{
+    background-color: #FFE9B5;
+    border-radius: 4px;
+    padding: 13px 25px;
+    margin-left: 12.5px;
+    span{
+        color: #FF771C;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+}
+
+.green-state{
+    background-color: #DFECBB;
+    border-radius: 4px;
+    padding: 13px 25px;
+    margin-left: 12.5px;
+    span{
+        color: #95C11E;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+}
+
+.yellow-state{
+    background-color: #FDF6CA;
+    border-radius: 4px;
+    padding: 13px 25px;
+    margin-left: 12.5px;
+    span{
+        color: #FFC200;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+}
+
+.red-state{
+    background-color: #FFE2E5;
+    border-radius: 4px;
+    padding: 13px 25px;
+    margin-left: 12.5px;
+    span{
+        color: #F64E60;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+}
+
+.gray-state{
+    background-color: #E4E6EF;
+    border-radius: 4px;
+    padding: 13px 25px;
+    margin-left: 12.5px;
+    span{
+        color: #8B8D98;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+}
+
+.dark-blue-state{
+    background-color: #A6E3EE;
+    border-radius: 4px;
+    padding: 13px 25px;
+    margin-left: 12.5px;
+    span{
+        color: #0098B1;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+}
+
+.light-blue-state{
+    background-color: #C9F7F5;
+    border-radius: 4px;
+    padding: 13px 25px;
+    margin-left: 12.5px;
+    span{
+        color: #1BC5BD;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+}
+
+.reject-button{
+    background-color: #FFE2E5;
+    border-radius: 4px;
+    padding: 8px 20px;
+    color: #F64E60 !important;
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+.approve-button{
+    background-color: #C9F7F5;
+    border-radius: 4px;
+    padding: 8px 20px;
+    color: #1BC5BD !important;
+    font-size: 15px;
+    text-transform: capitalize;
+}

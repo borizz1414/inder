@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card card-scenarios gutter-b">
+      <div class="card-body d-flex justify-content-between">
+        <div class="text-card">
+          <h5>Agregar nuevo <br>
+            <b>Escenario Deportivo</b>
+          </h5>
+
+          <div class="btn-card pt-10">
+            <a type="button" routerLink="/escenarios/agregar" class="btn btn-primary">Agregar Escenario</a>
+          </div>
+        </div>
+        <div class="icon-card">
+          <span class="svg-inicio-icon" [inlineSVG]="'./assets/media/svg/icons/Clothes/Crown.svg'"
+            cacheSVG="true"></span>
+        </div>
+      </div>
+    </div>
+    <div class="card card-scenarios gutter-b">
+      <div class="card-body d-flex justify-content-between">
+        <div class="text-card">
+          <h5>Agregar nuevo <br>
+            <b>Bien Inmueble</b>
+          </h5>
+
+          <div class="btn-card pt-10">
+            <a type="button" routerLink="/escenarios/bienes-inmuebles/agregar" class="btn btn-primary">Agregar Bien
+              Inmueble</a>
+          </div>
+        </div>
+        <div class="icon-card">
+          <span class="svg-inicio-icon" [inlineSVG]="'./assets/media/svg/icons/Home/Commode2.svg'" cacheSVG="true">
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 container-tables">
+    <div class="card card-custom gutter-b">
+      <div class="card-header">
+        <div class="card-title">
+          <h3 class="card-label">{{configCard1.title}}</h3>
+        </div>
+        <div class="card-toolbar">
+          <a type="button" class="btn btn-primary" [routerLink]="configCard1.routerLinkBtn">{{configCard1.btnName}}</a>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <!-- begin:Table -->
+        <div class="example-container">
+          <app-general-table 
+          [dataTable]="dataScenarios" 
+          [configColumns]="columnsTableScenarios"
+          [displayElementTable]="configDisplayScenarios"
+          [paginator]="configPaginator"
+          (updateDisplayScenario)="changeDisplayScenario($event)"
+          ></app-general-table>
+        </div>
+      </div>
+    </div>
+    <div class="card card-custom gutter-b">
+      <div class="card-header">
+        <div class="card-title">
+          <h3 class="card-label">{{configCard2.title}}</h3>
+        </div>
+        <div class="card-toolbar">
+          <a type="button" class="btn btn-primary" [routerLink]="configCard2.routerLinkBtn">{{configCard2.btnName}}</a>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <!-- begin:Table -->
+        <div class="example-container">
+          <app-general-table 
+          [dataTable]="dataProperty" 
+          [configColumns]="columnsTableProperty"
+          [displayElementTable]="configDisplayProperty"
+          [paginator]="configPaginator"
+          (updateDisplayScenario)="changeDisplayScenario($event)"
+          ></app-general-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,406 @@
+<ng-container *ngIf="idScenario">
+  <div *ngIf="!dataChild.id" class="loading d-flex justify-content-center">
+    <span class="spinner spinner-primary ml-5"></span>
+  </div>
+</ng-container>
+
+<div class="card card-custom gutter-b" *ngIf="dataChild.id || !idScenario">
+
+  <!-- Property title -->
+  <!-- 
+   ** isDetail es el icono del ojo para ver la informacion
+   ** title es el titulo que saldra cuando este collapsado
+   ** isCollapsed es la propiedad para collapsar o abrir la card
+   ** data hace referencia a la data que se le puede pasar al componente
+   ** spiner es para habilitar o deshabilitar la visibilidad del loading
+  -->
+
+  <app-cumulative-form [title]="formGroup.value.propertyName" [isDetail]="isDetail" [isCollapsed]="isCollapsed"
+    [data]="dataChild" [config]="configCumulative" (collapseEvent)="eventCollapse($event)" (trashEvent)="delete($event)">
+
+  </app-cumulative-form>
+  <!-- Property form -->
+  <!-- <button (click)="isCollapsed = !isCollapsed">Collapsed | {{isCollapsed}}</button>
+  <button (click)="isEditing = !isEditing">Editing | {{isEditing}}</button>
+  <button (click)="isDetail = !isDetail">isDetail | {{isDetail}}</button> -->
+  <div id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div *ngIf="isEditing">
+      <form action="#" class="form form-label-right" method="post" enctype="multipart/form-data" [formGroup]="formGroup"
+        (ngSubmit)="save()">
+        <!-- Scenario name section -->
+        <div class="card-body form-section">
+          <div class="py-8">
+            <!-- Subheader -->
+            <div class="row">
+              <div class="col-12">
+                <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Selecciona un Escenario Deportivo</h5>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-lg-4">
+                <label>Nombre del Escenario <span class="required-field">*</span></label>
+                <!-- <select
+                      class="form-control form-control-lg form-control-solid"
+                      name="nombre_escenario"
+                      formControlName="nombre_escenario"
+                  >
+                      <option value="Escenario1">Escenario1</option>
+                      <option value="Escenario2">Escenario2</option>
+                  </select> -->
+                <input type="text" (focus)="fetchScenarioOptions()" class="form-control form-control-lg form-control-solid" placeholder="Seleccionar"
+                  name="scenarioName" formControlName="scenarioName" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of scenariOptions" [value]="option.nombre">
+                    {{ option.nombre }}
+                  </mat-option>
+                </mat-autocomplete>
+                <!--<div class="invalid-feedback" *ngIf="controlHasError('required', 'scenarioName')">
+                    Nombre del Escenario es requerido
+                  </div>-->
+              </div>
+
+              <div class="col-lg-4">
+                <label>Dirección</label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  name="address" formControlName="address" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property info section -->
+        <div class="card-body form-section">
+          <div class="py-8">
+            <!-- Subheader -->
+            <div class="row">
+              <div class="col-12">
+                <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Información General del Bien Inmueble</h5>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-lg-4">
+                <label>Nombre del Bien Inmueble <span class="required-field">*</span></label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="Ingresa el nombre del Bien Inmueble" name="propertyName"
+                  formControlName="propertyName" />
+                <div class="invalid-feedback" *ngIf="controlHasError('required', 'propertyName')">
+                  Nombre del Bien Inmueble es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'propertyName')">
+                  No debe exceder 250 caracteres
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <label>Área (M2) <span class="required-field">*</span></label>
+                <div class="row mx-0">
+                  <div class="col-9 col-xl-10 p-0">
+                    <input type="number" class="form-control form-control-lg form-control-solid file-name-input"
+                      placeholder="Ingresa área del Bien Inmueble" name="m2Area" autocomplete="off"
+                      formControlName="m2Area" />
+                    <div class="invalid-feedback" *ngIf="controlHasError('required', 'm2Area')">
+                      Área (M2) es requerido
+                    </div>
+                    <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'm2Area')">
+                      No debe exceder 250 dígitos
+                    </div>
+                  </div>
+                  <div class="col-3 col-xl-2 p-0">
+                    <label class="btn btn-primary input-button">
+                      M2
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <label>Matrícula <span class="required-field" *ngIf="formGroup.value.typeContract == 1">*</span></label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="Ingresa la matricula del Bien Inmueble" name="enrollment" formControlName="enrollment" />
+                <div class="invalid-feedback" *ngIf="controlHasError('required', 'enrollment')">
+                  Matrícula es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'enrollment')">
+                  No debe exceder 250 caracteres
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-lg-4">
+                <label>Código de activo fijo</label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="Ingresa el Código de activo fijo" name="fixedAssetCode"
+                  formControlName="fixedAssetCode" />
+                <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'fixedAssetCode')">
+                  No debe exceder 250 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property contract -->
+        <div class="card-body">
+          <div class="py-8">
+            <!-- Subheader -->
+            <div class="row">
+              <div class="col-12">
+                <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Destinación del Bien Inmueble</h5>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-lg-4">
+                <label>Tipo de contrato <span class="required-field">*</span></label>
+                <select class="form-control form-control-lg form-control-solid" name="typeContract"
+                  formControlName="typeContract" (change)="changeTypeContract($event.target.value)">
+                  <option *ngFor="let option of optionsSelect.typeContractOptions" [value]="option.id">
+                    {{ option.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-lg-4" *ngIf="formGroup.value.typeContract != 2">
+                <label>Contrato <span class="required-field">*</span></label>
+                <div class="row mx-0">
+                  <div class="col-6 col-md-4 col-lg-7 col-xl-5 p-0">
+                    <div class="radio-button-padding">
+                      <mat-radio-group (change)="changeContract()" [(ngModel)]="contract"
+                        [ngModelOptions]="{standalone: true}">
+                        <mat-radio-button [value]='true'>SI</mat-radio-button>
+                        <mat-radio-button [value]='false'>NO</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-8 col-lg-5 col-xl-7 p-0">
+                    <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                      placeholder="Ingresa el # del contrato" name="contractNumber" formControlName="contractNumber" />
+                    <div class="invalid-feedback" *ngIf="controlHasError('required', 'contractNumber')">
+                      Número del contrato es requerido
+                    </div>
+                    <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'contractNumber')">
+                      No debe exceder 250 dígitos
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4" *ngIf="formGroup.value.typeContract != 2">
+                <label>Fecha de Inicial del Contrato <span class="required-field">*</span></label>
+                <div class="input-group input-group-solid">
+                  <input type="text" name="initialContractDate" class="form-control form-control-lg form-control-solid"
+                    autocomplete="off" placeholder="" ngbDatepicker #d="ngbDatepicker"
+                    formControlName="initialContractDate" readonly="true" />
+                  <div class="input-group-append" (click)="d.toggle()">
+                    <span class="input-group-text">
+                      <i class="far fa-calendar calendar-input"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="invalid-feedback" *ngIf="controlHasError('required', 'initialContractDate')">
+                  Fecha de Inicial del Contrato es requerido
+                </div>
+              </div>
+
+              <div class="col-lg-4" *ngIf="formGroup.value.typeContract == 2">
+                <label>Dependencia <span class="required-field">*</span></label>
+                <select class="form-control form-control-lg form-control-solid" name="dependence"
+                  formControlName="dependence" (change)="changeDependence()" placeholder="Seleccionar">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let option of optionsSelect.dependenceOptions;let index = index" [value]="option.id">
+                    {{ option.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-lg-4" *ngIf="formGroup.value.typeContract == 2">
+                <label>Estrategia <span class="required-field">*</span></label>
+                <select class="form-control form-control-lg form-control-solid" name="strategy"
+                  formControlName="strategy" placeholder="Seleccionar">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let option of optionsSelect.strategyOptions; let index = index" [value]="option.id">{{
+                    option.nombre }}
+                  </option>
+                  
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="formGroup.value.typeContract != 2">
+              <div class="col-lg-4">
+                <label>Fecha de Final del Contrato <span class="required-field">*</span></label>
+                <div class="input-group input-group-solid">
+                  <input type="text" name="finalContractDate" class="form-control form-control-lg form-control-solid"
+                    autocomplete="off" placeholder="" ngbDatepicker #a="ngbDatepicker"
+                    formControlName="finalContractDate" readonly="true" />
+                  <div class="input-group-append" (click)="a.toggle()">
+                    <span class="input-group-text">
+                      <i class="far fa-calendar calendar-input"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="invalid-feedback" *ngIf="controlHasError('required', 'finalContractDate')">
+                  Fecha de Final del Contrato es requerido
+                </div>
+              </div>
+
+              <div class="col-lg-4" *ngIf="formGroup.value.typeContract == 1">
+                <label>Valor Canon <span class="required-field">*</span></label>
+                <div class="row mx-0">
+                  <div class="col-9 col-lg-8 col-xl-9 p-0">
+                    <input type="number" class="form-control form-control-lg form-control-solid file-name-input"
+                      placeholder="Ingresa el Valor Canon" autocomplete="off" name="canonValue"
+                      formControlName="canonValue" />
+                    <div class="invalid-feedback" *ngIf="controlHasError('required', 'canonValue')">
+                      Valor Canon es requerido
+                    </div>
+                    <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'canonValue')">
+                      No debe exceder 250 dígitos
+                    </div>
+                  </div>
+                  <div class="col-3 col-lg-4 col-xl-3 p-0">
+                    <label class="btn btn-primary input-button">
+                      COP
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4" *ngIf="formGroup.value.typeContract == 3">
+                <label>Valor Fiscal <span class="required-field">*</span></label>
+                <div class="row mx-0">
+                  <div class="col-9 col-lg-8 col-xl-9 p-0">
+                    <input type="number" class="form-control form-control-lg form-control-solid file-name-input"
+                      placeholder="Ingresa el valor fiscal" name="taxValue" autocomplete="off"
+                      formControlName="taxValue" />
+                  </div>
+                  <div class="col-3 col-lg-4 col-xl-3 p-0">
+                    <label class="btn btn-primary input-button">
+                      COP
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4" *ngIf="formGroup.value.typeContract == 1">
+                <label>Valor Total del Contrato</label>
+                <div class="row mx-0">
+                  <div class="col-9 col-lg-8 col-xl-9 p-0">
+                    <input type="number" class="form-control form-control-lg form-control-solid file-name-input"
+                      placeholder="0.00" autocomplete="off" name="totalContractValue"
+                      formControlName="totalContractValue" />
+                    <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'totalContractValue')">
+                      No debe exceder 250 dígitos
+                    </div>
+                  </div>
+                  <div class="col-3 col-lg-4 col-xl-3 p-0">
+                    <label class="btn btn-primary input-button">
+                      COP
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="formGroup.value.typeContract == 1">
+              <div class="col-lg-12">
+                <label>Objeto del Contrato <span class="required-field">*</span></label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="Ingresa el objeto del contrato" name="objectContract" formControlName="objectContract" />
+                <div class="invalid-feedback" *ngIf="controlHasError('required', 'objectContract')">
+                  Objeto del Contrato es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'objectContract')">
+                  No debe exceder 250 caracteres
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="formGroup.value.typeContract == 1">
+              <div class="col-lg-4">
+                <label>Disposición <span class="required-field">*</span></label>
+                <select class="form-control form-control-lg form-control-solid" name="disposition"
+                  formControlName="disposition">
+                  <option *ngFor="let option of optionsSelect.dispositionOptions" [value]="option.id">{{ option.nombre
+                    }}</option>
+                </select>
+              </div>
+
+              <div class="col-lg-4">
+                <label>Enlace</label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="Ingresa la URL del contrato publicado" name="contractLink"
+                  formControlName="contractLink" />
+                <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'contractLink')">
+                  No debe exceder 250 caracteres
+                </div>
+              </div>
+            </div>
+
+            <!-- Persons forms -->
+            <app-persons-form [config]="configLessees" [typeIdOptions]="optionsSelect.typeIdOptions"
+              (savePersons)="saveTenants($event)" [childPersons]="tenants" *ngIf="formGroup.value.typeContract == 1">
+            </app-persons-form>
+
+            <app-persons-form [config]="configSupervisors" [typeIdOptions]="optionsSelect.typeIdOptions"
+              (savePersons)="saveSupervisors($event)" [childPersons]="supervisors"
+              *ngIf="formGroup.value.typeContract == 1">
+            </app-persons-form>
+
+            <app-persons-form [config]="configBorrowers" [typeIdOptions]="optionsSelect.typeIdOptions"
+              (savePersons)="saveBorrowers($event)" [childPersons]="borrowers"
+              *ngIf="formGroup.value.typeContract == 3">
+            </app-persons-form>
+
+            <div class="form-group row" *ngIf="formGroup.value.typeContract == 3">
+              <div class="col-lg-12">
+                <label>Objeto comodato <span class="required-field">*</span></label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="Ingresa el objeto comodato" name="objectLoan" formControlName="objectLoan" />
+                <div class="invalid-feedback" *ngIf="controlHasError('required', 'objectLoan')">
+                  Objeto comodato es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'objectLoan')">
+                  No debe exceder 250 caracteres
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="formGroup.value.typeContract == 3">
+              <div class="col-lg-12">
+                <label>Observaciones</label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="Ingresa observaciones" name="observations" formControlName="observations" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Save button -->
+        <div class="card-body float-right mt-3" [ngClass]="{'mr-10' : isLoadingSave}">
+          <!--  <a type="button" class="btn btn-light mr-2 px-12 py-3" routerLink="/escenarios/bienes-inmuebles">
+              Cancelar
+            </a> -->
+          <button type="submit" class="btn btn-primary px-10 py-3" [disabled]="formGroup.invalid">
+            Guardar Bien Inmueble
+          </button>
+          <ng-container *ngIf="isLoadingSave">
+            <span class="spinner spinner-primary ml-5"></span>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+    <!-- <pre>
+      {{formGroup.value | json}}
+      {{formGroup.valid}}
+    </pre> -->
+    <div *ngIf="isDetail">
+      <app-detail-property [property]="dataChild" [scenario]="scenario">
+      </app-detail-property>
+    </div>
+  </div>
+</div>

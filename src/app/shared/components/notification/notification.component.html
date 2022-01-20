@@ -1,0 +1,11 @@
+<div>
+    <ng-container *ngIf="data.type === 'success'">
+        Operación exitosa
+    </ng-container>
+    <ng-container *ngIf="data.type === 'error'">
+        Error <br>
+        <p *ngFor="let message of data.message | objToArray">
+            {{message}}
+        </p>
+    </ng-container>
+</div>

@@ -1,0 +1,287 @@
+<div class="card card-custom" [formGroup]="formGroup">
+
+    <!--begin::Header-->
+    <div class="card-header py-3">
+        <div class="card-title align-items-start justify-content-center flex-column">
+            <h3 class="card-label font-weight-bolder text-dark"> Mantenimiento - {{ formGroup.value.nombre_escenario }}</h3>
+        </div>
+        <div class="card-toolbar">
+            <button class="btn btn-light mr-2 px-9 py-3" (click)="goBack()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-3">
+                </span>Volver
+            </button>
+        </div>
+    </div>
+    <!--end::Header-->
+
+    <!--begin::Form-->
+    <div class="form">
+        <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading">
+            <span class="spinner spinner-primary ml-5"></span>
+        </div>
+
+        <div class="card-body" *ngIf="!isLoading">
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Prioridad</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="prioridad" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Estado</label>
+                <div [ngClass]="{
+                    'orange-state': formGroup.value.estado == 'POR ASIGNAR',
+                    'green-state': formGroup.value.estado == 'TERMINADO',
+                    'red-state': formGroup.value.estado == 'RECHAZADO' || formGroup.value.estado == 'RECHAZADO POR PLANEACION',
+                    'yellow-state': formGroup.value.estado == 'EN PROCESO',
+                    'gray-state': formGroup.value.estado == 'SIN REVISAR CUADRILLA',
+                    'dark-blue-state': formGroup.value.estado == 'POR CERRAR',
+                    'light-blue-state': formGroup.value.estado == 'APROBADO'
+                }">
+                    <span>{{ formGroup.value.estado }}</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Tipo de Mantenimiento</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="tipo_mantenimiento" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Asignado a</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="asignado_a" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Ayudante</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="ayudante" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidencia Inicial
+                ESTADO: POR ASIGNAR, EN PROCESO, TERMINADO, RECHAZADO, SIN REVISAR CUADRILLA,
+                POR CERRAR, RECHAZADO POR PLANEACIÓN, APROBADO ---------------------------->
+
+            <div class="form-group row p-0" *ngIf="imagesInitial.length">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">
+                    Evidencia Inicial
+                </label>   
+                <div class="col-lg-9 col-xl-5" *ngIf="imagesInitial.length === 1">
+                    <div class="input-group input-group-lg input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" [value]="imagesInitial[0].nombre_url || ''" />
+                        <div class="input-group-prepend download-icon" (click)="downloadFile(0, 'imagesInitial')">
+                            <span class="input-group-text">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="imagesInitial.length > 1">
+                <div class="form-group row" *ngFor="let image of imagesInitial; index as i">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input type="text" class="form-control form-control-lg form-control-solid" [value]="image?.nombre_url || ''" />
+                            <div class="input-group-prepend download-icon" (click)="downloadFile(i, 'imagesInitial')">
+                                <span class="input-group-text">
+                                    <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                        class="svg-icon svg-icon-md">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" *ngIf="formGroup.value.observaciones_inicial">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Observaciones</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="observaciones_inicial" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidencia durante
+                ESTADO: EN PROCESO, TERMINADO, RECHAZADO,
+                POR CERRAR, RECHAZADO POR PLANEACIÓN, APROBADO ---------------------------->
+            
+            <div class="form-group row p-0" *ngIf="imagesDuring.length">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">
+                    Evidencia Durante
+                </label>   
+                <div class="col-lg-9 col-xl-5" *ngIf="imagesDuring.length === 1">
+                    <div class="input-group input-group-lg input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" [value]="imagesDuring[0].nombre || ''" />
+                        <div class="input-group-prepend download-icon" (click)="downloadFile(0, 'imagesDuring')">
+                            <span class="input-group-text">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="imagesDuring.length > 1">
+                <div class="form-group row" *ngFor="let image of imagesDuring; index as i">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input type="text" class="form-control form-control-lg form-control-solid" [value]="image?.nombre || ''" />
+                            <div class="input-group-prepend download-icon" (click)="downloadFile(i, 'imagesDuring')">
+                                <span class="input-group-text">
+                                    <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                        class="svg-icon svg-icon-md">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" *ngIf="formGroup.value.observaciones_durante">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Observaciones</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="observaciones_durante" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidencia Final 
+                ESTADO: TERMINADO, RECHAZADO,
+                POR CERRAR, RECHAZADO POR PLANEACIÓN, APROBADO ---------------------------->
+            
+            <div class="form-group row p-0" *ngIf="imagesFinal.length">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">
+                    Evidencia Final
+                </label>   
+                <div class="col-lg-9 col-xl-5" *ngIf="imagesFinal.length === 1">
+                    <div class="input-group input-group-lg input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" [value]="imagesFinal[0].nombre || ''" />
+                        <div class="input-group-prepend download-icon" (click)="downloadFile(0, 'imagesFinal')">
+                            <span class="input-group-text">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="imagesFinal.length > 1">
+                <div class="form-group row" *ngFor="let image of imagesFinal; index as i">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input type="text" class="form-control form-control-lg form-control-solid" [value]="image?.nombre || ''" />
+                            <div class="input-group-prepend download-icon" (click)="downloadFile(i, 'imagesFinal')">
+                                <span class="input-group-text">
+                                    <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                        class="svg-icon svg-icon-md">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="form-group row" *ngIf="formGroup.value.observaciones_final">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Observaciones</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="observaciones_final" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Observaciones rechazo 
+                ESTADO: RECHAZADO,
+                POR CERRAR, RECHAZADO POR PLANEACIÓN, APROBADO ---------------------------->
+
+            <div class="form-group row p-0" *ngIf="observacionesRechazo.length">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">
+                    Rechazo (Observaciones)
+                </label>  
+                <div class="col-lg-9 col-xl-5" *ngIf="observacionesRechazo.length === 1">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" [value]="observacionesRechazo[0]" />
+                    </div>
+                </div> 
+            </div>
+
+            <div *ngIf="observacionesRechazo.length > 1">
+                <div class="form-group row" *ngFor="let item of observacionesRechazo; index as i">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" [value]="item" disabled="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+        <div 
+            class="card-body float-right" 
+            *ngIf="formGroup.value.estado === 'TERMINADO' || formGroup.value.estado === 'POR ASIGNAR' ||
+            formGroup.value.estado === 'RECHAZADO POR PLANEACION'"
+        >
+            <button *ngIf="formGroup.value.estado === 'TERMINADO'" class="btn reject-button mr-6" (click)="openRejectModal()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Close.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-3">
+                </span>
+                Rechazar
+            </button>
+
+            <button *ngIf="formGroup.value.estado === 'TERMINADO'" class="btn approve-button" (click)="approveMaintenance()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Check.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-3">
+                </span>
+                Aprobar
+            </button>
+
+            <a *ngIf="formGroup.value.estado === 'POR ASIGNAR'" class="btn btn-primary px-10 py-3" [routerLink]="['/mantenimientos-correctivos/coordinación/asignar/', id]"> 
+                Asignar Mantenimiento
+            </a>
+
+            <a *ngIf="formGroup.value.estado === 'RECHAZADO POR PLANEACION'" class="btn btn-primary px-10 py-3 mr-6" (click)="openPlanningObservations()"> 
+                Observación a planeación
+            </a>
+
+            <a *ngIf="formGroup.value.estado === 'RECHAZADO POR PLANEACION'" class="btn btn-primary px-10 py-3" (click)="openGangObservations()"> 
+                Observación a cuadrilla
+            </a>
+        </div>
+    </div>
+    <!--end::Form-->
+</div>
+    

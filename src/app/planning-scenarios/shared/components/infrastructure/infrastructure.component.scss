@@ -1,0 +1,50 @@
+.mat-expansion-panel-header-title{
+    font-family: Poppins, Helvetica, "sans-serif";
+    font-weight: 400;
+    color: #3F4254;
+}
+.width-inputs{
+    flex: 0 0 33.3333333333%;
+    max-width: 33.3333333333%;
+}
+.mat-expansion-panel-diagnosis{
+    ::ng-deep .mat-expansion-panel-body {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    ::ng-deep .mat-expansion-panel-body>div {
+        margin-right:20px;
+    }
+}
+@mixin base-container-form{
+    margin-right: 22px;
+    width: max-content;
+    padding: 10px 0px 10px 0px;
+}
+.br-container-form{
+    @include base-container-form();
+   width: 100%
+    // display: inline-block;
+}
+.container-form{
+    @include base-container-form();
+    display: inline-block;
+}
+#subtitle-panel{
+    border-bottom: 1px solid #e1e1e1;
+    margin: 0px 0px 14px 0px;
+    padding: 0px 0px 6px 0px;
+}
+.container-accordion{
+    display: inline-block;
+}
+.example-chip-list {
+    width: 100%;
+  }
+.checkbox{
+    margin:5px !important;
+    span{
+        margin: 5px !important;
+    }
+}

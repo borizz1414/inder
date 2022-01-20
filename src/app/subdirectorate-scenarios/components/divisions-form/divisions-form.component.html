@@ -1,0 +1,222 @@
+<!-- Falta agregar spiner aquí -->
+
+<div class="card card-custom gutter-b">
+
+    <app-cumulative-form [title]="title" [isDetail]="isDetail" [isCollapsed]="isCollapsed"
+      [data]="dataChild" [config]="configCumulative" (collapseEvent)="eventCollapse($event)" (trashEvent)="delete($event)">
+    </app-cumulative-form>
+
+
+    <div id="collapseExample" [ngbCollapse]="isCollapsed">
+        <div *ngIf="isEditing">
+            <form
+                action="#"
+                class="form form-label-right"
+                method="post"
+                enctype="multipart/form-data"
+                [formGroup]="formGroup"
+                (ngSubmit)="save()"
+            >
+                <!-- Crear Divisiones -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Crear Divisiones</h5>
+                        </div>
+                    </div>
+        
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Categoría de la división</label>
+                            <select class="form-control form-control-lg form-control-solid" name="categoria_division"
+                                formControlName="categoria_division">
+                                <option *ngFor="let option of divisionCategoryOptions" [value]=option.id>{{ option.nombre }}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>División</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa la división" name="division" formControlName="division" 
+                            />
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Disciplinas</label>
+                            <div>
+                                <input
+                                    #disciplineInput
+                                    class="form-control form-control-lg form-control-solid chips-input"
+                                    placeholder="Ingresa las disciplinas"
+                                    [formControl]="disciplina"
+                                    [matAutocomplete]="auto"
+                                    [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    (matChipInputTokenEnd)="add($event, 'disciplines', 'disciplina')"
+                                >
+                                <mat-autocomplete #auto="matAutocomplete" 
+                                    (optionSelected)="selected($event, 'disciplines', 'disciplineInput', 'disciplina')"
+                                >
+                                    <mat-option 
+                                        *ngFor="let item of filteredDisciplines" 
+                                        [value]="item.nombre"
+                                        (click)="getOptionsSelected(item, 'disciplinesSelected', 'disciplina')" 
+                                    >
+                                        {{item.nombre}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-chip-list #chipList aria-label="Discipline selection">
+                                    <mat-chip
+                                        *ngFor="let item of disciplines; index as i"
+                                        [selectable]="selectable"
+                                        [removable]="removable"
+                                        (removed)="remove(item, 'disciplines')"
+                                    >
+                                        {{ item }}
+                                        <mat-icon 
+                                            matChipRemove 
+                                            *ngIf="removable"
+                                            (click)="removeSelected(i, 'disciplinesSelected')"
+                                        >cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label>Tendencia(s)</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Seleccione una opción"
+                                name="tendencias" formControlName="tendencias" [matAutocomplete]="auto4"
+                            />
+                            <mat-autocomplete #auto4="matAutocomplete">
+                                <mat-option *ngFor="let option of tendenciasOptions" [value]="option.nombre">
+                                    {{ option.nombre }}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </div>
+                    </div>
+        
+                    <!-- Tipos de Reservas -->
+                    <app-type-reservations
+                        [config]="configTypeReservation"
+                        [children]="typeReservations"
+                        [typeReservationsOptions]="typeReservationsOptions"
+                        (sendSave)="saveTypeReservations($event)"
+                    >
+                    </app-type-reservations>
+        
+                    <!-- Horario -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Horario del Escenario Deportivo</h5>
+                        </div>
+                    </div>
+        
+                    <!-- Top Labels -->
+                    <div class="form-group row">  
+                        <div class="col-md-2">
+                            <label>Días de la Semana</label>
+                        </div>   
+                        <div class="col-md-5">
+                            <label>Horario Mañana</label>
+                        </div>
+                        <div class="col-md-5">
+                            <label>Horario Tarde</label>
+                        </div>                      
+                    </div>
+        
+                    <!-- Days Rows -->
+                    <div class="form-group row form-section" 
+                        *ngFor="let item of horarios"
+                    >  
+                        <!-- Day -->
+                        <div class="col-md-2 d-flex align-items-center pr-0">
+                            <label class="timetable-label">
+                                {{ item.nombre_dia === 'miercoles' ? 'miércoles' :
+                                    item.nombre_dia === 'sabado' ? 'sábado' : item.nombre_dia
+                                }}
+                            </label>
+                        </div>   
+        
+                        <!-- Morning -->
+                        <div class="col-md-5 pr-0">
+                            <div class="row m-0">
+                                <div class="col-md-4 p-0">
+                                    <ngb-timepicker [(ngModel)]="item.hora_inicial_manana" [ngModelOptions]="{standalone: true}"
+                                        [meridian]="noMeridian" [spinners]="spinners"></ngb-timepicker>
+                                </div>
+                                <div class="col-md-1 p-0 timetable-label-center">
+                                    <label class="m-0">a</label>
+                                </div>
+                                <div class="col-md-7 p-0">
+                                    <ngb-timepicker [(ngModel)]="item.hora_final_manana" [ngModelOptions]="{standalone: true}"
+                                        [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                                </div>
+                            </div>
+                            
+                        </div>
+        
+                        <!-- Afternoon -->
+                        <div class="col-md-5 pr-0">
+                            <div class="row m-0">
+                                <div class="col-md-4 p-0">
+                                    <ngb-timepicker [(ngModel)]="item.hora_inicial_tarde" [ngModelOptions]="{standalone: true}"
+                                        [meridian]="noMeridian" [spinners]="spinners"></ngb-timepicker>
+                                </div>
+                                <div class="col-md-1 p-0 timetable-label-center">
+                                    <label class="m-0">a</label>
+                                </div>
+                                <div class="col-md-7 p-0">
+                                    <ngb-timepicker [(ngModel)]="item.hora_final_tarde" [ngModelOptions]="{standalone: true}"
+                                        [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                                </div>
+                            </div>
+                        </div>                      
+                    </div>
+        
+                    <!-- Edad mínima -->
+                    <div class="form-group row">  
+                        <div class="col-lg-4">
+                            <label>Edad mínima para el uso del escenario</label>
+                            <div class="row mx-0">
+                                <div class="col-9 col-xl-9 p-0">
+                                    <input type="number" class="form-control form-control-lg form-control-solid file-name-input"
+                                    placeholder="Ingresa la edad mínima" autocomplete="off"
+                                    name="edad_minima" formControlName="edad_minima" />
+                                </div>
+                                <div class="col-3 col-xl-3 p-0">
+                                    <label class="btn btn-primary input-button">
+                                    Años
+                                    </label>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="col-lg-4">
+                            <label>¿Requiere Aprobación para la Reserva?</label>
+                            <div class="radio-button-padding">
+                                <mat-radio-group formControlName="aprobacion_reserva">
+                                    <mat-radio-button value="true">SI</mat-radio-button>
+                                    <mat-radio-button value="false">NO</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>                      
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="card-body float-right" [ngClass]="{'mr-10' : isLoadingSave}">
+                    <button class="btn btn-light mr-2 px-12 py-3" (click)="cancel()"
+                        *ngIf="indexDataChild !== 0 && !idScenario">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn blue-button px-10 py-3">
+                        Guardar división
+                    </button>
+                    <ng-container *ngIf="isLoadingSave">
+                        <span class="spinner spinner-primary ml-5"></span>
+                    </ng-container>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

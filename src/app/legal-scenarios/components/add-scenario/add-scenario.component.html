@@ -1,0 +1,250 @@
+
+<div class="card card-custom gutter-b">
+
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label font-weight-bolder">
+                <ng-container *ngIf="id;else elseBlock;">
+                    Editar {{ formGroup.get('nombre_escenario').value }}
+                </ng-container>
+                <ng-template #elseBlock>
+                    {{!formGroup.get('nombre_escenario').value ? "Agregar Escenario Deportivo" : formGroup.get('nombre_escenario').value }}
+                </ng-template>
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <a type="button" class="btn btn-primary px-9 py-3" (click)="goBack()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-2">
+                </span>Volver
+            </a>
+        </div>
+    </div>
+    <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading$ | async">
+        <span class="spinner spinner-primary mt-8"></span>
+    </div>
+    <div class="card-body">
+        <form
+            action="#"
+            class="form form-label-right"
+            method="post"
+            enctype="multipart/form-data"
+            [formGroup]="formGroup"
+            (ngSubmit)="save()"
+        >
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Despacho <span class="required-field">*</span></label>
+                    <select class="form-control form-control-lg form-control-solid" name="despacho_id"
+                        formControlName="despacho_id">
+                        <option *ngFor="let option of despachoOptions" [value]=option.id>{{ option.nombre }}</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Fecha de Recepción <span class="required-field">*</span></label>
+                    <div class="input-group input-group-solid">
+                        <input [(ngModel)]="dateReception" type="text" name="fecha_recepcion"
+                            class="form-control form-control-lg form-control-solid" placeholder="" ngbDatepicker
+                            #d="ngbDatepicker" formControlName="fecha_recepcion" readonly="true" />
+                        <div class="input-group-append" (click)="d.toggle()">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback" *ngIf="controlHasError('required', 'fecha_recepcion')">
+                        Fecha de Recepción es requerido
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Hora de Recepción</label>
+                    <div>
+                        <ngb-timepicker [(ngModel)]="hora_recepcion" [ngModelOptions]="{standalone: true}"
+                            [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Adjuntar acta de entrega</label>
+                    <div class="row mx-0">
+                        <div class="col-7 col-lg-4 col-xl-7 p-0">
+                            <input type="text" class="form-control form-control-lg form-control-solid file-name-input"
+                                name="acta_entrega" [value]="filesNames.acta_entrega" disabled />
+                        </div>
+                        <div class="col-5 col-lg-8 col-xl-5 p-0">
+                            <input type="file" id="input-file-1" hidden
+                                (change)="onChangeFile($event, 'acta_entrega')">
+                            <label for="input-file-1" class="btn btn-primary upload-file-button">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Selected-file.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md mr-1">
+                                </span>Examinar
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Adjuntar avaluó comercial</label>
+                    <div class="row mx-0">
+                        <div class="col-7 col-lg-4 col-xl-7 p-0">
+                            <input type="text" class="form-control form-control-lg form-control-solid file-name-input"
+                                name="avaluo_comercial" [value]="filesNames.avaluo_comercial" disabled />
+                        </div>
+                        <div class="col-5 col-lg-8 col-xl-5 p-0">
+                            <input type="file" id="input-file-2" hidden
+                                (change)="onChangeFile($event, 'avaluo_comercial')">
+                            <label for="input-file-2" class="btn btn-primary upload-file-button">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Selected-file.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md mr-1">
+                                </span>Examinar
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Adjuntar Estudio de títulos de predio</label>
+                    <div class="row mx-0">
+                        <div class="col-7 col-lg-4 col-xl-7 p-0">
+                            <input type="text" class="form-control form-control-lg form-control-solid file-name-input"
+                                name="estudio_titulo_predio" [value]="filesNames.estudio_titulo_predio" disabled />
+                        </div>
+                        <div class="col-5 col-lg-8 col-xl-5 p-0">
+                            <input type="file" id="input-file-3" hidden (change)="onChangeFile($event, 'estudio_titulo_predio')">
+                            <label for="input-file-3" class="btn btn-primary upload-file-button">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Selected-file.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md mr-1">
+                                </span>Examinar
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Adjuntar ficha catastral</label>
+                    <div class="row mx-0">
+                        <div class="col-7 col-lg-4 col-xl-7 p-0">
+                            <input type="text" class="form-control form-control-lg form-control-solid file-name-input"
+                                name="ficha_catastral" [value]="filesNames.ficha_catastral" disabled />
+                        </div>
+                        <div class="col-5 col-lg-8 col-xl-5 p-0">
+                            <input type="file" id="input-file-4" hidden
+                                (change)="onChangeFile($event, 'ficha_catastral')">
+                            <label for="input-file-4" class="btn btn-primary upload-file-button">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Selected-file.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md mr-1">
+                                </span>Examinar
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Nombre del Escenario <span class="required-field">*</span></label>
+                    <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                        name="nombre_escenario" formControlName="nombre_escenario" />
+                    <div class="invalid-feedback" *ngIf="controlHasError('required', 'nombre_escenario')">
+                        Nombre es requerido
+                    </div>
+                    <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'nombre_escenario')">
+                        Nombre no debe exceder 250 caracteres
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Municipio del Escenario <span class="required-field">*</span></label>
+                    <select class="form-control form-control-lg form-control-solid" name="municipio_id" formControlName="municipio_id">
+                        <option *ngFor="let option of municipioOptions" [value]=option.id>{{ option.nombremunicipio}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Seleccione el tipo de dirección <span class="required-field">*</span></label>
+                    <div class="radio-button-padding">
+                        <mat-radio-group (change)="changeTypeAddress()" [(ngModel)]="typeAddress"
+                            [ngModelOptions]="{standalone: true}">
+                            <mat-radio-button *ngFor="let option of typeAddressOptions" [value]="option.id" >{{option.nombre}}</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" *ngIf="typeAddress == 1">
+                    <label>Barrio <span class="required-field">*</span></label>
+                    <select class="form-control form-control-lg form-control-solid" name="barrio_id"
+                        formControlName="barrio_id">
+                        <option *ngFor="let option of barrioOptions" [value]=option.id>{{ option.nombrebarrio }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-lg-4" *ngIf="typeAddress == 2">
+                    <label>Vereda</label>
+                    <select class="form-control form-control-lg form-control-solid" name="vereda"
+                        formControlName="vereda">
+                        <option *ngFor="let option of veredaOptions" [value]=option.id>{{ option.nombrebarrio }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Dirección <span class="required-field">*</span></label>
+
+                    <div id="geocoder" #asGeoCoder class="form-control form-control-lg form-control-solid geocoder"></div>
+
+                    <!-- <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                        name="direccion" formControlName="direccion" /> 
+                    <div class="invalid-feedback" *ngIf="controlHasError('required', 'direccion')">
+                        Dirección es requerida
+                    </div>
+                    <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'direccion')">
+                        Dirección no debe exceder 250 caracteres
+                    </div> -->
+                </div>
+            </div>
+     
+            <!-- Map -->
+            <label>Selecciona en el mapa la ubicación actual</label>
+            <div id="map"></div>
+
+            <div class="form-group row mt-5">
+                <div class="col-lg-4">
+                    <label>Latitud</label>
+                    <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                        name="latitud" formControlName="latitud" />
+                </div>
+                <div class="col-lg-4">
+                    <label>Longitud</label>
+                    <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                        name="longitud" formControlName="longitud" />
+                </div>
+                <div class="col-lg-4">
+                    <label>Tipo de Equipamiento</label>
+                    <select class="form-control form-control-lg form-control-solid" name="tipo_equipamiento_id"
+                        formControlName="tipo_equipamiento_id">
+                        <option *ngFor="let option of tipoEquipamientoOptions" [value]=option.id>{{ option.nombre }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+    
+            <div class="float-right mt-3" [ngClass]="{'mr-10' : isLoadingSave}">
+                <button class="btn btn-light mr-2 px-12 py-3" (click)="goBack()">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary px-10 py-3" [disabled]="formGroup.invalid">
+                    Guardar
+                </button>
+                <ng-container *ngIf="isLoadingSave">
+                    <span class="spinner spinner-primary ml-5"></span>
+                </ng-container>
+            </div>
+        </form>
+    </div>
+</div>

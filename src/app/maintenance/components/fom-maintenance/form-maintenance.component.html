@@ -1,0 +1,79 @@
+<div class="gutter-b">
+
+    <!-- Collapsable title -->
+    <!-- 
+    ** isDetail es el icono del ojo para ver la informacion
+    ** title es el titulo que saldra cuando este collapsado
+    ** isCollapsed es la propiedad para collapsar o abrir la card
+    ** data hace referencia a la data que se le puede pasar al componente
+    ** spiner es para habilitar o deshabilitar la visibilidad del loading
+    -->
+    <app-cumulative-form [title]="title" [isDetail]="isDetail" [isCollapsed]="isCollapsed"
+        [data]="dataChild" [config]="configCumulative" (collapseEvent)="eventCollapse($event)" 
+        (trashEvent)="delete($event)">
+    </app-cumulative-form>
+
+    <div id="collapseExample" [ngbCollapse]="isCollapsed">
+        <div *ngIf="isEditing">
+            <!-- Form maintenance -->
+            <form
+                class="form form-label-right"
+                enctype="multipart/form-data"
+                [formGroup]="formGroup"
+            >
+                <div class="card card-custom gutter-b card-content-custom">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label>Nombre del Escenario <span class="required-field">*</span></label>
+                                <input type="text" (focus)="fetchScenarioOptions()" class="form-control form-control-lg form-control-solid" placeholder="Seleccionar"
+                                    name="nombre_escenario" formControlName="nombre_escenario" [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of scenariosOptions" [value]="option.nombre">
+                                        {{ option.nombre }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </div>
+            
+                            <div class="col-lg-4">
+                                <label>Estado <span class="required-field">*</span></label>
+                                <select class="form-control form-control-lg form-control-solid" name="estado"
+                                    formControlName="estado">
+                                    <option *ngFor="let option of optionsSelect.stateOptions" [value]=option.id>{{ option.nombre }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- Activities (Create / Edit/ Delete) -->
+            <app-activities-form
+                *ngFor="let activity of activities; index as i"
+                [idMaintenance]="dataChild.id"
+                [maintenance]="dataChild"
+                [dataChild]="activity"
+                [indexDataChild]="i"
+                [optionsSelect]="optionsSelect"
+                (formCollapsed)="formCollapsed($event)"
+                (showDetail)="showDetail($event)"
+                (removeForm)="removeForm($event)"
+                (sendActivities)="getActivities($event)"
+            >
+            </app-activities-form>
+            <!-- Add another and Save buttons -->
+            <div class="d-flex w-100 justify-content-between" *ngIf="showAddAnother && !isDetail">
+                <button class="btn blue-button px-10 py-3 mr-4" (click)="addNewForm()">
+                    Agregar otra actividad
+                </button>
+                <div class="row mx-0" [ngClass]="{'mr-10' : isLoadingSave, 'ml-0': isLoadingSave}">
+                    <button type="submit" class="btn btn-primary px-10 py-3" (click)="save()" [disabled]="formGroup.invalid"> <!-- Agregar disabled-->
+                        Guardar Mantenimiento
+                    </button>
+                    <ng-container *ngIf="isLoadingSave">
+                        <span class="spinner spinner-primary ml-5"></span>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

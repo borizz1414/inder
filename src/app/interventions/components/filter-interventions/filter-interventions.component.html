@@ -1,0 +1,61 @@
+<!-- begin: Filtration form -->
+<div class="form form-label-right">
+    <div class="form-group row">
+        <div class="col-lg-3">
+            <select [value]="filterInterventions.value" [formControl]="filterInterventions" class="form-control"
+                name="filterInterventions" (change)="changeFilter()">
+                <option value="seleccionar">Seleccionar</option>
+                <option value="escenario">Nombre del Escenario</option>
+                <option value="fechas">Por Rango de Fechas</option>
+                <option value="estado">Estado</option>
+            </select><small class="form-text text-muted"><b>Filtrar</b> por {{filterInterventions.value |
+                uppercase}}</small>
+        </div>
+
+
+        <div *ngIf="filterInterventions.value == 'fechas'" class="col-lg-8">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" autocomplete="off" placeholder="Fecha Inicio"
+                            ngbDatepicker #d="ngbDatepicker" [formControl]="filterDateStart" readonly="true" />
+                        <div class="input-group-append" (click)="d.toggle()">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" autocomplete="off" placeholder="Ficha Final"
+                            ngbDatepicker #x="ngbDatepicker"  [formControl]="filterDateEnd" readonly="true" />
+                        <div class="input-group-append" (click)="x.toggle()">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3" *ngIf="filterInterventions.value == 'estado' || filterInterventions.value == 'escenario'">
+            <ng-container *ngIf="filterInterventions.value == 'estado'">
+                <select name="" id="" class="form-control" (change)="changeStatus($event.target.value)">
+                    <option [value]="1">Definir fecha</option>
+                    <option [value]="2">En proceso</option>
+                    <option [value]="3">Finalizado</option>
+                </select>
+            </ng-container>
+            <input class="col" *ngIf="filterInterventions.value == 'escenario'" (keyup)="keyUpSearch()"
+                [formControl]="nameScenario" type="text" class="form-control" name="searchText" placeholder="Buscar"
+                value="" />
+        </div>
+
+
+
+    </div>
+</div>
+<!-- end: Filtration form -->

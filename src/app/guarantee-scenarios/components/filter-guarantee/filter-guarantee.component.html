@@ -1,0 +1,61 @@
+<!-- begin: Filtration form -->
+<div class="form form-label-right">
+    <div class="form-group row">
+        <div class="col-lg-3">
+            <select [value]="filterGuarantee.value" [formControl]="filterGuarantee" class="form-control" name="filterGuarantee"
+                (change)="changeFilter()">
+                <option value="">Seleccionar</option>
+                <option value="escenario" *ngIf="type == 'all'">Nombre del Escenario</option>
+                <option value="comuna" *ngIf="type == 'all'" >Escenarios en la comuna</option>
+                <option value="actualizacion" *ngIf="type == 'single'" >Fecha de Actualización</option>
+                <option value="vencimiento" *ngIf="type == 'single'" >Vencimiento</option>
+                <option value="tipo_garantia" *ngIf="type == 'single'" >Tipo de Garantía</option>
+            </select><small class="form-text text-muted"><b>Filtrar</b> por {{filterGuarantee.value}}</small>
+        </div>
+
+        <div class="col-lg-3"  >
+            <!-- <div class="row" > -->
+                <div *ngIf="filterGuarantee.value == 'vencimiento' ||filterGuarantee.value == 'actualizacion'">
+                     <!-- <label>Fecha</label> -->
+                     <div class="input-group">
+                        <input type="text" class="form-control" autocomplete="off"
+                            placeholder="Fecha Inicio" ngbDatepicker #d="ngbDatepicker" [formControl]="filterDate" 
+                            readonly="true" />
+                        <div class="input-group-append" (click)="d.toggle()">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+
+              </div> 
+                <!-- <div class="col-lg-6">
+                     <label>Fecha Fin </label> 
+                    <div class="input-group input-group-solid">
+                        <input type="text" class="form-control" autocomplete="off"
+                            placeholder="Ficha Final" ngbDatepicker #x="ngbDatepicker" formControlName="fecha_final"
+                            readonly="true" />
+                        <div class="input-group-append" (click)="x.toggle()">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <select name="" id="" class="form-control" *ngIf="filterGuarantee.value == 'tipo_garantia'" (change)="changeGuarantee($event.target.value)">
+                <option value="">Seleccionar</option>
+                <option [value]="1">Calidad</option>
+                <option [value]="2">Estabilidad</option>
+            </select>
+             <input *ngIf="filterGuarantee.value == 'escenario'" (keyup)="keyUpSearch()" [formControl]="valueSearch" type="text" class="form-control" name="searchText" placeholder="Buscar" value=""
+                 />
+                 <select *ngIf="filterGuarantee.value == 'comuna'" (change)="changeNeighborhood()" class="form-control" name="neighborhood"
+                 [formControl]="neighborhood">
+                 <option *ngFor="let option of neighborhoodOptions" [value]=option.id>{{ option.nombrebarrio }}
+                 </option>
+             </select>
+        </div>
+    </div>
+</div>
+<!-- end: Filtration form -->

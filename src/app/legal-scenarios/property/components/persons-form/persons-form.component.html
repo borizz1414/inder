@@ -1,0 +1,196 @@
+<div>
+  <!-- Subheader -->
+  <div class="row pt-8">
+    <div class="col-12">
+      <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Agregar {{ config.name }}{{ config.name ===
+        'Supervisor' ? 'es' : 's'}}</h5>
+    </div>
+  </div>
+
+  <form action="#" class="form form-label-right" [formGroup]="formGroup" (ngSubmit)="save()">
+
+    <!-- Form -->
+    <div class="form-group row">
+
+      <div class="col-lg-4">
+        <label>Nombre completo del {{ config.name }} <span class="required-field">*</span></label>
+        <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+          placeholder="Ingresa el nombre completo" name="nombre_completo" formControlName="nombre_completo" />
+        <div class="invalid-feedback" *ngIf="controlHasError('required', 'nombre_completo')">
+          Nombre es requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'nombre_completo')">
+          No debe exceder 250 caracteres
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <label>Identificación del {{ config.name }} <span class="required-field">*</span></label>
+        <div class="row mx-0">
+          <div class="col-4 p-0" >
+            <select class="form-control form-control-lg form-control-solid" name="tipo_identificacion_id"
+              formControlName="tipo_identificacion_id">
+              <option *ngFor="let option of typeIdOptions" [value]="option.id">{{ option.nombre }}</option>
+            </select>
+          </div>
+          <div class="col-8 pr-0">
+            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+              placeholder="Ingresa el # del documento" name="numero_identificacion" formControlName="numero_identificacion" />
+          </div>
+        </div>
+        <div class="invalid-feedback" *ngIf="controlHasError('required', 'numero_identificacion')">
+          Tipo y número de identificación son requeridos
+        </div>
+        <br *ngIf="controlHasError('required', 'numero_identificacion') && controlHasError('isIdValid', 'numero_identificacion')">
+        <div class="invalid-feedback"
+          *ngIf="controlHasError('isIdValid', 'numero_identificacion') && !controlHasError('required', 'numero_identificacion')">
+          Debe contener entre 5 y 250 dígitos
+        </div>
+      </div>
+
+      <div class="col-lg-4" *ngIf="config.columns.length >= 3">
+        <label>Fotocopia de la cédula</label>
+        <div class="row mx-0">
+          <div class="col-7 col-lg-4 col-xl-7 p-0">
+            <input type="text" class="form-control form-control-lg form-control-solid file-name-input"
+              name="documentFileName" [value]="documentFileName" disabled />
+          </div>
+          <div class="col-5 col-lg-8 col-xl-5 p-0">
+            <input type="file" id="input-file-1" hidden (change)="onChangeFile($event)">
+            <label for="input-file-1" class="btn btn-primary upload-file-button" style="margin: 0px;">
+              <span [inlineSVG]="'./assets/media/svg/icons/Files/Selected-file.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md mr-1">
+              </span>Examinar
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-1 d-flex align-items-end justify-content-end" *ngIf="config.columns.length < 3" [ngClass]="{'mb-6' : 
+          (controlHasError('required', 'nombre_completo') ||
+          controlHasError('maximumLength', 'nombre_completo') ||
+          controlHasError('required', 'numero_identificacion') ||
+          controlHasError('isIdValid', 'numero_identificacion') && 
+          !(controlHasError('required', 'numero_identificacion') && controlHasError('isIdValid', 'numero_identificacion'))
+          ),
+          'mb-12' : (controlHasError('required', 'numero_identificacion') && controlHasError('isIdValid', 'numero_identificacion'))
+        }">
+        <button type="submit" class="btn btn-icon btn-sm plus-button" [disabled]="this.formGroup.invalid">
+          <span *ngIf="!isEditing">+</span>
+          <span *ngIf="isEditing" [inlineSVG]="'./assets/media/svg/icons/General/Save.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-md">
+          </span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="form-group row" *ngIf="config.columns.length >= 3">
+      <div class="col-lg-4">
+        <label>Teléfono del {{ config.name }} <span class="required-field"
+            *ngIf="config.name === 'Comodatario'">*</span></label>
+        <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+          placeholder="Ingresa el teléfono" name="telefono" formControlName="telefono" />
+        <div class="invalid-feedback" *ngIf="controlHasError('required', 'telefono')">
+          Teléfono es requerido
+        </div>
+        <br *ngIf="controlHasError('required', 'telefono') && controlHasError('isIdValid', 'telefono')">
+        <div class="invalid-feedback" *ngIf="controlHasError('isIdValid', 'telefono')">
+          Teléfono debe contener entre 5 y 250 dígitos
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <label>Email del {{ config.name }}</label>
+        <input type="email" class="form-control form-control-lg form-control-solid" autocomplete="off"
+          placeholder="Ingresa el email" name="email" formControlName="email" />
+        <div class="invalid-feedback" *ngIf="controlHasError('email', 'email')">
+          No cumple el formato de email
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <label>Dirección del {{ config.name }} <span class="required-field"
+            *ngIf="config.name === 'Comodatario'">*</span></label>
+        <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+          placeholder="Ingresa la dirección" name="direccion" formControlName="direccion" />
+        <div class="invalid-feedback" *ngIf="controlHasError('required', 'direccion')">
+          Dirección es requerido
+        </div>
+        <div class="invalid-feedback" *ngIf="controlHasError('maximumLength', 'direccion')">
+          No debe exceder 250 caracteres
+        </div>
+      </div>
+
+      <div class="col-lg-1 d-flex align-items-end justify-content-end" [ngClass]="{'mb-6' : 
+          (controlHasError('required', 'telefono') || 
+          controlHasError('isIdValid', 'telefono') ||
+          controlHasError('email', 'email') ||
+          controlHasError('required', 'direccion') ||
+          controlHasError('maximumLength', 'direccion') && 
+          !(controlHasError('required', 'telefono') && controlHasError('isIdValid', 'telefono'))
+          ),
+          'mb-12': (controlHasError('required', 'telefono') && controlHasError('isIdValid', 'telefono'))
+        }">
+        <button type="submit" class="btn btn-icon btn-sm plus-button" [disabled]="this.formGroup.invalid">
+          <span *ngIf="!isEditing">+</span>
+          <span *ngIf="isEditing" [inlineSVG]="'./assets/media/svg/icons/General/Save.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-md">
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="form-group row">
+      <div class="col-12">
+        <div class="row mx-0 mini-form-list">
+          <div class="col-12 p-0">
+            <div class="row mx-0 w-100">
+              <div class="col-2" *ngFor="let column of config.columns">
+                <h6 class="font-weight-bolder mini-form-title">{{ column }}</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 pt-6 px-0" *ngFor="let person of persons; index as i">
+            <div class="row mx-0 w-100">
+              <ng-container *ngIf="person.nombre_completo">
+                <div class="col-2 d-flex align-items-center">
+                  <span>{{ person.nombre_completo }}</span>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span>{{ person.numero_identificacion }} </span>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span>{{ person.telefono }} </span>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span>{{ person.email }} </span>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span>{{ person.direccion }} </span>
+                </div>
+              </ng-container>
+
+              <div class="col-2 d-flex justify-content-end align-items-center">
+                <label class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="edit(person, i)">
+                  <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md svg-icon-primary">
+                  </span>
+                </label>
+
+                <label class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="delete(i)">
+                  <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md svg-icon-danger">
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

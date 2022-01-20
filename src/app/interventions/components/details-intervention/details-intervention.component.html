@@ -1,0 +1,127 @@
+
+<div class="card card-custom gutter-b">
+    <div class="card-header hide-border-bottom">
+        <div class="card-title">
+            <h3 class="card-label font-weight-bolder">
+                Garantía Calidad - Cancha Polideportiva la Polvoreda
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <button class="btn btn-light mr-2 px-9 py-3" (click)="goBack()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-3">
+                </span>Volver
+            </button>
+            <a [routerLink]="'/intervenciones/editar/'+idIntervention">
+                <button class="btn btn-primary px-9 py-3" >
+                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md mr-3">
+                    </span>Editar
+                </button>
+
+            </a>
+        </div>
+   
+    </div>
+    <div class="form" [formGroup]="formGroup" *ngIf="this.dataIntervention">
+        <div class="card-body">
+
+            <!--begin::Heading-->
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Contratista</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input readonly class="form-control form-control-lg form-control-solid" type="text"
+                            formControlName="contratista" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Contrato</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input readonly class="form-control form-control-lg form-control-solid" type="text"
+                            formControlName="contrato" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Valor</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input readonly class="form-control form-control-lg form-control-solid" type="text"
+                            formControlName="valor" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Fuente de Financiación</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input readonly class="form-control form-control-lg form-control-solid" type="text"
+                            formControlName="fuente_financiacion" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Objeto / Descripción</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input readonly class="form-control form-control-lg form-control-solid" type="text"
+                            formControlName="objeto_descripcion" />
+                    </div>
+                </div>
+            </div>
+ 
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Fecha de priorización inicio</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div class="input-group input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                             formControlName="fecha_inicio" readonly="true" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Fecha de priorización fin</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div class="input-group input-group-solid">
+                        <input type="text"   class="form-control form-control-lg form-control-solid" autocomplete="off"
+                            formControlName="fecha_fin" readonly="true" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Acta de Cantidades Finales de Obra</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div class="input-group input-group-lg input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" formControlName="acta_cantidades" />
+                        <div class="input-group-prepend" [ngClass]="{'download-icon' : formGroup.value.ficha_catastral}" (click)="downloadFile()">
+                            <span class="input-group-text">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!this.dataIntervention" class="loading d-flex justify-content-center">
+    <span class="spinner spinner-primary ml-5"></span>
+</div>

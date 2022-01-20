@@ -1,0 +1,53 @@
+
+<div class="card card-custom">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label font-weight-bolder">
+                {{ title}}
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <!-- {{isCollapsed }}
+        {{isDetail }}
+        {{isEditing}} -->
+            <!-- Actions buttons Add / Edit / Detail -->
+            <div *ngIf="!isDetail">
+                <button *ngIf="config.visible" title="Detail property"
+                    class="btn btn-icon btn-light btn-hover-primary btn-sm" (click)="detailVisible()"
+                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                    <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-xl svg-icon-primary">
+                    </span>
+                </button>
+
+                <button *ngIf="config.edit" title="Edit property"
+                    class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="edit()"
+                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md svg-icon-primary">
+                    </span>
+                </button>
+
+                <button *ngIf="config.delete" title="Delete property"
+                    class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="delete(data.id)">
+                    <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md svg-icon-danger">
+                    </span>
+                </button>
+            </div>
+
+            <div *ngIf="isDetail">
+                <button class="btn btn-light mr-2 px-9 py-3" (click)="toggleDetail()">
+                    <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md mr-3">
+                    </span>Volver
+                </button>
+                <button class="btn btn-primary px-9 py-3" (click)="changeDetailToEdit()">
+                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md mr-3">
+                    </span>Editar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

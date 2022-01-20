@@ -1,0 +1,57 @@
+@import "../../../../assets/sass/pages/wizard/wizard-3";
+
+
+.card-header-wizard {
+    box-shadow: none !important;
+    border-radius: 0.42rem 0.42rem 0rem 0rem !important;
+    border: 0 !important;
+}
+
+.card-nav-wizard {
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    border: 0 !important;
+}
+
+.card-content-wizard {
+    box-shadow: none !important;
+    border-radius: 0rem 0rem 0.42rem 0.42rem !important;
+    border: 0 !important;
+}
+
+
+.previus-step{
+    color: #0098B1;
+    border: 1px solid #0098B1;
+    border-radius: 5px;
+}
+
+.timetable-label{
+    color: #0098B1;
+    margin: 0px;
+    text-transform: capitalize;
+}
+
+.timetable-label-center{
+    display: flex; 
+    align-items: center;
+
+    @media (max-width: 1300px) and (min-width: 768px){
+        justify-content: center;
+    }
+}
+
+.radio-button-padding{
+    padding: 12px 0px;
+}
+
+#map{
+    width: 100%;
+    height: 350px;
+    background-color: black;
+}
+
+.padding-wizard{
+    padding-right: 2.25rem;
+    padding-left: 2.25rem;
+}

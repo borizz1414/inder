@@ -1,0 +1,48 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">{{configCard.title}}</h3>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <!-- end: Grouping -->
+      <div class="filters-container px-10 row mt-8">
+        <div class="col-lg-4">
+            <label>Fecha Inicio <span class="required-field">*</span></label>
+            <div class="input-group">
+                <input type="text" name="fecha_recepcion"
+                    class="form-control" placeholder="" ngbDatepicker
+                    #d="ngbDatepicker" formControlName="fecha_recepcion" readonly="true" />
+                <div class="input-group-append" (click)="d.toggle()">
+                    <span class="input-group-text">
+                        <i class="far fa-calendar calendar-input"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label>Fecha Fin <span class="required-field">*</span></label>
+            <div class="input-group">
+                <input type="text" name="fecha_recepcion"
+                    class="form-control" placeholder="" ngbDatepicker
+                    #a="ngbDatepicker" formControlName="fecha_recepcion" readonly="true" />
+                <div class="input-group-append" (click)="a.toggle()">
+                    <span class="input-group-text">
+                        <i class="far fa-calendar calendar-input"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!-- begin:Table -->
+      <div class="example-container" id="container-3">
+        <app-general-table 
+          [dataTable]="dataSource" 
+          [configColumns]="columnsNamesToDisplay"
+          [displayElementTable]="configDisplayElement"
+          [paginator]="configPaginator"
+          (childPaginator)="fetchPaginator($event)"
+          (downloadExcel)="reportExcel($event)"
+          ></app-general-table>
+      </div>
+  </div>

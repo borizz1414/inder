@@ -1,0 +1,667 @@
+<ng-container>
+        <!-- Title -->
+        <div class="card card-custom card-header-wizard">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3 class="card-label font-weight-bolder m-0">
+                        <ng-container *ngIf="id;else elseBlock;">
+                            Editar {{ formGroup.get('nombre_escenario').value }}
+                        </ng-container>
+                        <ng-template #elseBlock>
+                            {{!formGroup.get('nombre_escenario').value ? "Agregar Escenario Deportivo" : formGroup.get('nombre_escenario').value }}
+                        </ng-template>
+                    </h3>
+                </div>
+                <div class="card-toolbar">
+                    <a type="button" class="btn btn-primary px-9 py-3" (click)="goBack()">
+                        <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                            class="svg-icon svg-icon-md mr-2">
+                        </span>Volver
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Spinner -->
+        <!-- <ng-container *ngIf="id">
+            <div *ngIf="loadingData" class="loading d-flex justify-content-center">
+              <span class="spinner spinner-primary ml-5"></span>
+            </div>
+        </ng-container> -->
+
+        <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading$ | async">
+            <span class="spinner spinner-primary mt-8"></span>
+        </div>
+        
+        <!-- Wizard -->
+        <div
+            #wizard
+            class="wizard wizard-3"
+            id="kt_wizard_v3"
+            data-wizard-state="step-first"
+        >
+            <!-- Wizard Nav -->
+            <div class="card card-nav-wizard">
+                <div class="kt-grid__item">
+                    <div class="wizard-nav mb-1 mb-lg-5">
+                        <div class="wizard-steps padding-wizard py-8 py-lg-3">
+                            <a
+                                class="wizard-step"
+                                href="javascript:;"
+                                data-wizard-type="step"
+                                data-wizard-state="current"
+                            >
+                            <div class="wizard-label">
+                                <div class="wizard-title"><span>1</span> Información General</div>
+                                <div class="wizard-bar"></div>
+                            </div>
+                            </a>
+                            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+                            <div class="wizard-label">
+                                <div class="wizard-title"><span>2</span> Reglas del Escenario</div>
+                                <div class="wizard-bar"></div>
+                            </div>
+                            </a>
+                            <a class="wizard-step" href="javascript:;" data-wizard-type="step">
+                            <div class="wizard-label">
+                                <div class="wizard-title"><span>3</span> Ubicación</div>
+                                <div class="wizard-bar"></div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wizard Form -->
+            <div class="row justify-content-center">
+                <div class="col-xl-12">
+                    <form
+                        action="#"
+                        class="form form-label-right"
+                        id="kt_form"
+                        method="post"
+                        enctype="multipart/form-data"
+                        [formGroup]="formGroup"
+                    >
+                        <!-- Step 1-->
+                        <div data-wizard-type="step-content" data-wizard-state="current">
+                            <div class="card card-content-wizard gutter-b">
+                                <!-- General Info section -->
+                                <div class="card-body pt-0 form-section">
+                                    
+                                    <div class="form-group row">
+                                        <div class="col-lg-4">
+                                            <label>Nombre del Escenario <span class="required-field">*</span></label>
+                                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                                placeholder="Ingresa el nombre del escenario" name="nombre_escenario" formControlName="nombre_escenario" 
+                                            />
+                                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'nombre_escenario')">
+                                                Nombre es requerido
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-lg-4">
+                                            <label>Teléfono</label>
+                                            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                                placeholder="Ingresa teléfono del escenario" name="telefono" formControlName="telefono" 
+                                            />
+                                        </div>
+                        
+                                        <div class="col-lg-4">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                                placeholder="Ingresa email del escenario" name="email" formControlName="email" 
+                                            />
+                                            <div class="invalid-feedback" *ngIf="controlHasError('email', 'email')">
+                                                No cumple con el formato de email
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="form-group row">                        
+                                        <div class="col-lg-4">
+                                            <label>Tipo de Equipamiento</label>
+                                            <select class="form-control form-control-lg form-control-solid" name="tipo_equipamiento_id"
+                                                formControlName="tipo_equipamiento_id">
+                                                <option *ngFor="let option of tipoEquipamientoOptions" [value]=option.id>{{ option.nombre }}</option>
+                                            </select>
+                                        </div>
+                        
+                                        <div class="col-lg-4">
+                                            <label>Municipio del Escenario <span class="required-field">*</span></label>
+                                            <select class="form-control form-control-lg form-control-solid" name="municipio_id"
+                                                formControlName="municipio_id">
+                                                <option *ngFor="let option of municipioOptions" [value]=option.id>{{ option.nombremunicipio}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <label>Seleccione el tipo de dirección <span class="required-field">*</span></label>
+                                            <div class="radio-button-padding">
+                                                <mat-radio-group (change)="changeTypeAddress()" [(ngModel)]="typeAddress"
+                                                    [ngModelOptions]="{standalone: true}">
+                                                    <mat-radio-button value="Barrio">Barrio</mat-radio-button>
+                                                    <mat-radio-button value="Vereda">Vereda</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="form-group row">
+                                        <div class="col-lg-4" *ngIf="typeAddress === 'Barrio'">
+                                            <label>Barrio</label>
+                                            <select class="form-control form-control-lg form-control-solid" name="barrio_id"
+                                                formControlName="barrio_id">
+                                                <option *ngFor="let option of barrioOptions" [value]=option.id>{{ option.nombrebarrio }}
+                                                </option>
+                                            </select>
+                                        </div>
+                        
+                                        <div class="col-lg-4" *ngIf="typeAddress === 'Vereda'">
+                                            <label>Vereda</label>
+                                            <select class="form-control form-control-lg form-control-solid" name="vereda"
+                                                formControlName="vereda">
+                                                <option *ngFor="let option of veredaOptions" [value]=option.id>{{ option.nombrebarrio }}
+                                                </option>
+                                            </select>
+                                        </div>
+                        
+                                        <div class="col-lg-4">
+                                            <label>Dirección <span class="required-field">*</span></label>
+                                            <div id="geocoder" #asGeoCoder class="form-control form-control-lg form-control-solid geocoder"></div>
+                                        </div>
+                                    </div>
+                        
+                                    <!-- Map -->
+                                    <label>Selecciona en el mapa la ubicación actual</label>
+                                    <div id="map"></div>
+                        
+                                    <div class="form-group row mt-5">
+                                        <div class="col-lg-4">
+                                            <label>Latitud</label>
+                                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                                                name="latitud" formControlName="latitud" />
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Longitud</label>
+                                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                                                name="longitud" formControlName="longitud" />
+                                        </div>
+                                    </div>
+                        
+                                    <div class="form-group row">
+                                        <div class="col-lg-12">
+                                            <label>Información Adicional para reserva</label>
+                                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                                name="informacion_reserva" formControlName="informacion_reserva" 
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Diagnosis section -->
+                                <div class="card-body">
+                                    <!-- Subheader -->
+                                    <div class="row pt-8">
+                                        <div class="col-12">
+                                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Diagnostico del Escenario Deportivo</h5>
+                                        </div>
+                                    </div>
+
+                                    <app-diagnosis
+                                        [isEditing]="true"
+                                    >
+                                    </app-diagnosis>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Step 2-->
+                        <div data-wizard-type="step-content">
+                            <div class="card card-content-wizard gutter-b">
+                                <!-- Restricciones -->
+                                <div class="card-body pt-0 form-section">
+                                    <div class="form-group row">
+                                        <div class="col-lg-4">
+                                            <label>¿Este escenario necesita de restricciones?</label>
+                                            <div class="radio-button-padding">
+                                                <mat-radio-group (change)="changeNeedRestrictions()" formControlName="necesita_restricciones">
+                                                    <mat-radio-button value="true">SI</mat-radio-button>
+                                                    <mat-radio-button value="false">NO</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-lg-4" *ngIf="formGroup.value.necesita_restricciones === 'true'">
+                                            <label>Tipos de Reserva</label>
+                                            <div>
+                                                <input
+                                                    #reservationInput
+                                                    class="form-control form-control-lg form-control-solid chips-input"
+                                                    placeholder="Ingresa los tipos de reservas"
+                                                    [formControl]="reservacion"
+                                                    [matAutocomplete]="auto1"
+                                                    [matChipInputFor]="chipList1"
+                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                    (matChipInputTokenEnd)="add($event, 'reservations', 'reservationInput', 'reservacion')"
+                                                >
+                                                <mat-autocomplete #auto1="matAutocomplete" 
+                                                    (optionSelected)="selected($event, 'reservations', 'reservationInput', 'reservacion')"
+                                                >
+                                                    <mat-option 
+                                                        *ngFor="let item of filteredReservations" 
+                                                        [value]="item.nombre"
+                                                        (click)="getOptionsSelected(item, 'typeReservationsSelected', 'reservacion')" 
+                                                    >
+                                                        {{item.nombre}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                                <mat-chip-list #chipList1 aria-label="Reservation selection">
+                                                    <mat-chip
+                                                        *ngFor="let item of reservations; index as i"
+                                                        [selectable]="selectable"
+                                                        [removable]="removable"
+                                                        (removed)="remove(item, 'reservations')"
+                                                    >
+                                                        {{ item }}
+                                                        <mat-icon 
+                                                            matChipRemove 
+                                                            *ngIf="removable"
+                                                            (click)="removeSelected(i, 'typeReservationsSelected')"
+                                                        >cancel</mat-icon>
+                                                    </mat-chip>
+                                                </mat-chip-list>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-lg-4" *ngIf="formGroup.value.necesita_restricciones === 'true'">
+                                            <label>Disciplinas</label>
+                                            <div>
+                                                <input
+                                                    #disciplineInput
+                                                    class="form-control form-control-lg form-control-solid chips-input"
+                                                    placeholder="Ingresa las disciplinas"
+                                                    [formControl]="disciplina"
+                                                    [matAutocomplete]="auto2"
+                                                    [matChipInputFor]="chipList"
+                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                    (matChipInputTokenEnd)="add($event, 'disciplines', 'disciplineInput', 'disciplina')"
+                                                >
+                                                <mat-autocomplete #auto2="matAutocomplete" 
+                                                    (optionSelected)="selected($event, 'disciplines', 'disciplineInput', 'disciplina')"
+                                                >
+                                                    <mat-option 
+                                                        *ngFor="let item of filteredDisciplines" 
+                                                        [value]="item.nombre"
+                                                        (click)="getOptionsSelected(item, 'disciplinesSelected', 'disciplina')" 
+                                                    >
+                                                        {{item.nombre}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                                <mat-chip-list #chipList aria-label="Discipline selection">
+                                                    <mat-chip
+                                                        *ngFor="let item of disciplines; index as i"
+                                                        [selectable]="selectable"
+                                                        [removable]="removable"
+                                                        (removed)="remove(item, 'disciplines')"
+                                                    >
+                                                        {{ item }}
+                                                        <mat-icon 
+                                                            matChipRemove 
+                                                            *ngIf="removable"
+                                                            (click)="removeSelected(i, 'disciplinesSelected')"
+                                                        >cancel</mat-icon>
+                                                    </mat-chip>
+                                                </mat-chip-list>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" *ngIf="formGroup.value.necesita_restricciones === 'true'">
+                                        <div class="col-12">
+                                            <label>Tendencia(s)</label>
+                                            <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Seleccione una opción"
+                                                name="tendencias" formControlName="tendencias" [matAutocomplete]="auto4"
+                                            />
+                                            <mat-autocomplete #auto4="matAutocomplete">
+                                                <mat-option *ngFor="let option of tendenciasOptions" [value]="option.nombre" (click)="getTendenciaId(option)" >
+                                                  {{ option.nombre }}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Horario -->
+                                <div class="card-body form-section">
+                                    <div class="py-8">
+                                        <!-- Subtitle -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Horario del Escenario Deportivo</h5>
+                                            </div>
+                                        </div>
+
+                                        <!-- Top Labels -->
+                                        <div class="form-group row">  
+                                            <div class="col-md-2">
+                                                <label>Días de la Semana</label>
+                                            </div>   
+                                            <div class="col-md-5">
+                                                <label>Horario Mañana</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label>Horario Tarde</label>
+                                            </div>                      
+                                        </div>
+
+                                        <!-- Days Rows -->
+                                        <div class="form-group row form-section" 
+                                            *ngFor="let item of horarios"
+                                        >  
+                                            <!-- Day -->
+                                            <div class="col-md-2 d-flex align-items-center pr-0">
+                                                <label class="timetable-label">
+                                                    {{ item.nombre_dia === 'miercoles' ? 'miércoles' :
+                                                        item.nombre_dia === 'sabado' ? 'sábado' : item.nombre_dia
+                                                    }}
+                                                </label>
+                                            </div>   
+
+                                            <!-- Morning -->
+                                            <div class="col-md-5 pr-0">
+                                                <div class="row m-0">
+                                                    <div class="col-md-4 p-0">
+                                                        <ngb-timepicker [(ngModel)]="item.hora_inicial_manana" [ngModelOptions]="{standalone: true}"
+                                                            [meridian]="noMeridian" [spinners]="spinners"></ngb-timepicker>
+                                                    </div>
+                                                    <div class="col-md-1 p-0 timetable-label-center">
+                                                        <label class="m-0">a</label>
+                                                    </div>
+                                                    <div class="col-md-7 p-0">
+                                                        <ngb-timepicker [(ngModel)]="item.hora_final_manana" [ngModelOptions]="{standalone: true}"
+                                                            [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <!-- Afternoon -->
+                                            <div class="col-md-5 pr-0">
+                                                <div class="row m-0">
+                                                    <div class="col-md-4 p-0">
+                                                        <ngb-timepicker [(ngModel)]="item.hora_inicial_tarde" [ngModelOptions]="{standalone: true}"
+                                                            [meridian]="noMeridian" [spinners]="spinners"></ngb-timepicker>
+                                                    </div>
+                                                    <div class="col-md-1 p-0 timetable-label-center">
+                                                        <label class="m-0">a</label>
+                                                    </div>
+                                                    <div class="col-md-7 p-0">
+                                                        <ngb-timepicker [(ngModel)]="item.hora_final_tarde" [ngModelOptions]="{standalone: true}"
+                                                            [meridian]="meridian" [spinners]="spinners"></ngb-timepicker>
+                                                    </div>
+                                                </div>
+                                            </div>                      
+                                        </div>
+
+                                        <div class="form-group row">  
+                                            <div class="col-lg-12">
+                                                <label>¿Asignar el mismo horario a las divisiones?</label>
+                                                <div class="radio-button-padding">
+                                                    <mat-radio-group formControlName="horario_division">
+                                                        <mat-radio-button value="true">SI</mat-radio-button>
+                                                        <mat-radio-button value="false">NO</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                            </div>                      
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Gestores -->
+                                <div class="card-body form-section">
+                                    <div class="py-8">
+                                        <!-- Subtitle -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Gestores</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-lg-12">
+                                                <div class="row mx-0 d-flex align-items-center">
+                                                    <label>Selecciona el gestor principal</label>
+                                                    <ng-container *ngIf="isLoadingManager1">
+                                                        <span class="spinner spinner-primary ml-3 mb-3"></span>
+                                                    </ng-container>
+                                                </div>
+                                                <div>
+                                                    <input 
+                                                        type="text" 
+                                                        class="form-control form-control-lg form-control-solid" 
+                                                        placeholder="Seleccionar"
+                                                        name="gestor_principal" 
+                                                        formControlName="gestor_principal" 
+                                                        [matAutocomplete]="auto5"
+                                                    />
+                                                    <mat-autocomplete #auto5="matAutocomplete">
+                                                        <mat-option *ngFor="let option of mainManagerOptions" (click)="getManagerNumberId(option)" 
+                                                            [value]="option.numero_identificacion">
+                                                            {{ option.numero_identificacion }} - {{option.nombre}} {{option.apellido}}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="form-group row">
+                                            <div class="col-lg-12">
+                                                <div class="row mx-0 d-flex align-items-center">
+                                                    <label>Selecciona gestores secundarios</label>
+                                                    <ng-container *ngIf="isLoadingManagers2">
+                                                        <span class="spinner spinner-primary ml-3 mb-3"></span>
+                                                    </ng-container>
+                                                </div>
+                                                <div>
+                                                    <input
+                                                        #secondaryManagerInput
+                                                        class="form-control form-control-lg form-control-solid chips-input"
+                                                        placeholder="Selecciona gestores secundarios"
+                                                        [formControl]="gestor_secundario"
+                                                        [matAutocomplete]="auto3"
+                                                        [matChipInputFor]="chipList3"
+                                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                        (matChipInputTokenEnd)="add($event, 'secondaryManagers', 'secondaryManagerInput', 'gestor_secundario')"
+                                                    >
+                                                    <mat-autocomplete #auto3="matAutocomplete" 
+                                                        (optionSelected)="selected($event, 'secondaryManagers', 'secondaryManagerInput', 'gestor_secundario')"
+                                                    >
+                                                        <mat-option 
+                                                            *ngFor="let item of filteredSecondaryManagers" 
+                                                            (click)="getOptionsSelected(item, 'secondaryManagersSelected', 'gestor_secundario')" 
+                                                            [value]="item.numero_identificacion"
+                                                        >
+                                                            {{ item.numero_identificacion }} - {{item.nombre}} {{item.apellido}}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                    <mat-chip-list #chipList3 aria-label="Secondary Managers selection">
+                                                        <mat-chip
+                                                            *ngFor="let item of secondaryManagers; index as i"
+                                                            [selectable]="selectable"
+                                                            [removable]="removable"
+                                                            (removed)="remove(item, 'secondaryManagers')"
+                                                        >
+                                                            {{ item }}
+                                                            <mat-icon 
+                                                                matChipRemove 
+                                                                *ngIf="removable"
+                                                                (click)="removeSelected(i, 'secondaryManagersSelected')"
+                                                            >
+                                                            cancel</mat-icon>
+                                                        </mat-chip>
+                                                    </mat-chip-list>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Normas -->
+                                <div class="card-body">
+                                    <div class="py-8">
+                                        <!-- Subtitle -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Normas del Escenario Deportivo</h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-12">
+                                                <label>Ingresa las normas del Escenario Deportivo</label>
+                                                <textarea name="normas_escenario" formControlName="normas_escenario" 
+                                                    class="form-control form-control-lg form-control-solid" rows="10" cols="10">
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Step 3-->
+                        <div data-wizard-type="step-content">
+                            <!-- General Info -->
+                            <div class="card card-content-wizard gutter-b">
+                                <div class="card-body pt-0">
+                                    <div class="py-8">
+                                        <!-- Subtitle -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Información General</h5>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <div class="col-lg-4">
+                                                <label>Ancho <span class="required-field">*</span></label>
+                                                <div class="row mx-0">
+                                                    <div class="col-9 col-xl-10 p-0">
+                                                    <input type="number" class="form-control form-control-lg form-control-solid file-name-input"
+                                                        placeholder="Ingresa el ancho" autocomplete="off"
+                                                        name="ancho" formControlName="ancho" />
+                                                    </div>
+                                                    <div class="col-3 col-xl-2 p-0">
+                                                    <label class="btn btn-primary input-button">
+                                                        M
+                                                    </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>Largo <span class="required-field">*</span></label>
+                                                <div class="row mx-0">
+                                                    <div class="col-9 col-xl-10 p-0">
+                                                    <input type="number" class="form-control form-control-lg form-control-solid file-name-input"
+                                                        placeholder="Ingresa el largo" autocomplete="off"
+                                                        name="largo" formControlName="largo" />
+                                                    </div>
+                                                    <div class="col-3 col-xl-2 p-0">
+                                                    <label class="btn btn-primary input-button">
+                                                        M
+                                                    </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label>Subir imagen</label>
+                                                <div class="row mx-0">
+                                                    <div class="col-7 col-lg-4 col-xl-7 p-0">
+                                                        <input type="text" class="form-control form-control-lg form-control-solid file-name-input"
+                                                            placeholder="Selecciona una imagen" name="documentFileName" [value]="documentFileName" disabled />
+                                                    </div>
+                                                    <div class="col-5 col-lg-8 col-xl-5 p-0">
+                                                        <input type="file" id="input-file-1" hidden (change)="onChangeFile($event)">
+                                                        <label for="input-file-1" class="btn btn-primary upload-file-button" style="margin: 0px;">
+                                                            <span [inlineSVG]="'./assets/media/svg/icons/Files/Selected-file.svg'" cacheSVG="true"
+                                                                class="svg-icon svg-icon-md mr-1">
+                                                            </span>Examinar
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Divisiones -->
+                            <div *ngIf="formGroup.value.necesita_restricciones === 'true'
+                                        && previusStep === 2 && divisions.length"
+                            >
+                                <app-divisions-form
+                                    *ngFor="let division of divisions; index as i"
+                                    [idScenario]="id"
+                                    [scenarioData]="scenarioData"
+                                    [dataChild]="division"
+                                    [indexDataChild]="i"
+                                    [selectOptions]="selectOptions"
+                                    [horariosData]="formGroup.value.horario_division === 'true' ? horarios : null"
+                                    (saveAsChild)="saveChild()"
+                                    (formCollapsed)="formCollapsed($event)"
+                                    (showDetail)="showDetail($event)"
+                                    (fetchDataChild)="updateDataChild($event)"
+                                    (removeForm)="removeForm($event)"
+                                    (sendDivision)="saveDivisions($event)"
+                                >
+                                </app-divisions-form>
+                            </div>
+                        </div>
+    
+                        <!-- Actions -->
+                        <div class="d-flex w-100 justify-content-between">
+                            <!-- Add another button-->
+                            <div class="d-flex w-25 justify-content-start">
+                                <button class="btn blue-button px-10 py-3" 
+                                    *ngIf="showAddAnother && !isDetail && formGroup.value.necesita_restricciones === 'true'"
+                                    (click)="addNewForm()">
+                                    Agregar otra división
+                                </button>
+                            </div>
+                            
+
+                            <!-- Wizard Buttons -->
+                            <div class="d-flex w-75 justify-content-end">
+                                <div>
+                                    <div class="btn previus-step px-10 py-3 mr-4"
+                                        data-wizard-type="action-prev" (click)="hideAnotherButton()">
+                                        Atrás
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items" [ngClass]="{'mr-10' : isLoadingSave, 'ml-0': isLoadingSave}">
+                                    <div 
+                                        (click)="save()" 
+                                        class="btn btn-primary px-10 py-3"
+                                        data-wizard-type="action-submit" 
+                                        *ngIf="(divisionsSaved.length && formGroup.value.necesita_restricciones === 'true') || formGroup.value.necesita_restricciones === 'false'"
+                                    > <!--[disabled]="formGroup.invalid"-->
+                                        Guardar
+                                    </div>
+                                    <ng-container *ngIf="isLoadingSave">
+                                        <span class="spinner spinner-primary ml-5"></span>
+                                    </ng-container>
+                                    <div class="btn btn-primary px-10 py-3"
+                                        data-wizard-type="action-next" (click)="showAnotherButton()">
+                                        Continuar
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</ng-container>
+
+

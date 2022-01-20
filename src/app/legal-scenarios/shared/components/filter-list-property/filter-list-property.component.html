@@ -1,0 +1,20 @@
+<!-- begin: Filtration form -->
+<div class="form form-label-right">
+    <div class="form-group row">
+        <div class="col-lg-6 col-xl-4">
+            <div class="row" >
+                <div class="col-lg-6">
+                   
+                    <select [value]="filterScenario.value" [formControl]="filterScenario" class="form-control" name="status" placeholder="Seleccionar">
+                        <option value="Nombre">Nombre</option>
+                    </select><small class="form-text text-muted"><b>Filtrar</b> por  {{filterScenario.value}}</small>
+                </div>
+                <div class="col-lg-6" >
+                    <input (keyup)="keyUpSearch()" [formControl]="valueSearch" type="text" class="form-control" name="searchText" placeholder="Buscar" value=""
+                         />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: Filtration form -->

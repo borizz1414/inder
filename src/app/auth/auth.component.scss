@@ -1,0 +1,14 @@
+@import "../../assets/sass/pages/login/login-1.scss";
+
+:host {
+  height: 100%;
+}
+
+.footer-aside{
+  background: #43A737;
+  width: 100%;
+  height: 73px;
+  a{
+    color:white;
+  }
+}

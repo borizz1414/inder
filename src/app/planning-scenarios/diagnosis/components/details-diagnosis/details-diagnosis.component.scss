@@ -1,0 +1,20 @@
+.btn-history{
+    background: #0098B1;
+    color: white;
+}
+.btn-declined{
+    background: #FFE2E5;
+    color:#F64E60;
+
+}
+.btn-approved{
+    background: #C9F7F5;
+    color:#1BC5BD;
+    
+}
+.svg-icon-approved ::ng-deep svg path {
+    fill: #1BC5BD !important;
+}
+.svg-icon-declined ::ng-deep svg path {
+    fill: #F64E60 !important;
+}

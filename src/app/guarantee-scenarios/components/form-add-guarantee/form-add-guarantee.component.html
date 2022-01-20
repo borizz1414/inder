@@ -1,0 +1,123 @@
+<ng-container *ngIf="params.id">
+    <div *ngIf="!dataChild.id" class="loading d-flex justify-content-center">
+      <span class="spinner spinner-primary ml-5"></span>
+    </div>
+  </ng-container>
+  
+  <div class="card card-custom gutter-b" *ngIf="dataChild.id || !params.id">
+  
+    <!-- Property title -->
+    <!-- 
+     ** isDetail es el icono del ojo para ver la informacion
+     ** title es el titulo que saldra cuando este collapsado
+     ** isCollapsed es la propiedad para collapsar o abrir la card
+     ** data hace referencia a la data que se le puede pasar al componente
+     ** spiner es para habilitar o deshabilitar la visibilidad del loading
+    -->
+  
+    <app-cumulative-form  [title]="title" [isDetail]="isDetail" [isCollapsed]="isCollapsed"
+      [data]="dataChild" [config]="configCumulative" (collapseEvent)="eventCollapse($event)" (trashEvent)="delete($event)">
+  
+    </app-cumulative-form>
+    <!-- Property form -->
+    <!-- <button (click)="isCollapsed = !isCollapsed">Collapsed | {{isCollapsed}}</button>
+    <button (click)="isEditing = !isEditing">Editing | {{isEditing}}</button>
+    <button (click)="isDetail = !isDetail">isDetail | {{isDetail}}</button> -->
+    <div id="collapseExample" [ngbCollapse]="isCollapsed">
+      <div *ngIf="isEditing">
+        <form action="#" class="form form-label-right"  [formGroup]="formGuarantee"
+          (ngSubmit)="save()">
+          <!-- Scenario name section -->
+          <div class="card-body form-section">
+            <div class="py-8">
+              <!-- Subheader -->
+              <!-- <div class="row">
+                <div class="col-12">
+                  <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Selecciona un Escenario Deportivo</h5>
+                </div>
+              </div> -->
+  
+              <div class="form-group row">
+                <div class="col-lg-4">
+                  <label>Nombre del Escenario <span class="required-field">*</span></label>
+                  <input type="text" (focus)="fetchScenarioOptions()" class="form-control form-control-lg form-control-solid" placeholder="Seleccionar" formControlName="nombre_escenario" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of scenariOptions" [value]="option.nombre" (click)="selectScenario(option.id)">
+                      {{ option.nombre }}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <div class="invalid-feedback" *ngIf="controlHasError('required', 'nombre_escenario')">
+                      Nombre del Escenario es requerido
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>Tipo de Garantía <span class="required-field">*</span></label>
+                        <select class="form-control form-control-lg form-control-solid" formControlName="tipo_garantia" required>
+                          <option *ngFor="let option of formOptions.type_guarantee" [value]="option.id" >
+                            {{ option.nombre }}
+                          </option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'tipo_garantia')">
+                            Tipo de Garantía es requerido
+                          </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>Observaciones</label>
+                     <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Ingresa las observaciones" formControlName="observaciones">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Fecha Inicio</label>
+                    <div class="input-group input-group-solid">
+                      <input type="text"  class="form-control form-control-lg form-control-solid"
+                        autocomplete="off" placeholder="" ngbDatepicker #d="ngbDatepicker"
+                        formControlName="fecha_inicio" readonly="true" />
+                      <div class="input-group-append" (click)="d.toggle()">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar calendar-input"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-4">
+                    <label>Fecha Fin </label>
+                    <div class="input-group input-group-solid">
+                      <input type="text"  class="form-control form-control-lg form-control-solid"
+                        autocomplete="off" placeholder="" ngbDatepicker #x="ngbDatepicker"
+                        formControlName="fecha_fin" readonly="true" />
+                      <div class="input-group-append" (click)="x.toggle()">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar calendar-input"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body d-flex justify-content-end" [ngClass]="{'mr-10' : isLoadingSave}">
+                <!--  <a type="button" class="btn btn-light mr-2 px-12 py-3" routerLink="/escenarios/bienes-inmuebles">
+                    Cancelar
+                  </a> -->
+                <a *ngIf="params.id"  class="btn btn-light px-10 py-3 mr-4" (click)="goBack()">
+                  Cancelar
+                </a>
+                <button type="submit" class="btn btn-primary px-10 py-3" [disabled]="!formGuarantee.valid">
+                    Guardar Garantía
+                </button>
+                <ng-container *ngIf="isLoadingSave">
+                  <span class="spinner spinner-primary ml-5"></span>
+                </ng-container>
+              </div>
+          </div>
+        </form>
+      </div>
+      <!-- <pre>
+        {{formGuarantee.value | json}}
+        {{formGuarantee.valid}}
+
+      </pre> -->
+
+    </div>
+  </div>

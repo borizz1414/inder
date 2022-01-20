@@ -1,0 +1,27 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">{{configCard.title}}</h3>
+      </div>
+      <div class="card-toolbar">
+        <a type="button" class="btn btn-primary" [routerLink]="configCard.routerLinkBtn">{{configCard.btnName}}</a>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <!-- end: Grouping -->
+      <div class="filters-container px-10">
+        <app-filter-list-maintenance (eventFilter)="getEventFilter($event)" type="all"></app-filter-list-maintenance>
+      </div>
+      <!-- begin:Table -->
+      <div class="example-container" id="container-3">
+        <app-general-table 
+          [dataTable]="dataSource" 
+          [configColumns]="columnsNamesToDisplay"
+          [displayElementTable]="configDisplayElement"
+          [paginator]="configPaginator"
+          (childPaginator)="fetchPaginator($event)"
+          (downloadExcel)="reportExcel($event)"
+          ></app-general-table>
+      </div>
+    </div>
+  </div>

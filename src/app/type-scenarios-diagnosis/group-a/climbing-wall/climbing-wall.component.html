@@ -1,0 +1,1945 @@
+<div class="form-group row">
+  <div class="col-12" [formGroup]="formGroup">
+    <mat-accordion formGroupName="riesgo_estructural">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Riesgo estructural
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="riesgo_estructural_child">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Riesgo estructural
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Riesgo estructural</label>
+                <select formControlName="riesgo_estructural" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="">
+                  <option value="">Si</option>
+                  <option value="">No</option>
+                </select>
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4" formGroupName="observaciones">
+                <label>Observaciones</label>
+                <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                  <input type="checkbox" [formControlName]="element.formName" />
+                  <span></span>
+                  {{element.label}}
+                </label>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion formGroupName="acabado_superficie">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Acabado de superficie
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion formGroupName="area_juego">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Area de juego
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <mat-accordion formGroupName="superficie_deportiva">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Superficie deportiva
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Observaciones</label>
+                <div class="example-chip-list">
+                  <mat-chip-list #chipList aria-label="Fruit selection">
+
+                    <input #autoInput1 [matAutocomplete]="autoComplete1" [matChipInputFor]="chipList"
+                      class="form-control form-control-lg form-control-solid"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <!-- EVENT, NUMBER AUTO COMPLETE -->
+                  <mat-autocomplete #autoComplete1="matAutocomplete"
+                    (optionSelected)="selected($event, 1, 'optionsA1')">
+                    <mat-option *ngFor="let item of optionsA1" [value]="item">
+                      {{item}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+              </div>
+            </div>
+            <div class="container-checkbox d-flex flex-wrap">
+              <div *ngFor="let item of  autoCompletables[0];index as i" class="mr-6">
+                <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[0].splice(i, 1);
+                optionsA1.unshift(item)">
+                  {{item}}
+                  <!-- {{item.value.material}} -->
+
+                  <div matChipRemove *ngIf="removable">
+                    <mat-icon>cancel</mat-icon>
+                  </div>
+
+                </mat-chip>
+                <hr>
+                <!-- *ngFor="let item of pisObsAreJuePla[i]" -->
+                <div *ngIf="item == 'Concreto'">
+                  <label *ngFor="let element of opt.area_juego.superficie_deportiva.obsCheck1[0]" class="checkbox">
+                    <input type="checkbox" (click)="obs1.concreto.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                </div>
+                <div *ngIf="item == 'Asfalto'">
+                  <label *ngFor="let element of opt.area_juego.superficie_deportiva.obsCheck1[1]" class="checkbox">
+                    <input type="checkbox" (click)="obs1.asfalto.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                </div>
+                <div *ngIf="item == 'Sintética'">
+                  <label *ngFor="let element of opt.area_juego.superficie_deportiva.obsCheck1[2]" class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                </div>
+                <div *ngIf="item == 'Pintura plástica'">
+                  <label *ngFor="let element of opt.area_juego.superficie_deportiva.obsCheck1[3]" class="checkbox">
+                    <input type="checkbox" (click)="obs1.pintura_plastica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                </div>
+                <div *ngIf="item == 'Madera'">
+                  <label *ngFor="let element of opt.area_juego.superficie_deportiva.obsCheck1[4]" class="checkbox">
+                    <input type="checkbox" (click)="obs1.madera.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                </div>
+                <div *ngIf="item == 'Adoquines'">
+                  <label *ngFor="let element of opt.area_juego.superficie_deportiva.obsCheck1[5]" class="checkbox">
+                    <input type="checkbox" (click)="obs1.adoquines.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="areas_complementarias">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Áreas Complementarias
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="number" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="otros">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Otros
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                Observaciones
+                <div class="example-chip-list">
+                  <mat-chip-list #chipList aria-label="Fruit selection">
+
+                    <input #autoInput2 [matAutocomplete]="autoComplete2" [matChipInputFor]="chipList"
+                      class="form-control form-control-lg form-control-solid"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <!-- EVENT, NUMBER AUTO COMPLETE -->
+                  <mat-autocomplete #autoComplete2="matAutocomplete" (optionSelected)="selected($event, 2,'optionsA2')">
+                    <mat-option *ngFor="let item of optionsA2" [value]="item">
+                      {{item}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+              </div>
+            </div>
+            <div class="container-checkbox d-flex flex-wrap">
+              <div *ngFor="let item of  autoCompletables[1];index as i" class="mr-6">
+                <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[1].splice(i, 1);
+                optionsA2.unshift(item)">
+                  {{item}}
+                  <!-- {{item.value.material}} -->
+
+                  <div matChipRemove *ngIf="removable">
+                    <mat-icon>cancel</mat-icon>
+                  </div>
+
+                </mat-chip>
+                <div *ngIf="item == 'Cubierta'">
+                  <div class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+
+                      <input #autoInput3 [matAutocomplete]="autoComplete3" [matChipInputFor]="chipList"
+                        class="form-control form-control-lg form-control-solid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <!-- EVENT, NUMBER AUTO COMPLETE -->
+                    <mat-autocomplete #autoComplete3="matAutocomplete"
+                      (optionSelected)="selected($event, 3,'optionsA3')">
+                      <mat-option *ngFor="let item of optionsA3" [value]="item">
+                        {{item}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <div *ngFor="let item of  autoCompletables[2];index as i" class="mr-6">
+                    <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[2].splice(i, 1);
+                optionsA3.unshift(item)">
+                      {{item}}
+                      <!-- {{item.value.material}} -->
+
+                      <div matChipRemove *ngIf="removable">
+                        <mat-icon>cancel</mat-icon>
+                      </div>
+
+                    </mat-chip>
+                    <div *ngIf="item == 'Concreto'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.cubierta.concreto"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Madera y teja'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.cubierta.madera_teja"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Estructura metálica y tejas'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.cubierta.estructura_metalica_teja"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="item == 'Pared'">
+
+                  <div>
+                    <label *ngFor="let element of opt.area_juego.superficie_deportiva.obsCheck1[2]" class="checkbox">
+                      <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                      <span></span>
+                      {{element.label}}
+                    </label>
+                  </div>
+                </div>
+                <div *ngIf="item == 'Piso'">
+                  <div class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+
+                      <input #autoInput3 [matAutocomplete]="autoComplete4" [matChipInputFor]="chipList"
+                        class="form-control form-control-lg form-control-solid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <!-- EVENT, NUMBER AUTO COMPLETE -->
+                    <mat-autocomplete #autoComplete4="matAutocomplete"
+                      (optionSelected)="selected($event, 4,'optionsA5')">
+                      <mat-option *ngFor="let item of optionsA5" [value]="item">
+                        {{item}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <div *ngFor="let item of  autoCompletables[3];index as i" class="mr-6">
+                    <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[3].splice(i, 1);
+                optionsA5.unshift(item)">
+                      {{item}}
+                      <!-- {{item.value.material}} -->
+
+                      <div matChipRemove *ngIf="removable">
+                        <mat-icon>cancel</mat-icon>
+                      </div>
+
+                    </mat-chip>
+                    <div *ngIf="item == 'Baldosa'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.piso.baldosa"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Concreto'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.piso.concreto"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Cerámica'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.piso.ceramica"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+                <div *ngIf="item == 'Puerta'">
+                  <div class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+
+                      <input #autoInput3 [matAutocomplete]="autoComplete5" [matChipInputFor]="chipList"
+                        class="form-control form-control-lg form-control-solid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <!-- EVENT, NUMBER AUTO COMPLETE -->
+                    <mat-autocomplete #autoComplete5="matAutocomplete"
+                      (optionSelected)="selected($event, 5,'optionsA6')">
+                      <mat-option *ngFor="let item of optionsA6" [value]="item">
+                        {{item}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <div *ngFor="let item of  autoCompletables[4];index as i" class="mr-6">
+                    <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[4].splice(i, 1);
+                optionsA6.unshift(item)">
+                      {{item}}
+                      <!-- {{item.value.material}} -->
+
+                      <div matChipRemove *ngIf="removable">
+                        <mat-icon>cancel</mat-icon>
+                      </div>
+
+                    </mat-chip>
+                    <div *ngIf="item == 'Madera'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.puerta.madera"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Aluminio'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.puerta.aluminio"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Lámina de acero'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.puerta.lamina_acero"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="item == 'Ventana'">
+                  <div class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+
+                      <input #autoInput3 [matAutocomplete]="autoComplete6" [matChipInputFor]="chipList"
+                        class="form-control form-control-lg form-control-solid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <!-- EVENT, NUMBER AUTO COMPLETE -->
+                    <mat-autocomplete #autoComplete6="matAutocomplete"
+                      (optionSelected)="selected($event, 6,'optionsA7')">
+                      <mat-option *ngFor="let item of optionsA7" [value]="item">
+                        {{item}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <div *ngFor="let item of  autoCompletables[5];index as i" class="mr-6">
+                    <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[5].splice(i, 1);
+                optionsA7.unshift(item)">
+                      {{item}}
+                      <!-- {{item.value.material}} -->
+
+                      <div matChipRemove *ngIf="removable">
+                        <mat-icon>cancel</mat-icon>
+                      </div>
+
+                    </mat-chip>
+                    <div *ngIf="item == 'Malla y tubería'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.ventana.malla_tuberia"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Aluminio y vidrio'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.ventana.aluminio_vidrio"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Madera y vidrio'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.ventana.madera_vidrio"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Lámina de acero y vidrio'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.ventana.lamina_acero_vidrio"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="item == 'Cerradura'">
+                  <label *ngFor="let element of opt.areas_complementarias.otros.checks.cerradura" class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                </div>
+                <div *ngIf="item == 'Reja'">
+                  <div class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+
+                      <input #autoInput3 [matAutocomplete]="autoComplete7" [matChipInputFor]="chipList"
+                        class="form-control form-control-lg form-control-solid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <!-- EVENT, NUMBER AUTO COMPLETE -->
+                    <mat-autocomplete #autoComplete7="matAutocomplete"
+                      (optionSelected)="selected($event, 7,'optionsA9')">
+                      <mat-option *ngFor="let item of optionsA9" [value]="item">
+                        {{item}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <div *ngFor="let item of  autoCompletables[6];index as i" class="mr-6">
+                    <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[6].splice(i, 1);
+                optionsA9.unshift(item)">
+                      {{item}}
+                      <!-- {{item.value.material}} -->
+
+                      <div matChipRemove *ngIf="removable">
+                        <mat-icon>cancel</mat-icon>
+                      </div>
+
+                    </mat-chip>
+                    <div *ngIf="item == 'Tubería'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.reja.tuberia"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Aluminio'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.reja.aluminio"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Hierro'">
+                      <label *ngFor="let element of opt.areas_complementarias.otros.checks.reja.hierro"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+                <div *ngIf="item == 'Instalaciones Electricas'">
+                  <div class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+
+                      <input #autoInput3 [matAutocomplete]="autoComplete8" [matChipInputFor]="chipList"
+                        class="form-control form-control-lg form-control-solid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <!-- EVENT, NUMBER AUTO COMPLETE -->
+                    <mat-autocomplete #autoComplete8="matAutocomplete"
+                      (optionSelected)="selected($event, 8,'optionsA10')">
+                      <mat-option *ngFor="let item of optionsA10" [value]="item">
+                        {{item}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <div *ngFor="let item of  autoCompletables[7];index as i" class="mr-6">
+                    <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[7].splice(i, 1);
+                optionsA10.unshift(item)">
+                      {{item}}
+                      <!-- {{item.value.material}} -->
+
+                      <div matChipRemove *ngIf="removable">
+                        <mat-icon>cancel</mat-icon>
+                      </div>
+
+                    </mat-chip>
+                    <div *ngIf="item == 'Toma corriente'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_electricas.toma_corriente"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Toma comunicación'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_electricas.toma_comunicacion"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Switche'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_electricas.switche"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Breakers'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_electricas.breakers"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Lámpara/Luminaria'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_electricas.lampara_luminaria"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Plafón/Base'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_electricas.plafon_base"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+                <div *ngIf="item == 'Instalaciones Hidrosanitarias'">
+                  <div class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+
+                      <input #autoInput3 [matAutocomplete]="autoComplete9" [matChipInputFor]="chipList"
+                        class="form-control form-control-lg form-control-solid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <!-- EVENT, NUMBER AUTO COMPLETE -->
+                    <mat-autocomplete #autoComplete9="matAutocomplete"
+                      (optionSelected)="selected($event, 9,'optionsA11')">
+                      <mat-option *ngFor="let item of optionsA11" [value]="item">
+                        {{item}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <div *ngFor="let item of  autoCompletables[8];index as i" class="mr-6">
+                    <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[8].splice(i, 1);
+                optionsA11.unshift(item)">
+                      {{item}}
+                      <!-- {{item.value.material}} -->
+
+                      <div matChipRemove *ngIf="removable">
+                        <mat-icon>cancel</mat-icon>
+                      </div>
+
+                    </mat-chip>
+                    <div *ngIf="item == 'Batería Sanitaria'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_hidrosanitarias.bateria_sanitaria"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Lavamanos sencillo'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_hidrosanitarias.lavamanos_sencillo"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Ducha'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_hidrosanitarias.ducha"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Orinal'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_hidrosanitarias.orinal"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Lavaescobas'">
+                      <label
+                        *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_hidrosanitarias.lavaescobas"
+                        class="checkbox">
+                        <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                        <span></span>
+                        {{element.label}}
+                      </label>
+                    </div>
+                    <div *ngIf="item == 'Lavaplatos'">
+                      <hr>
+
+                      <div class="example-chip-list">
+                        <mat-chip-list #chipList aria-label="Fruit selection">
+
+                          <input #autoInput3 [matAutocomplete]="autoComplete10" [matChipInputFor]="chipList"
+                            class="form-control form-control-lg form-control-solid"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                        </mat-chip-list>
+                        <!-- EVENT, NUMBER AUTO COMPLETE -->
+                        <mat-autocomplete #autoComplete10="matAutocomplete"
+                          (optionSelected)="selected($event, 10,'optionsA12')">
+                          <mat-option *ngFor="let item of optionsA12" [value]="item">
+                            {{item}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                      <div *ngFor="let item of  autoCompletables[9];index as i" class="mr-6">
+                        <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[9].splice(i, 1);
+                    optionsA12.unshift(item)">
+                          {{item}}
+                          <!-- {{item.value.material}} -->
+
+                          <div matChipRemove *ngIf="removable">
+                            <mat-icon>cancel</mat-icon>
+                          </div>
+
+                        </mat-chip>
+                        <div *ngIf="item == 'Pozuelo en cerámica'">
+                          <label
+                            *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_hidrosanitarias.lavaplatos.pozuelo_ceramica"
+                            class="checkbox">
+                            <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                            <span></span>
+                            {{element.label}}
+                          </label>
+                        </div>
+                        <div *ngIf="item == 'Pozuelo en acero inoxidable'">
+                          <label
+                            *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_hidrosanitarias.lavaplatos.pozuelo_acero_inoxidable"
+                            class="checkbox">
+                            <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                            <span></span>
+                            {{element.label}}
+                          </label>
+                        </div>
+                        <div *ngIf="item == 'Pozuelo en arenón'">
+                          <label
+                            *ngFor="let element of opt.areas_complementarias.otros.checks.instalaciones_hidrosanitarias.lavaplatos.pozuelo_arenon"
+                            class="checkbox">
+                            <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                            <span></span>
+                            {{element.label}}
+                          </label>
+                        </div>
+                      </div>
+                      <hr>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="sistemas_electricos">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sistemas eléctricos
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="text" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="luminaria_interna">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Luminaria interna
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="text" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="number" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div formGroupName="observaciones">
+              Observaciones
+              <label *ngFor="let element of opt.sistemas_electricos" class="checkbox">
+                <input type="checkbox" [formControlName]="element.formName"
+                  (click)="checkboxEvent('obs1','sintetica',element.label);" />
+                <span></span>
+                {{element.label}}
+              </label>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="cerramientos">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Cerramientos
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="number" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="muros_contencion">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Muros de contención
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Altura (m)</label>
+                <input type="number" formControlName="altura" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div class="example-chip-list">
+                  <mat-chip-list #chipList aria-label="Fruit selection">
+                    <input #autoInput3 [matAutocomplete]="autoComplete11" [matChipInputFor]="chipList"
+                      class="form-control form-control-lg form-control-solid"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <!-- EVENT, NUMBER AUTO COMPLETE -->
+                  <mat-autocomplete #autoComplete11="matAutocomplete" (optionSelected)="selected($event, 11,'')">
+                    <mat-option *ngFor="let item of opt.cerramientos.muros_contencion.material" [value]="item">
+                      {{item}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+                <div *ngFor="let item of  autoCompletables[10];index as i" class="mr-6">
+                  <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[10].splice(i, 1);
+                  opt.cerramientos.muros_contencion.material.unshift(item)">
+                    {{item}}
+                    <!-- {{item.value.material}} -->
+
+                    <div matChipRemove *ngIf="removable">
+                      <mat-icon>cancel</mat-icon>
+                    </div>
+
+                  </mat-chip>
+                  <div  *ngIf="item == 'Concreto'">
+                    <label
+                    *ngFor="let element of opt.cerramientos.muros_contencion.checks[0]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div  *ngIf="item == 'Gaviones'">
+                    <label
+                    *ngFor="let element of opt.cerramientos.muros_contencion.checks[1]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div  *ngIf="item == 'Combinado'">
+                    <label
+                    *ngFor="let element of opt.cerramientos.muros_contencion.checks[2]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="malla_eslabonada">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Malla eslabonada
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Altura (m)</label>
+                <input type="number" formControlName="altura" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div class="example-chip-list">
+                  <mat-chip-list #chipList aria-label="Fruit selection">
+                    <input #autoInput3 [matAutocomplete]="autoComplete12" [matChipInputFor]="chipList"
+                      class="form-control form-control-lg form-control-solid"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <!-- EVENT, NUMBER AUTO COMPLETE -->
+                  <mat-autocomplete #autoComplete12="matAutocomplete" (optionSelected)="selected($event, 12,'')">
+                    <mat-option *ngFor="let item of opt.cerramientos.malla_eslabonada.material" [value]="item">
+                      {{item}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+                <div *ngFor="let item of  autoCompletables[11];index as i" class="mr-6">
+                  <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[11].splice(i, 1);
+                  opt.cerramientos.malla_eslabonada.material.unshift(item)">
+                    {{item}}
+                    <!-- {{item.value.material}} -->
+
+                    <div matChipRemove *ngIf="removable">
+                      <mat-icon>cancel</mat-icon>
+                    </div>
+
+                  </mat-chip>
+                  <div  *ngIf="item == 'Malla eslabonada'">
+                    <label
+                    *ngFor="let element of opt.cerramientos.malla_eslabonada.checks[0]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div  *ngIf="item == 'Malla de nylon'">
+                    <label
+                    *ngFor="let element of opt.cerramientos.malla_eslabonada.checks[1]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div  *ngIf="item == 'Lámina metálica'">
+                    <label
+                    *ngFor="let element of opt.cerramientos.malla_eslabonada.checks[2]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div  *ngIf="item == 'Madera'">
+                    <label
+                    *ngFor="let element of opt.cerramientos.malla_eslabonada.checks[3]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div  *ngIf="item == 'Malla y nylon'">
+                    <label
+                    *ngFor="let element of opt.cerramientos.malla_eslabonada.checks[4]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="estructura_tuberia_pesada">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Estructura de tuberia negra pesada
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Area (m2)</label>
+                <input type="number" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+   
+      
+                  <div >
+                    <label
+                    *ngFor="let element of opt.cerramientos.estructura_tuberia_pesada.checks"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion formGroupName="elementos_drenaje">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Elementos de drenaje
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="text" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="cuneta">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Cuneta
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div >
+                  <label
+                  *ngFor="let element of opt.elementos_drenaje.cuneta_checks"
+                  class="checkbox">
+                  <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                  <span></span>
+                  {{element.label}}
+                </label>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="carcamo">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Cárcamo
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div >
+                  <label
+                  *ngFor="let element of opt.elementos_drenaje.carcamo_checks"
+                  class="checkbox">
+                  <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                  <span></span>
+                  {{element.label}}
+                </label>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="sumidero">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Sumidero
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="number" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div >
+                  <label
+                  *ngFor="let element of opt.elementos_drenaje.sumidero_checks"
+                  class="checkbox">
+                  <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                  <span></span>
+                  {{element.label}}
+                </label>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="caja_inspeccion_hidraulica">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Caja de Inspección Hidráulica ALL/ARES
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="number" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div >
+                  <label
+                  *ngFor="let element of opt.elementos_drenaje.inspeccion_hidraulica"
+                  class="checkbox">
+                  <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                  <span></span>
+                  {{element.label}}
+                </label>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="mobiliario_deportivo">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Mobiliario Deportivo
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="number" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="muro">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Muro
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Area m2</label>
+                <input type="text" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div class="example-chip-list">
+                  <mat-chip-list #chipList aria-label="Fruit selection">
+                    <input #autoInput3 [matAutocomplete]="autoComplete13" [matChipInputFor]="chipList"
+                      class="form-control form-control-lg form-control-solid"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <!-- EVENT, NUMBER AUTO COMPLETE -->
+                  <mat-autocomplete #autoComplete13="matAutocomplete" (optionSelected)="selected($event, 13,'')">
+                    <mat-option *ngFor="let item of opt.mobiliario_deportivo.muro.material" [value]="item">
+                      {{item}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+                <div *ngFor="let item of  autoCompletables[12];index as i" class="mr-6">
+                  <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[12].splice(i, 1);
+                  opt.mobiliario_deportivo.muro.material.unshift(item)">
+                    {{item}}
+                    <!-- {{item.value.material}} -->
+
+                    <div matChipRemove *ngIf="removable">
+                      <mat-icon>cancel</mat-icon>
+                    </div>
+
+                  </mat-chip>
+                  <div *ngIf="item == 'Madera'">
+                    <label
+                    *ngFor="let element of opt.mobiliario_deportivo.muro.checks[0]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div *ngIf="item == 'Concreto'">
+                    <label
+                    *ngFor="let element of opt.mobiliario_deportivo.muro.checks[1]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="agarres">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Agarres
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="text" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div>
+                  <label
+                  *ngFor="let element of opt.mobiliario_deportivo.agarres.checks"
+                  class="checkbox">
+                  <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                  <span></span>
+                  {{element.label}}
+                </label>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="anclaje_seguridad">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Anclajes de seguridad
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="text" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div>
+                  <label
+                  *ngFor="let element of opt.mobiliario_deportivo.anclajes_seguridad.checks"
+                  class="checkbox">
+                  <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                  <span></span>
+                  {{element.label}}
+                </label>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="colchoneta">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Colchoneta
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="text" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div>
+                  <label
+                  *ngFor="let element of opt.mobiliario_deportivo.colchoneta.checks"
+                  class="checkbox">
+                  <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                  <span></span>
+                  {{element.label}}
+                </label>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="cerrajeria">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Cerrajería
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="number" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="pasamanos">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Pasamanos
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Area m2</label>
+                <input type="number" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Aaltura (m)</label>
+                <input type="number" formControlName="altura" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+                <div class="example-chip-list">
+                  <mat-chip-list #chipList aria-label="Fruit selection">
+                    <input #autoInput3 [matAutocomplete]="autoComplete14" [matChipInputFor]="chipList"
+                      class="form-control form-control-lg form-control-solid"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <!-- EVENT, NUMBER AUTO COMPLETE -->
+                  <mat-autocomplete #autoComplete14="matAutocomplete" (optionSelected)="selected($event, 14,'')">
+                    <mat-option *ngFor="let item of opt.cerrajeria.pasamanos.material" [value]="item">
+                      {{item}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+                <div *ngFor="let item of  autoCompletables[13];index as i" class="mr-6">
+                  <mat-chip [selectable]="selectable" [removable]="removable" (removed)="autoCompletables[13].splice(i, 1);
+                  opt.cerrajeria.pasamanos.material.unshift(item)">
+                    {{item}}
+                    <!-- {{item.value.material}} -->
+
+                    <div matChipRemove *ngIf="removable">
+                      <mat-icon>cancel</mat-icon>
+                    </div>
+
+                  </mat-chip>
+                  <div *ngIf="item == 'Tubería de acero'">
+                    <label
+                    *ngFor="let element of opt.cerrajeria.pasamanos.checks[0]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div *ngIf="item == 'Aluminio'">
+                    <label
+                    *ngFor="let element of opt.cerrajeria.pasamanos.checks[1]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div *ngIf="item == 'Madera'">
+                    <label
+                    *ngFor="let element of opt.cerrajeria.pasamanos.checks[2]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div *ngIf="item == 'Acero inoxidable'">
+                    <label
+                    *ngFor="let element of opt.cerrajeria.pasamanos.checks[3]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div *ngIf="item == 'Lámina de acero'">
+                    <label
+                    *ngFor="let element of opt.cerrajeria.pasamanos.checks[4]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  <div *ngIf="item == 'Tubería y malla'">
+                    <label
+                    *ngFor="let element of opt.cerrajeria.pasamanos.checks[5]"
+                    class="checkbox">
+                    <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+                    <span></span>
+                    {{element.label}}
+                  </label>
+                  </div>
+                  </div>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="urbanistico">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Urbanístico
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="arquitectonico">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Arquitéctonico
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="estructural">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Estructural
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+            
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="electrico">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Electrico
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="hidrosanitario">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Hidrosanitario
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="alumbrado_publico">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Alumbrado publico
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="alcantarillado">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Alcantarillado
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="manual_mantenimiento">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Manual de mantenimiento de uso y mantenimiento del escenario deportivo y recreativo
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+            <div>
+              <label
+              *ngFor="let element of opt.manual_mantenimiento.checks"
+              class="checkbox">
+              <input type="checkbox" (click)="obs1.sintetica.push(element.label)" />
+              <span></span>
+              {{element.label}}
+            </label>
+            </div>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="elaboracion">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Elaboración
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Nombre del Profesional Técnico
+            </label>
+            <input type="number" formControlName="nombre_profesional_tecnico" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Nombre del Delineante
+            </label>
+            <input type="number" formControlName="nombre_delineante" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="revision">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Revisión
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Nombre del Coordinador Equipo Plan Maestro
+            </label>
+            <input type="number" formControlName="nombre_coordinador" class="form-control form-control-lg form-control-solid"
+            autocomplete="off" placeholder="" />
+          </div>
+
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <button class="btn btn-primary" (click)="save()">Enviar</button>
+
+  </div>
+</div>

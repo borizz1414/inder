@@ -1,0 +1,21 @@
+.icon-card{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background:#99d6e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .svg-inicio-icon ::ng-deep svg path {
+        fill: #0098B1 !important;
+    }
+
+}
+.container-tables{
+    overflow-y: scroll;
+    height: 700px;
+ 
+}
+::-webkit-scrollbar {
+    display: none;
+}

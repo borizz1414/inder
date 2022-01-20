@@ -1,0 +1,127 @@
+
+<div>
+    <!-- Subheader -->
+    <div class="row pt-8">
+      <div class="col-12">
+        <h5 class="font-weight-bolder text-dark form-subtitle mb-6">{{ config.name }}</h5>
+      </div>
+    </div>
+  
+    <form action="#" class="form form-label-right" [formGroup]="formGroup" (ngSubmit)="save()">
+  
+      <!-- Form -->
+      <div class="form-group row">
+        <div class="col-lg-4">
+          <label>Tipo de Reserva</label>
+          <select class="form-control form-control-lg form-control-solid" name="tipo_reserva"
+            formControlName="tipo_reserva">
+            <option *ngFor="let item of typeReserOptions" [value]="item.id">{{ item.nombre }}</option>
+          </select>
+        </div>
+  
+        <div class="col-lg-4">
+          <label>Bloque de tiempo</label>
+          <div class="row mx-0">
+            <div class="col-9 col-xl-10 p-0">
+              <input type="number" class="form-control form-control-lg form-control-solid file-name-input"
+                placeholder="Ingresa el bloque de tiempo" autocomplete="off"
+                name="bloque_tiempo" formControlName="bloque_tiempo" />
+            </div>
+            <div class="col-3 col-xl-2 p-0">
+              <label class="btn btn-primary input-button">
+                Min
+              </label>
+            </div>
+        </div>
+        </div>
+  
+        <div class="col-lg-4">
+          <label>Bloque mínimo para reserva</label>
+          <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+            placeholder="Ingresa el bloque mínimo para la reserva" 
+            name="bloque_minimo_reserva" formControlName="bloque_minimo_reserva" />
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <div class="col-lg-4">
+          <label>Bloque máximo para reserva</label>
+          <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+            placeholder="Ingresa el bloque máximo para la reserva" name="bloque_maximo_reserva" formControlName="bloque_maximo_reserva" />
+        </div>
+        <div class="col-lg-4">
+            <label>Días previos para realizar la reserva</label>
+            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+              placeholder="Ingresa los días previos para la reserva" name="dias_previos" 
+              formControlName="dias_previos" />
+        </div>
+        <div class="col-lg-4">
+            <label>Cantidad mínima de Usuarios permitidos</label>
+            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                placeholder="0" name="cantidad_minima_usuarios" 
+              formControlName="cantidad_minima_usuarios" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-lg-4">
+            <label>Cantidad máxima de Usuarios permitidos</label>
+            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                placeholder="0" name="cantidad_maxima_usuarios" 
+              formControlName="cantidad_maxima_usuarios" />
+        </div>
+        <div class="col-lg-1 d-flex align-items-end justify-content-end">
+          <button type="submit" class="btn btn-icon btn-sm plus-button" [disabled]="this.formGroup.invalid">
+            <span *ngIf="!isEditing">+</span>
+            <span *ngIf="isEditing" [inlineSVG]="'./assets/media/svg/icons/General/Save.svg'" cacheSVG="true"
+              class="svg-icon svg-icon-md">
+            </span>
+          </button>
+        </div>
+      </div>
+  
+      <!-- Table -->
+      <div class="form-group row">
+        <div class="col-12">
+          <div class="row mx-0 mini-form-list">
+            <div class="col-12 p-0">
+              <div class="row mx-0 w-100">
+                <div *ngFor="let column of config.columns; index as i" class="col-3" [ngClass]="{'col-4' : i === config.columns.length - 1}">
+                  <h6 class="font-weight-bolder mini-form-title">{{ column }}</h6>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-12 pt-6 px-0" *ngFor="let item of typeReservations; index as i">
+              <div class="row mx-0 w-100">
+                <div class="col-3 d-flex align-items-center">
+                    <span>{{ item.tipo_reserva }} </span>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <span>{{ item.bloque_tiempo }} </span>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <span>{{ item.dias_previos }} </span>
+                </div>
+
+                <div class="col-3 d-flex justify-content-end align-items-center">
+                  <label class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="edit(item, i)">
+                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                      class="svg-icon svg-icon-md svg-icon-primary">
+                    </span>
+                  </label>
+
+                  <label class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="delete(i)">
+                    <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+                      class="svg-icon svg-icon-md svg-icon-danger">
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  
+  </div>

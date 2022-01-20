@@ -1,0 +1,26 @@
+<div class="container" appDnd (fileDropped)="onFileDropped($event)">
+    <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+    <span [inlineSVG]="'./assets/media/svg/icons/Files/Uploaded-file.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-md svg-icon-primary">
+    </span>
+    <label>Suelta tus archivos aquí</label>
+    <label for="fileDropRef">o <span>navega</span></label>
+</div>
+<div class="files-list">
+    <div class="single-file" *ngFor="let file of files; let i = index">
+      <div class="info">
+        <label class="name">
+          {{ file?.file?.name ? file?.file?.name : file?.name ? file?.name : ('Imagen ' + (i + 1)) }}
+        </label>
+        <p class="size">
+          {{ formatBytes(file?.file?.size || 0) }}
+        </p>
+        <app-progress [progress]="file?.progress"></app-progress>
+      </div>
+      <button class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="deleteFile(i)">
+        <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-md svg-icon-danger">
+        </span>
+      </button>
+    </div>
+</div>

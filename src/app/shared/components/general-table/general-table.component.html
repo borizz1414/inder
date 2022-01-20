@@ -1,0 +1,154 @@
+<!-- begin: Grouping -->
+<ng-container>
+  <div class="form px-10">
+    <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+      <!-- ELIMINAR
+        
+        <div class="col-xl-12">
+        <div class="form-group form-group-inline" *ngIf="selection.selected.length > 0">
+          <div class="form-label form-label-no-wrap">
+            <label class="font-bold font-danger"><span>Seleccionados:
+                <b>{{selection.selected.length}}</b></span></label>
+          </div>
+          <div>
+            <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1">
+              <i class="fa fa-trash"></i> Eliminar
+            </button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</ng-container>
+<!-- end: Grouping -->
+<!-- begin:Table -->
+<div *ngIf="!dataTable" class="loading d-flex justify-content-center">
+  <span class="spinner spinner-primary ml-5"></span>
+</div>
+<mat-table [dataSource]="dataTable" matSort>
+
+  <!-- Position Column -->
+  <ng-container [matColumnDef]="column.name" *ngFor="let column of configColumns">
+    <ng-container *ngIf="column.name == 'select'">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox class="checkbox-table" (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox class="checkbox-table" type="checkbox" (click)="$event.stopPropagation()"
+          (change)="checkboxTable(row)" [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="column.name == 'visualizacion'">
+      <mat-cell *matCellDef="let element">
+        <select class="form-control form-control-solid display-select" [ngClass]="{'selected-yes': element[column.name], 'selected-no' : !element[column.name] }" (change)="changeDisplay($event.target.value,element.id)">
+          <option value="true" [selected]="element[column.name]"> SI</option>
+          <option value="false" [selected]="!element[column.name]">NO</option>
+        </select>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="column.name == 'estado'">
+      <mat-cell *matCellDef="let element">
+        <select 
+          class="form-control form-control-solid display-select" 
+          [ngClass]="{'selected-yes': element[column.name], 'selected-no' : !element[column.name] }" 
+          (change)="changeDisplay($event.target.value,element.id)"
+        >
+          <option value="true" [selected]="element[column.name]">Activo</option>
+          <option value="false" [selected]="!element[column.name]">Inactivo</option>
+        </select>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="column.name == 'estado_correctivo'">
+      <mat-cell *matCellDef="let element">
+        <div [ngClass]="{
+          'orange-state': element[column.name] == 'POR ASIGNAR',
+          'green-state': element[column.name] == 'TERMINADO',
+          'red-state': element[column.name] == 'RECHAZADO' || element[column.name] == 'RECHAZADO POR PLANEACION',
+          'yellow-state': element[column.name] == 'EN PROCESO',
+          'gray-state': element[column.name] == 'SIN REVISAR CUADRILLA',
+          'dark-blue-state': element[column.name] == 'POR CERRAR',
+          'light-blue-state': element[column.name] == 'APROBADO'
+        }">
+          <span>{{ element[column.name] }}</span>
+          <i class="fas fa-info-circle" *ngIf="element[column.name]"></i>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="column.name == 'estado_correctivo_cuadrilla'">
+      <mat-cell *matCellDef="let element">
+        <div 
+          *ngIf="
+            element[column.name] == 'EN PROCESO' ||
+            element[column.name] == 'RECHAZADO' ||
+            element[column.name] == 'PENDIENTE' ||
+            element[column.name] == 'TERMINADO' ||
+            element[column.name] == 'APROBADO'
+          "
+          [ngClass]="{
+            'orange-state': element[column.name] == 'EN PROCESO',
+            'red-state': element[column.name] == 'RECHAZADO',
+            'yellow-state': element[column.name] == 'PENDIENTE',
+            'dark-blue-state': element[column.name] == 'TERMINADO',
+            'light-blue-state': element[column.name] == 'APROBADO'
+          }"
+        >
+          <span>{{ element[column.name] }}</span>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="column.name == 'nombre_acta_cantidades_finales'">
+        <mat-cell *matCellDef="let element"><p id="download-acta-cantidades" (click)="download(element['nombre_acta_cantidades_finales'],element['acta_cantidades_finales'])"> {{element[column.name] || '-'}} </p></mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="column.name == 'actions'">
+      <mat-cell *matCellDef="let element">
+        <div *ngFor="let item of displayElementTable.actions"  (click)="eventTrash(item.action,element.id)"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
+        <a *ngIf="item.action == 'view' || item.action == 'edit' " [routerLink]="[item.actionsLink, element.id]"
+          >
+          <span *ngIf="item.action == 'view'" [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'"
+            cacheSVG="true" class="svg-icon svg-icon-xl svg-icon-primary">
+          </span>
+          <span *ngIf="item.action == 'edit'" [inlineSVG]="'./assets/media/svg/icons/General/Edit.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-lg svg-icon-primary">
+          </span>
+       
+        </a>
+           <span *ngIf="item.action == 'trash'" [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+            cacheSVG="true" class="svg-icon svg-icon-lg svg-icon-danger">
+          </span>
+      </div>
+
+      </mat-cell>
+    </ng-container>
+    <!-- Value table COLUMN -->
+    <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.display}} </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element[column.name] || '-'}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;">
+  </mat-row>
+</mat-table>
+
+<!-- PAGINATOR -->
+<div *ngIf="displayElementTable.paginator" class="p-5">
+  <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+    [isLoading]="isLoading" (paginate)="loadPage($event)"></app-paginator>
+</div>
+
+<!-- DOWNLOAD EXCEL -->
+<div *ngIf="displayElementTable.btnDownloadExcel" class="download-excel d-flex justify-content-end m-5">
+  <button (click)="btnDownload()" class="btn btn-download-excel">Descargar excel <span
+      [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+      class="svg-icon-donwload svg-icon-xl svg-icon-primary">
+    </span></button>
+</div>

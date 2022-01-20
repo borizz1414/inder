@@ -1,0 +1,14 @@
+.timetable-label{
+    color: #0098B1;
+    margin: 0px;
+    text-transform: capitalize;
+}
+
+.timetable-label-center{
+    display: flex; 
+    align-items: center;
+
+    @media (max-width: 1300px) and (min-width: 768px){
+        justify-content: center;
+    }
+}

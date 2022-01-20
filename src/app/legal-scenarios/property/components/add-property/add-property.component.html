@@ -1,0 +1,53 @@
+<ng-container>
+
+  <!-- Title (Add / Edit)-->
+  <div class="card card-custom gutter-b" *ngIf="!isDetail">
+    <div class="card-header hide-border-bottom">
+      <div class="card-title">
+        <h3 class="card-label font-weight-bolder">
+          <ng-container *ngIf="filterData;else elseBlock;">
+            {{ id ? "Bienes Inmuebles - "+filterData.nombre : "Bienes Inmuebles" }}
+          </ng-container>
+          <ng-template #elseBlock>
+            Agregar Bienes Inmuebles
+          </ng-template>
+        </h3>
+      </div>
+      <div class="card-toolbar">
+        <a type="button" class="btn btn-primary px-9 py-3" routerLink="/escenarios/bienes-inmuebles">
+          <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+          class="svg-icon svg-icon-md mr-3">
+      </span>Volver
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forms list -->
+  <!-- Formulario de crear / ver / editar, dentro se importara el componente reutilizable -->
+  <app-form-property 
+    *ngFor="let property of properties; index as i"
+    [idScenario]="id"
+    [dataChild]="property"
+    [scenario]="filterData"
+    [optionsSelect]="formOptions"
+    (saveProperty)="saveProperty()"
+    (formCollapsed)="formCollapsed($event)"
+    (showDetail)="showDetail($event)"
+    (eventDependence)="fetchStrategyOptions($event)"
+    (fetchdataChild)="updateDataChild($event)"
+
+  >
+  </app-form-property>
+
+  <!-- Add another and Finish buttons -->
+  <div class="d-flex w-100 justify-content-center" *ngIf="showAddAnother && !isDetail">
+    <button class="btn blue-button px-10 py-3 mr-4" (click)="addNewForm()">
+      Agregar otro bien inmueble
+    </button>
+    <a type="button" class="btn btn-primary px-10 py-3" routerLink="/escenarios/bienes-inmuebles">
+      Terminar
+    </a>
+  </div>
+
+</ng-container>

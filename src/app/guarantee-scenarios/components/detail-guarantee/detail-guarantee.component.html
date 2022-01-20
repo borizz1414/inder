@@ -1,0 +1,70 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header hide-border-bottom">
+        <div class="card-title">
+            <h3 class="card-label font-weight-bolder">
+                Garantía Calidad - Cancha Polideportiva la Polvoreda
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <button class="btn btn-light mr-2 px-9 py-3" (click)="goBack()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-3">
+                </span>Volver
+            </button>
+            <a [routerLink]="'/garantias/editar/'+idGuarantee">
+                <button class="btn btn-primary px-9 py-3" >
+                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md mr-3">
+                    </span>Editar
+                </button>
+
+            </a>
+        </div>
+    </div>
+    <div class="form" [formGroup]="formGroup">
+        <div class="card-body">
+
+            <!--begin::Heading-->
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Tipo de Garantía</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input readonly class="form-control form-control-lg form-control-solid" type="text"
+                            formControlName="tipo_garantia" placeholder="Calidad" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Fecha de Inicio</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div class="input-group input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                            placeholder="24/09/2021" formControlName="fecha_final" readonly="true" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Fecha Fin</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div class="input-group input-group-solid">
+                        <input type="text" placeholder="24/09/2021"  class="form-control form-control-lg form-control-solid" autocomplete="off"
+                            formControlName="fecha_final" readonly="true" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar calendar-input"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

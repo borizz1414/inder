@@ -1,0 +1,140 @@
+<!--begin::Signin-->
+<div class="login-form login-signin">
+  <!--begin::Form-->
+  <form class="form" [formGroup]="loginForm" novalidate="novalidate" id="kt_login_signin_form" (ngSubmit)="submit()">
+    <!--begin::Title-->
+    <div class="pb-13 pt-lg-0 pt-5">
+      <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
+        Bienvenido a SIMON
+      </h3>
+      <span class="text-muted font-weight-bold font-size-h4">¿Eres nuevo aquí?
+        <a routerLink="/auth/registration" id="kt_login_signup" class="text-primary font-weight-bolder">Registrate</a>
+      </span>
+    </div>
+    <!--end::Title-->
+
+    <!-- begin::Alert info-->
+    <!-- <ng-container *ngIf="hasError">
+      <div class="mb-10 alert alert-custom alert-light-info alert-dismissible">
+        <div class="alert-text">
+          Datos invalidos, intente de nuevo
+        </div>
+      </div>
+    </ng-container>  -->
+    <!-- end::Alert info
+
+    <!-- begin::Alert error-->
+    <ng-container *ngIf="hasError">
+      <div class="mb-10 alert alert-custom alert-light-danger alert-dismissible">
+        <div class="alert-text">Datos invalidos, intente de nuevo</div>
+      </div>
+    </ng-container>
+    <div class="form-group">
+      <label class="font-size-h6 font-weight-bolder text-dark">Tipo de documento</label>
+      <select formControlName="type_document" class="form-control form-control-lg form-control-solid h-10">
+        <option [value]="option.id" *ngFor="let option of typeIdOptions">{{option.nombre}}</option>
+
+      </select>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Tipo de documento es obligatorio',
+        control: loginForm.controls['type_document']
+      }"></ng-container>
+    </div>
+    <div class="form-group">
+      <label class="font-size-h6 font-weight-bolder text-dark">Número de documento</label>
+      <input type="number" formControlName="number_document" class="form-control form-control-lg form-control-solid h-10">
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Número de documento es obligatorio',
+        control: loginForm.controls['number_document']
+      }"></ng-container>
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-between mt-n5">
+        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Contraseña</label>
+        <a routerLink="/auth/forgot-password"
+          class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5" id="kt_login_forgot">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+      <div class="input-group input-group-lg input-group-solid">
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-lg form-control-solid h-10" formControlName="password" />
+        <div class="input-group-prepend">
+            <span class="input-group-text showPassword" (click)="toggleShowPassword()">
+              <i [class]="showPassword ? 'fas fa-eye-slash' :'fas fa-eye'"></i>
+            </span>
+        </div>
+    </div>
+      <!-- <input class="form-control form-control-lg form-control-solid h-auto py-7 px-6 rounded-lg" type="password" name="password"
+        autocomplete="off" formControlName="password" /> -->
+
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Contraseña es obligatoria',
+          control: loginForm.controls['password']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'minlength',
+          message: 'Minimo 3 caracteres',
+          control: loginForm.controls['password']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'maxLength',
+          message: 'Maximo 10 caracteres',
+          control: loginForm.controls['password']
+        }"></ng-container>
+    </div>
+    <!-- end::Alert error-->
+
+    <!--begin::Action-->
+    <!-- begin:: remember me -->
+    <div class="remember-login-container d-flex align-items-center mt-4 mb-4">
+
+      <label class="checkbox font-weight-bolder text-dark font-size-h5 ml-2">
+        <input type="checkbox"  />
+        <span></span>
+        <p class="ml-2 mt-4">Mantener la sesión activa</p>
+      </label>
+    </div>
+    <!-- end:: remember me -->
+    <div class="pb-lg-0 pb-5">
+      <button type="submit" id="kt_login_signin_submit"
+        class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" [disabled]="loginForm.invalid">
+        Ingresar
+      </button>
+      <!-- 
+      <button
+        type="button"
+        class="btn btn-light-primary font-weight-bolder px-8 py-4 my-3 font-size-lg"
+      >
+        <span class="svg-icon svg-icon-md">
+          <img src="./assets/media/svg/social-icons/google.svg" />
+        </span>
+        Sign in with Google
+      </button> -->
+
+      <ng-container *ngIf="isLoading">
+        <span class="spinner spinner-primary ml-5"></span>
+      </ng-container>
+    </div>
+    <!--end::Action-->
+  </form>
+  <!--end::Form-->
+  <!-- begin:: problems login -->
+  <div class="d-flex justify-content-lg-start justify-content-center align-items-end py-7 py-lg-0 mt-lg-8">
+    <a href="#" class="text-primary font-weight-bolder font-size-h5 mt-lg-8">¿Tienes problemas para iniciar sesión?</a>
+  </div>
+  <!-- end:: problems login -->
+</div>
+<!--end::Signin-->
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        {{ message }}
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

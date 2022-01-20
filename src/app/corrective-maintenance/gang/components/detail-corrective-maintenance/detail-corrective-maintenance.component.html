@@ -1,0 +1,219 @@
+<div class="card card-custom" [formGroup]="formGroup">
+
+    <!--begin::Header-->
+    <div class="card-header py-3">
+        <div class="card-title align-items-start justify-content-center flex-column">
+            <h3 class="card-label font-weight-bolder text-dark"> Mantenimiento - {{ formGroup.value.nombre_escenario }}</h3>
+        </div>
+        <div class="card-toolbar">
+            <button class="btn btn-light mr-2 px-9 py-3" (click)="goBack()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-3">
+                </span>Volver
+            </button>
+        </div>
+    </div>
+    <!--end::Header-->
+
+    <!--begin::Form-->
+    <div class="form">
+        <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading">
+            <span class="spinner spinner-primary ml-5"></span>
+        </div>
+
+        <div class="card-body" *ngIf="!isLoading">
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Prioridad</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="prioridad" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Estado</label>
+                <div [ngClass]="{
+                    'orange-state': formGroup.value.estado == 'en proceso',
+                    'red-state': formGroup.value.estado == 'rechazado',
+                    'yellow-state': formGroup.value.estado == 'pendiente',
+                    'dark-blue-state': formGroup.value.estado == 'terminado',
+                    'light-blue-state': formGroup.value.estado == 'aprobado'
+                }">
+                    <span>{{ formGroup.value.estado }}</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Tipo de Mantenimiento</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="tipo_mantenimiento" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Asignado a</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="asignado_a" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Ayudante</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="ayudante" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidencia Inicial
+                ESTADO: EN PROCESO, TERMINADO, RECHAZADO,
+                PENDIENTE, APROBADO ---------------------------->
+
+            <div class="form-group row p-0">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">
+                    Evidencia Inicial
+                </label>   
+            </div>
+
+            <div class="form-group row" *ngFor="let image of imagesInitial; index as i">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                <div class="col-lg-9 col-xl-5">
+                    <div class="input-group input-group-lg input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" [value]="image?.nombre || ''" />
+                        <div class="input-group-prepend download-icon" (click)="downloadFile(i, 'imagesInitial')">
+                            <span class="input-group-text">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Observaciones</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="observaciones_inicial" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidencia Inicial
+                ESTADO: EN PROCESO, TERMINADO, RECHAZADO,
+                PENDIENTE, APROBADO ---------------------------->
+            
+            <div class="form-group row p-0">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">
+                    Evidencia Durante
+                </label>   
+            </div>
+
+            <div class="form-group row" *ngFor="let image of imagesDuring; index as i">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                <div class="col-lg-9 col-xl-5">
+                    <div class="input-group input-group-lg input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" [value]="image?.nombre || ''" />
+                        <div class="input-group-prepend download-icon" (click)="downloadFile(i, 'imagesDuring')">
+                            <span class="input-group-text">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Observaciones</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="observaciones_durante" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidencia Inicial
+                ESTADO: EN PROCESO, TERMINADO, RECHAZADO,
+                PENDIENTE, APROBADO ---------------------------->
+            
+            <div class="form-group row p-0">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">
+                    Evidencia Final
+                </label>   
+            </div>
+
+            <div class="form-group row" *ngFor="let image of imagesFinal; index as i">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                <div class="col-lg-9 col-xl-5">
+                    <div class="input-group input-group-lg input-group-solid">
+                        <input type="text" class="form-control form-control-lg form-control-solid" [value]="image?.nombre || ''" />
+                        <div class="input-group-prepend download-icon" (click)="downloadFile(i, 'imagesFinal')">
+                            <span class="input-group-text">
+                                <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                    class="svg-icon svg-icon-md">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">Observaciones</label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName="observaciones_final" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Observaciones rechazo 
+                ESTADO: EN PROCESO, TERMINADO, RECHAZADO,
+                PENDIENTE, APROBADO ---------------------------->
+
+            <div class="form-group row p-0">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label">
+                    Rechazo (Observaciones)
+                </label>   
+            </div>
+
+            <div class="form-group row" *ngFor="let item of rejectionRemarks; index as i">
+                <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                <div class="col-lg-9 col-xl-5">
+                    <div>
+                        <input class="form-control form-control-lg form-control-solid" type="text" [value]="item" disabled="true" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body float-right">
+            <a 
+                *ngIf="formGroup.value.estado === 'pendiente' || formGroup.value.estado === 'en proceso'" 
+                class="btn btn-primary px-10 py-3" 
+                [routerLink]="['/mantenimientos-correctivos/cuadrilla/realizar-mantenimiento/', id]"
+            > 
+                Realizar Mantenimiento
+            </a>
+
+            <a 
+                *ngIf="formGroup.value.estado === 'rechazado'" 
+                class="btn btn-primary px-10 py-3 mr-6" 
+            > 
+                Corregir Mantenimiento
+            </a>
+        </div>
+    </div>
+    <!--end::Form-->
+</div>
+    

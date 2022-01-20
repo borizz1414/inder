@@ -1,0 +1,34 @@
+<!-- Subheader -->
+<div class="row pt-8">
+  <div class="col-12">
+    <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Infraestructura</h5>
+  </div>
+</div>
+
+<!-- Form -->
+<form action="#" class="form form-label-right" [formGroup]="formGroup" (ngSubmit)="save()">
+
+  <div class="form-group row">
+    <div class="col-lg-4">
+      <label>Calificación ponderada</label>
+      <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder=""
+        name="calificacion_general" formControlName="calificacion_ponderada" />
+    </div>
+
+    <div class="col-lg-4">
+      <label>Variable auxiliar</label>
+      <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder=""
+        name="variable_auxiliar" formControlName="variable_auxiliar" />
+    </div>
+  </div>
+  <app-pool *ngIf="typeScenario == 'Piscina'"></app-pool>
+  <app-skate-track *ngIf="typeScenario == 'Skate'"></app-skate-track>
+  <app-climbing-wall *ngIf="typeScenario == 'Muro'"></app-climbing-wall>
+  <app-multipurpose-track *ngIf="typeScenario == 'Multiproposito'"></app-multipurpose-track>
+  <app-childrens-game *ngIf="typeScenario == 'GameKids'"></app-childrens-game>
+  <app-interactive-font *ngIf="typeScenario == 'Interactiva'"></app-interactive-font>
+  <app-ludoteka *ngIf="typeScenario == 'Ludoteka'"></app-ludoteka>
+  <app-recreational-nucleus *ngIf="typeScenario == 'Nucleo'"></app-recreational-nucleus>
+  <app-gym *ngIf="typeScenario == 'Gym'"></app-gym>
+
+</form>

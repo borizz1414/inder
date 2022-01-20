@@ -1,0 +1,600 @@
+
+<div class="card card-custom gutter-b">
+
+    <!-- Title -->
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label font-weight-bolder">
+                <ng-container *ngIf="id;else elseBlock;">
+                    Editar {{ formGroup.get('nombre_escenario').value }}
+                </ng-container>
+                <ng-template #elseBlock>
+                    {{!formGroup.get('nombre_escenario').value ? "Agregar Escenario Deportivo" : formGroup.get('nombre_escenario').value }}
+                </ng-template>
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <a type="button" class="btn btn-primary px-9 py-3" (click)="goBack()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-2">
+                </span>Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Spinner -->
+    <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading$ | async">
+        <span class="spinner spinner-primary mt-8"></span>
+    </div>
+
+    <div>
+        <form
+            action="#"
+            class="form form-label-right"
+            method="post"
+            enctype="multipart/form-data"
+            [formGroup]="formGroup"
+            (ngSubmit)="save()"
+        >
+            <!-- General Info section -->
+            <div class="card-body form-section">
+                <div class="py-8">
+                    <!-- Subtitle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Información General</h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Nombre del Escenario <span class="required-field">*</span></label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa el nombre del escenario" name="nombre_escenario" formControlName="nombre_escenario" 
+                            />
+                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'nombre_escenario')">
+                                Nombre es requerido
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Teléfono</label>
+                            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa teléfono del escenario" name="telefono" formControlName="telefono" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Email</label>
+                            <input type="email" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa email del escenario" name="email" formControlName="email" 
+                            />
+                            <div class="invalid-feedback" *ngIf="controlHasError('email', 'email')">
+                                No cumple con el formato email
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Nombre del Equipamiento <span class="required-field">*</span></label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa el nombre del equipamiento" name="nombre_equipamiento" formControlName="nombre_equipamiento" 
+                            />
+                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'nombre_equipamiento')">
+                                Nombre del Equipamiento es requerido
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Tipo de Equipamiento</label>
+                            <select class="form-control form-control-lg form-control-solid" name="tipo_equipamiento_id"
+                                formControlName="tipo_equipamiento_id">
+                                <option *ngFor="let option of tipoEquipamientoOptions" [value]=option.id>{{ option.nombre }}</option>
+                            </select>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Municipio del Escenario <span class="required-field">*</span></label>
+                            <select class="form-control form-control-lg form-control-solid" name="municipio_id"
+                                formControlName="municipio_id">
+                                <option *ngFor="let option of municipioOptions" [value]=option.id>{{ option.nombremunicipio}}</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Seleccione el tipo de dirección</label>
+                            <div class="radio-button-padding">
+                                <mat-radio-group (change)="changeTypeAddress()" [(ngModel)]="typeAddress"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <mat-radio-button value="Barrio">Barrio</mat-radio-button>
+                                    <mat-radio-button value="Vereda">Vereda</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4" *ngIf="typeAddress === 'Barrio'">
+                            <label>Barrio</label>
+                            <select class="form-control form-control-lg form-control-solid" name="barrio_id"
+                                formControlName="barrio_id">
+                                <option *ngFor="let option of barrioOptions" [value]=option.id>{{ option.nombrebarrio }}
+                                </option>
+                            </select>
+                        </div>
+        
+                        <div class="col-lg-4" *ngIf="typeAddress === 'Vereda'">
+                            <label>Vereda</label>
+                            <select class="form-control form-control-lg form-control-solid" name="vereda"
+                                formControlName="vereda">
+                                <option *ngFor="let option of veredaOptions" [value]=option.id>{{ option.nombrebarrio }}
+                                </option>
+                            </select>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Dirección <span class="required-field">*</span></label>
+                            <div id="geocoder" #asGeoCoder class="form-control form-control-lg form-control-solid geocoder"></div>
+                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'direccion')">
+                                Dirección es requerido
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Map -->
+                    <label>Selecciona en el mapa la ubicación actual</label>
+                    <div id="map"></div>
+        
+                    <div class="form-group row mt-5">
+                        <div class="col-lg-4">
+                            <label>Latitud</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                                name="latitud" formControlName="latitud" />
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Longitud</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                                name="longitud" formControlName="longitud" />
+                        </div>
+                    </div>
+        
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label>Información Adicional para reserva</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                name="informacion_reserva" formControlName="informacion_reserva" 
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supplementary data -->
+            <div class="card-body form-section">
+                <div class="py-8">
+                    <!-- Subtitle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Datos Complementarios</h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Código <span class="required-field">*</span></label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa el código" name="codigo_escenario" formControlName="codigo_escenario" 
+                            />
+                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'codigo_escenario')">
+                                Código es requerido
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Fecha Elaboración / Actualización</label>
+                            <div class="input-group input-group-solid">
+                                <input type="text" name="fecha_elaboracion" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                                  placeholder="" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="fecha_elaboracion" [ngModelOptions]="{standalone: true}" />
+                                <div class="input-group-append" (click)="d.toggle()">
+                                  <span class="input-group-text">
+                                    <i class="far fa-calendar calendar-input"></i>
+                                  </span>
+                                </div>
+                              </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>COBAMA Lote</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa el COBAMA Lote" name="cobama_lote" formControlName="cobama_lote" 
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Áreas complementarias</label>
+                            <div class="row mx-0">
+                                <div class="col-9 col-xl-10 p-0">
+                                  <input
+                                    type="number"
+                                    class="form-control form-control-lg form-control-solid file-name-input"
+                                    placeholder="Ingresa el Área complementaria"
+                                    autocomplete="off"
+                                    name="areas_complementarias"
+                                    formControlName="areas_complementarias"
+                                  />
+                                </div>
+                                <div class="col-3 col-xl-2 p-0">
+                                  <label class="btn btn-primary input-button">
+                                    M2
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Área de Juego Escenario</label>
+                            <div class="row mx-0">
+                                <div class="col-9 col-xl-10 p-0">
+                                  <input
+                                    type="number"
+                                    class="form-control form-control-lg form-control-solid file-name-input"
+                                    placeholder="Ingresa el Área de Juego"
+                                    autocomplete="off"
+                                    name="area_juego"
+                                    formControlName="area_juego"
+                                  />
+                                </div>
+                                <div class="col-3 col-xl-2 p-0">
+                                  <label class="btn btn-primary input-button">
+                                    M2
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Área de Zona verde</label>
+                            <div class="row mx-0">
+                                <div class="col-9 col-xl-10 p-0">
+                                  <input
+                                    type="number"
+                                    class="form-control form-control-lg form-control-solid file-name-input"
+                                    placeholder="Ingresa el Área de Zona verde"
+                                    autocomplete="off"
+                                    name="area_zona_verde"
+                                    formControlName="area_zona_verde"
+                                  />
+                                </div>
+                                <div class="col-3 col-xl-2 p-0">
+                                  <label class="btn btn-primary input-button">
+                                    M2
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Área de Circulación</label>
+                            <div class="row mx-0">
+                                <div class="col-9 col-xl-10 p-0">
+                                  <input
+                                    type="number"
+                                    class="form-control form-control-lg form-control-solid file-name-input"
+                                    placeholder="Ingresa el Área de circulación"
+                                    autocomplete="off"
+                                    name="area_circulacion"
+                                    formControlName="area_circulacion"
+                                  />
+                                </div>
+                                <div class="col-3 col-xl-2 p-0">
+                                  <label class="btn btn-primary input-button">
+                                    M2
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Área de Circulación Interna</label>
+                            <div class="row mx-0">
+                                <div class="col-9 col-xl-10 p-0">
+                                  <input
+                                    type="number"
+                                    class="form-control form-control-lg form-control-solid file-name-input"
+                                    placeholder="Ingresa el Área de Circulación"
+                                    autocomplete="off"
+                                    name="area_circulacion_interna"
+                                    formControlName="area_circulacion_interna"
+                                  />
+                                </div>
+                                <div class="col-3 col-xl-2 p-0">
+                                  <label class="btn btn-primary input-button">
+                                    M2
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Área total escenario</label>
+                            <div class="row mx-0">
+                                <div class="col-9 col-xl-10 p-0">
+                                  <input
+                                    type="number"
+                                    class="form-control form-control-lg form-control-solid file-name-input"
+                                    placeholder="00.0"
+                                    autocomplete="off"
+                                    name="area_total"
+                                    formControlName="area_total"
+                                  />
+                                </div>
+                                <div class="col-3 col-xl-2 p-0">
+                                  <label class="btn btn-primary input-button">
+                                    M2
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label>Observaciones</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                name="observaciones" formControlName="observaciones" 
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Clasificación del suelo</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa la clasificación del suelo" name="clasificacion_suelo" formControlName="clasificacion_suelo" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Aforo en área de juego (Practicas Deportivas)</label>
+                            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa el aforo en área de juego" name="aforo_practicas_deportivas" formControlName="aforo_practicas_deportivas" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Aforo en área de juego (Eventos)</label>
+                            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa el aforo en área de juego" name="aforo_eventos" formControlName="aforo_eventos" 
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Aforo en Graderías</label>
+                            <input type="number" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa el aforo en graderías" name="aforo_graderias" formControlName="aforo_graderias" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Disciplinas</label>
+                            <div>
+                                <input
+                                    #disciplineInput
+                                    class="form-control form-control-lg form-control-solid chips-input"
+                                    placeholder="Ingresa las disciplinas"
+                                    [formControl]="discipline"
+                                    [matAutocomplete]="auto"
+                                    [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    (matChipInputTokenEnd)="add($event)"
+                                >
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                    <mat-option *ngFor="let item of filteredDisciplines" [value]="item.nombre">
+                                        {{ item.nombre }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-chip-list #chipList aria-label="Discipline selection">
+                                    <mat-chip
+                                        *ngFor="let item of disciplines"
+                                        [selectable]="selectable"
+                                        [removable]="removable"
+                                        (removed)="remove(item)"
+                                    >
+                                        {{ item }}
+                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Public services section -->
+            <div class="card-body form-section">
+                <div class="py-8">
+                    <!-- Subtitle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Servicios Públicos</h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Acueducto</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="observaciones_acueducto" formControlName="observaciones_acueducto" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Energía Eléctrica</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="observaciones_energia" formControlName="observaciones_energia" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Línea Telefónica</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="observaciones_telefono" formControlName="observaciones_telefono" 
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Internet - Wifi Gratuito</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="observaciones_internet" formControlName="observaciones_internet" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Iluminación</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="observaciones_iluminacion" formControlName="observaciones_iluminacion" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Alcantarillado</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="observaciones_alcantarillado" formControlName="observaciones_alcantarillado" 
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historical review section -->
+            <div class="card-body form-section">
+                <div class="py-8">
+                    <!-- Subtitle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Reseña Histórica</h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Fecha de Contrucción</label>
+                            <div class="input-group input-group-solid">
+                                <input type="text" name="fecha_construccion" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                                  placeholder="" ngbDatepicker #a="ngbDatepicker" [(ngModel)]="fecha_construccion" [ngModelOptions]="{standalone: true}" />
+                                <div class="input-group-append" (click)="a.toggle()">
+                                  <span class="input-group-text">
+                                    <i class="far fa-calendar calendar-input"></i>
+                                  </span>
+                                </div>
+                              </div>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Constructor</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa el constructor" name="constructor" formControlName="constructor" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Obra Básica Inicial</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa la obra básica inicial" name="obra_basica_inicial" formControlName="obra_basica_inicial" 
+                            />
+                        </div>
+                    </div>
+
+                    <app-interventions-form
+                        [config]="configInterventions"
+                        (sendSave)="saveInterventions($event)"
+                        [children]="interventions"
+                        *ngIf="!isLoadingData"
+                    >
+                    </app-interventions-form>
+                </div>
+            </div>
+
+            <!-- Sustainability elements section -->
+            <div class="card-body form-section">
+                <div class="py-8">
+                    <!-- Subtitle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Elementos de Sostenibilidad</h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Norma RETIE</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="norma_retie" formControlName="norma_retie" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Norma NSR 10</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="norma_nsr" formControlName="norma_nsr" 
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label>Sistema de ahorro de energía</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="sistema_ahorro_energia" formControlName="sistema_ahorro_energia" 
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label>Sistema de ahorro de agua</label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="sistema_ahorro_agua" formControlName="sistema_ahorro_agua" 
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagnosis section -->
+            <div class="card-body">
+                <!-- Subheader -->
+                <div class="row pt-8">
+                    <div class="col-12">
+                        <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Diagnostico del Escenario Deportivo</h5>
+                    </div>
+                </div>
+                
+                <app-diagnosis
+                    [isEditing]="true"
+                >
+                </app-diagnosis>
+            </div>
+
+            <!-- Save button -->
+            <div class="card-body float-right mt-3" [ngClass]="{'mr-10' : isLoadingSave}">
+                <button class="btn btn-light mr-2 px-12 py-3" (click)="goBack()">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary px-10 py-3" [disabled]="formGroup.invalid"> 
+                    Guardar
+                </button>
+                <ng-container *ngIf="isLoadingSave">
+                    <span class="spinner spinner-primary ml-5"></span>
+                </ng-container>
+            </div>
+        </form>
+    </div>
+</div>

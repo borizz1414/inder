@@ -1,0 +1,7 @@
+.radio-button-padding{
+    padding: 12px 0px;
+
+    @media (max-width: 1027px) and (min-width: 992px){
+        padding: 0px;
+    }
+}

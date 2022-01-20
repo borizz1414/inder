@@ -1,0 +1,169 @@
+
+<div class="card card-custom gutter-b">
+
+    <!-- Title -->
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label font-weight-bolder">
+                <ng-container *ngIf="id;else elseBlock;">
+                    Asignar Mantenimiento Correctivo - {{ formGroup.get('nombre_escenario').value }}
+                </ng-container>
+                <ng-template #elseBlock>
+                    Agregar Mantenimiento Correctivo
+                </ng-template>
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <a type="button" class="btn btn-primary px-9 py-3" (click)="goBack()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-2">
+                </span>Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Spinner -->
+    <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading$ | async">
+        <span class="spinner spinner-primary mt-8"></span>
+    </div>
+
+    <div>
+        <form
+            action="#"
+            class="form form-label-right"
+            method="post"
+            enctype="multipart/form-data"
+            [formGroup]="formGroup"
+            (ngSubmit)="save()"
+        >
+            <!-- Evidencia Inicial -->
+            <div class="card-body form-section">
+                <div class="py-8">
+                    <!-- Subtitle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">
+                                Evidencia Inicial
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label>Observaciones</label>
+                            <input 
+                                type="text" 
+                                class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" 
+                                name="observacionesInicial" 
+                                formControlName="observacionesInicial" 
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <app-file-upload 
+                                [files]="imagesInitial" 
+                                (sendFiles)="getImagesInitial($event)"
+                            >
+                            </app-file-upload>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Evidencia Durante -->
+            <div class="card-body form-section">
+                <div class="py-8">
+
+                    <!-- Subtitle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">
+                                Evidencia Durante
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label>Observaciones</label>
+                            <input 
+                                type="text" 
+                                class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" 
+                                name="observacionesDurante" 
+                                formControlName="observacionesDurante" 
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <app-file-upload 
+                                [files]="imagesDuring" 
+                                (sendFiles)="getImagesDuring($event)"
+                            >
+                            </app-file-upload>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Evidencia Final -->
+            <div class="card-body">
+                <div class="py-8">
+
+                    <!-- Subtitle -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="font-weight-bolder text-dark form-subtitle mb-6">
+                                Evidencia Final
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label>Observaciones</label>
+                            <input 
+                                type="text" 
+                                class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" 
+                                name="observacionesFinal" 
+                                formControlName="observacionesFinal" 
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <app-file-upload 
+                                [files]="imagesFinal" 
+                                (sendFiles)="getImagesFinal($event)"
+                            >
+                            </app-file-upload>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Save button -->
+            <div class="card-body float-right mt-3" [ngClass]="{'mr-10' : isLoadingSave}">
+                <button class="btn btn-light mr-2 px-12 py-3" (click)="goBack()">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary px-10 py-3" [disabled]="formGroup.invalid"> 
+                    Guardar
+                </button>
+                <ng-container *ngIf="isLoadingSave">
+                    <span class="spinner spinner-primary ml-5"></span>
+                </ng-container>
+            </div>
+        </form>
+    </div>
+</div>

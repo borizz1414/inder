@@ -1,0 +1,63 @@
+<ng-container>
+
+    <!-- Title (Add / Edit)-->
+    <div class="card card-custom gutter-b" *ngIf="!isDetail">
+      <div class="card-header hide-border-bottom">
+        <div class="card-title">
+          <h3 class="card-label font-weight-bolder">
+            <ng-container *ngIf="scenarioData;else elseBlock;">
+              {{ "Editar Mantenmientos - " + scenarioData.nombre }}
+            </ng-container>
+            <ng-template #elseBlock>
+              {{ idScenario && scenarioData ? "Editar Mantenmientos - " : "Agregar Mantenimientos" }}
+            </ng-template>
+          </h3>
+        </div>
+        <div class="card-toolbar">
+          <button class="btn btn-primary px-9 py-3" (click)="goBack()">
+            <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md mr-3">
+            </span>Volver
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Spinner -->
+    <ng-container *ngIf="idScenario">
+      <div *ngIf="loadingData" class="loading d-flex justify-content-center">
+        <span class="spinner spinner-primary ml-5"></span>
+      </div>
+    </ng-container>
+
+    <!-- Forms list -->
+    <!-- Formulario de crear / ver / editar, dentro se importara el componente reutilizable -->
+    <!-- Cada uno de los collapsables -->
+    <div *ngIf="maintenances.length">
+      <app-form-maintenance 
+        *ngFor="let maintenance of maintenances; index as i"
+        [idScenario]="idScenario"
+        [scenarioData]="scenarioData"
+        [dataChild]="maintenance"     
+        [indexDataChild]="i"
+        [optionsSelect]="formOptions"
+        (saveAsChild)="saveChild()"
+        (formCollapsedAsChild)="formCollapsed($event)"
+        (showDetailAsChild)="showDetail($event)"
+        (fetchDataChild)="updateDataChild($event)"
+      >
+      </app-form-maintenance>
+    </div>
+
+    <!-- Add another and Finish buttons -->
+    <div class="d-flex w-100 justify-content-center" *ngIf="showAddAnother && !isDetail">
+      <button class="btn blue-button px-10 py-3 mr-4" (click)="addNewForm()">
+        Agregar otro Mantenimiento
+      </button>
+      <a type="button" class="btn btn-primary px-10 py-3" (click)="goBack()">
+        Terminar
+      </a>
+    </div>
+    
+  </ng-container>
+  

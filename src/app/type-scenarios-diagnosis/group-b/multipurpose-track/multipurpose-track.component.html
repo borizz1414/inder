@@ -1,0 +1,1060 @@
+<div class="form-group row" [formGroup]="formGroup">
+  <div class="col-12">
+    <mat-accordion formGroupName="riesgo_estructural">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Riesgo estructural
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="riesgo_estructural_child">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Riesgo estructural
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <select  formControlName="riesgo_estructural"
+                  class="form-control form-control-lg form-control-solid" >
+                  <option value="Si">Si</option>
+                  <option value="No">No</option>
+                  </select>
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+            </div>
+  
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="superficie_juego">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              Superficie de juego
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="acabado_superficie">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              Acabado de superficie
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <mat-accordion formGroupName="pisos">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                  Pisos
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="" />
+              </div>
+              <div class="col-lg-4" formGroupName="observaciones">
+                <label>Observaciones</label>
+                <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                  <input type="checkbox"  />
+                  <span></span>
+                  {{element.label}} -->
+                <!-- </label> -->
+
+              </div>
+
+
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="equipos_skate">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              Equipos de skate
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="otros">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Otros
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="number" formControlName="cantidad"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                  placeholder="" />
+              </div>
+              <div class="col-lg-4" formGroupName="observaciones">
+                <label>Observaciones</label>
+                <!-- <label *ngFor="let element of piscina.riesgo_estructural_obs" class="checkbox">
+                  <input type="checkbox"  />
+                  <span></span>
+                  {{element.label}}
+                </label> -->
+
+              </div>
+
+
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="elementos_drenaje">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Elementos de drenaje
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="text" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="rejilla_piso">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Rejilla de piso
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="number" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="cuneta">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Cuneta
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="carcamo">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Cárcamo
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="sumidero">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Sumidero
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="number" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="caja_inspeccion_hidraulica">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Caja de Inspección Hidráulica ALL/ARES
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="number" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="cerramientos">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Cerramientos
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="number" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="muros_contencion">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Muros de contención
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Altura (m)</label>
+                <input type="number" formControlName="altura" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+
+
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="malla_eslabonada">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Malla eslabonada
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Altura (m)</label>
+                <input type="number" formControlName="altura" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+
+
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="lamina_perforada">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Lamina perforada
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Altura (m)</label>
+                <input type="number" formControlName="altura" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="estructura_pts">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Estructura en PTS
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Area m2</label>
+                <input type="number" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="estructura_tuberia_pesada">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Estructura de tuberia negra pesada
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Area (m2)</label>
+                <input type="number" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="sistemas_electricos">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sistemas eléctricos
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion_general"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="text" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="luminaria_interna">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Luminaria interna
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Cantidad</label>
+                <input type="text" formControlName="cantidad" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="number" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div formGroupName="observaciones">
+              Observaciones
+              <!-- <label *ngFor="let element of opt.sistemas_electricos" class="checkbox">
+                  <input type="checkbox" [formControlName]="element.formName"
+                    (click)="checkboxEvent('obs1','sintetica',element.label);" />
+                  <span></span>
+                  {{element.label}}
+                </label> -->
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="cerrajeria">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Cerrajería
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación general</label>
+            <input type="number" formControlName="calificacion" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="number" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="pasamanos">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Pasamanos
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Area m2</label>
+                <input type="number" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Longitud (m)</label>
+                <input type="number" formControlName="longitud" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Aaltura (m)</label>
+                <input type="number" formControlName="altura" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="areas_complementarias">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Áreas Complementarias
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Importancia relativa entre grupos</label>
+            <input type="text" formControlName="importancia_relativa_grupos"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Calificación</label>
+            <input type="number" formControlName="calificacion" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Variable auxiliar</label>
+            <input type="number" formControlName="variable_auxiliar"
+              class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+          </div>
+        </div>
+        <mat-accordion formGroupName="otros">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Otros
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Area m2</label>
+                <input type="number" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="jardineras">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Jardineras
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Area m2</label>
+                <input type="number" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion formGroupName="graderias">
+          <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Graderias
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content -->
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label>Importancia relativa entre grupos</label>
+                <input type="text" formControlName="importancia_relativa_grupos"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Calificación general</label>
+                <input type="number" formControlName="calificacion"
+                  class="form-control form-control-lg form-control-solid" autocomplete="off" placeholder="" />
+              </div>
+              <div class="col-lg-4">
+                <label>Area m2</label>
+                <input type="number" formControlName="area_m2" class="form-control form-control-lg form-control-solid"
+                  autocomplete="off" placeholder="" />
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-4" formGroupName="observaciones">
+                Observaciones
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+   
+    <mat-accordion formGroupName="urbanistico">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Urbanístico
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="arquitectonico">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Arquitéctonico
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="estructural">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Estructural
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="electrico">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Electrico
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="hidrosanitario">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Hidrosanitario
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="alumbrado_publico">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Alumbrado publico
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="alcantarillado">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Alcantarillado
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="manual_mantenimiento">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Manual de mantenimiento de uso y mantenimiento del escenario deportivo y recreativo
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Si / No</label>
+            <select formControlName="si_no" class="form-control form-control-lg form-control-solid">
+              <option>Si</option>
+              <option>no</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4" formGroupName="observaciones">
+            Observaciones
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="elaboracion">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Elaboración
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Nombre del Profesional Técnico
+            </label>
+            <input type="number" formControlName="nombre_profesional_tecnico" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+          <div class="col-lg-4">
+            <label>Nombre del Delineante
+            </label>
+            <input type="number" formControlName="nombre_delineante" class="form-control form-control-lg form-control-solid"
+              autocomplete="off" placeholder="" />
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion formGroupName="revision">
+      <mat-expansion-panel class="mb-2" (opened)="true" (closed)="false">
+        <!-- Title -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Revisión
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content -->
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label>Nombre del Coordinador Equipo Plan Maestro
+            </label>
+            <input type="number" formControlName="nombre_coordinador" class="form-control form-control-lg form-control-solid"
+            autocomplete="off" placeholder="" />
+          </div>
+
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+    </div>
+    </div>
+    <button class="btn btn-primary" (click)="save()">Enviar</button>

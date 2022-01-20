@@ -1,0 +1,171 @@
+<!--<ng-container *ngIf="escenario">-->
+    <div class="card card-custom" [formGroup]="formGroup">
+
+        <!--begin::Header-->
+        <div class="card-header py-3">
+            <div class="card-title align-items-start justify-content-center flex-column">
+                <h3 class="card-label font-weight-bolder text-dark"> Mantenimiento {{ id }} - {{ formGroup.value.nombre_escenario }}</h3>
+            </div>
+            <div class="card-toolbar">
+                <button class="btn btn-light mr-2 px-9 py-3" (click)="goBack()">
+                    <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md mr-3">
+                    </span>Volver
+                </button>
+                <a type="button" class="btn btn-primary px-9 py-3" [routerLink]="['/mantenimientos/editar/', id]">
+                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                        class="svg-icon svg-icon-md mr-3">
+                    </span>Editar
+                </a>
+            </div>
+        </div>
+        <!--end::Header-->
+    
+        <!--begin::Form-->
+        <div class="form">
+            <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading">
+                <span class="spinner spinner-primary ml-5"></span>
+            </div>
+    
+            <div class="card-body" *ngIf="!isLoading">
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Estado</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="estado" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Nombre de la Actividad</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <select class="form-control form-control-lg form-control-solid" name="nombre_actividad"
+                                formControlName="nombre_actividad" (change)="getActivitySelected()">
+                                <option *ngFor="let option of actividadesOptions" [value]=option.id>
+                                    {{ option.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Actividades a realizar</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="actividades_realizar" [value]="activitySelected.actividades_realizar" />
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Frecuencia</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="frecuencia" [value]="activitySelected.frecuencia.nombre" />
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Fecha de la Frecuencia</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input type="text" class="form-control form-control-lg form-control-solid" formControlName="fecha_frecuencia" [value]="activitySelected.fecha_frecuencia" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Responsable</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="responsable" [value]="responsable" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Identificación del Responsable</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div class="row mx-0">
+                            <div class="col-3 p-0" >
+                                <input type="text" class="form-control form-control-lg form-control-solid" 
+                                formControlName="tipo_identificacion_responsable" [value]="activitySelected.responsable?.tipoidentificacion?.abreviatura" />
+                            </div>
+                            <div class="col-9 pr-0">
+                                <input type="text" class="form-control form-control-lg form-control-solid" formControlName="numero_identificacion_responsable" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Fecha Inicio</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input type="text" class="form-control form-control-lg form-control-solid" formControlName="fecha_inicio" [value]="activitySelected.fecha_inicio" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Fecha Fin</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="fecha_fin" [value]="activitySelected.fecha_fin" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label">Observaciones</label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div>
+                            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="observaciones" [value]="activitySelected.observaciones" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group row" [ngClass]="{ 'p-0': activitySelected.imagenes.length}">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label" [ngClass]="{ 'pb-0': activitySelected.imagenes.length}">Imágenes del Mantenimiento</label>   
+                </div>
+    
+                <div class="form-group row" *ngFor="let image of activitySelected.imagenes; index as i">
+                    <label class="col-lg-3 col-xl-3 col-form-label detail-label"></label>
+                    <div class="col-lg-9 col-xl-5">
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input type="text" class="form-control form-control-lg form-control-solid" [value]="image?.nombre || ''" />
+                            <div class="input-group-prepend download-icon" (click)="downloadFile(i)">
+                                <span class="input-group-text">
+                                    <span [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true"
+                                        class="svg-icon svg-icon-md">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Form-->
+    </div>
+      <!--</ng-container>-->
+    

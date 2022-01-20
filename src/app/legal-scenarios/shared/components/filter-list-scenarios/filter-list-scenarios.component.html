@@ -1,0 +1,28 @@
+<!-- begin: Filtration form -->
+<div class="form form-label-right">
+    <div class="form-group row">
+        <div class="col-lg-6 col-xl-4">
+            <div class="row" >
+                <div class="col-lg-6">
+                   
+                    <select [value]="filterScenario.value" [formControl]="filterScenario" class="form-control" name="status" (change)="changeFilter()"  placeholder="Seleccionar">
+                        <option value="Nombre">Nombre</option>
+                        <option value="Visualización SI">Visualización (SI)</option>
+                        <option value="Visualización NO">Visualización (NO)</option>
+                        <option value="Barrio">Barrio</option>
+                    </select><small class="form-text text-muted"><b>Filtrar</b> por  {{filterScenario.value}}</small>
+                </div>
+                <div class="col-lg-6" >
+                    <input *ngIf="filterScenario.value == 'Nombre'" (keyup)="keyUpSearch()" [formControl]="valueSearch" type="text" class="form-control" name="searchText" placeholder="Buscar" value=""
+                         />
+                         <select *ngIf="filterScenario.value == 'Barrio'" (change)="changeNeighborhood()" class="form-control" name="neighborhood"
+                         [formControl]="neighborhood">
+                         <option *ngFor="let option of neighborhoodOptions" [value]=option.id>{{ option.nombrebarrio }}
+                         </option>
+                     </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: Filtration form -->

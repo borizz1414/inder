@@ -1,0 +1,182 @@
+<ng-container *ngIf="params.id">
+    <div *ngIf="!dataChild.id" class="loading d-flex justify-content-center">
+        <span class="spinner spinner-primary ml-5"></span>
+    </div>
+</ng-container>
+
+<div class="card card-custom gutter-b" *ngIf="dataChild.id || !params.id">
+
+    <!-- Property title -->
+    <!-- 
+     ** isDetail es el icono del ojo para ver la informacion
+     ** title es el titulo que saldra cuando este collapsado
+     ** isCollapsed es la propiedad para collapsar o abrir la card
+     ** data hace referencia a la data que se le puede pasar al componente
+     ** spiner es para habilitar o deshabilitar la visibilidad del loading
+    -->
+
+    <app-cumulative-form [title]="title" [isDetail]="isDetail" [isCollapsed]="isCollapsed" [data]="dataChild"
+        [config]="configCumulative" (collapseEvent)="eventCollapse($event)" (trashEvent)="delete($event)">
+
+    </app-cumulative-form>
+    <!-- Property form -->
+    <!-- <button (click)="isCollapsed = !isCollapsed">Collapsed | {{isCollapsed}}</button>
+    <button (click)="isEditing = !isEditing">Editing | {{isEditing}}</button>
+    <button (click)="isDetail = !isDetail">isDetail | {{isDetail}}</button> -->
+    <div id="collapseExample" [ngbCollapse]="isCollapsed">
+        <div *ngIf="isEditing">
+            <form action="#" class="form form-label-right" [formGroup]="formIntervention" (ngSubmit)="save()">
+                <!-- Scenario name section -->
+                <div class="card-body form-section">
+                    <div class="py-8">
+                        <!-- Subheader -->
+                        <!-- <div class="row">
+                <div class="col-12">
+                  <h5 class="font-weight-bolder text-dark form-subtitle mb-6">Selecciona un Escenario Deportivo</h5>
+                </div>
+              </div> -->
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label>Nombre del Escenario <span class="required-field">*</span></label>
+                                <input type="text" (focus)="fetchScenarioOptions()" class="form-control form-control-lg form-control-solid"
+                                    placeholder="Seleccionar" formControlName="nombre_escenario"
+                                    [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of scenariOptions" [value]="option.nombre"
+                                        (click)="selectScenario(option.id)">
+                                        {{ option.nombre }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <div class="invalid-feedback" *ngIf="controlHasError('required', 'nombre_escenario')">
+                                    Nombre del Escenario es requerido
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Identificación del Contratista <span class="required-field">*</span></label>
+                                <div class="d-flex">
+                                    <select [value]="formIntervention.value.tipo_identificacion_id" class="form-control form-control-lg form-control-solid w-80px mr-2"
+                                        formControlName="tipo_identificacion_id" (change)="searchUser('users')">
+                                        <option *ngFor="let option of formOptions.type_id" [value]="option.id">{{
+                                            option.abreviatura }}</option>
+                                    </select>
+                                    <input type="text" class="form-control form-control-lg form-control-solid"
+                                    placeholder="Ingresa el # del documento" formControlName="numero_identificacion"
+                                    [matAutocomplete]="autoUsers" (keyup)="searchUser('users')">
+                                <mat-autocomplete #autoUsers="matAutocomplete">
+                                    <mat-option *ngFor="let option of formOptions.users" [value]="option.nombre" (click)="selectUser(option)">
+                                        {{ option.numero_identificacion }} - {{ option.nombre }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                </div>
+                                <div class="invalid-feedback" *ngIf="controlHasError('required', 'numero_identificacion')">
+                                    Número de identificacion es requerido
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Contrato <span class="required-field">*</span></label>
+                                <input type="number" class="form-control form-control-lg form-control-solid"
+                                    placeholder="Ingresa el # del contrato" formControlName="contrato">
+                                    <div class="invalid-feedback" *ngIf="controlHasError('required', 'contrato')">
+                                        Contrato es requerido
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label>Valor <span class="required-field">*</span></label>
+                                <input type="number" class="form-control form-control-lg form-control-solid"
+                                    placeholder="Ingresa el valor" formControlName="valor">
+                                    <div class="invalid-feedback" *ngIf="controlHasError('required', 'valor')">
+                                        Valor es requerido
+                                    </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Objeto / Descripción</label>
+                                <input type="text" class="form-control form-control-lg form-control-solid"
+                                    placeholder="Ingresa el Objeto / Descripción" formControlName="descripcion">
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Fecha de priorización inicio </label>
+                                <div class="input-group input-group-solid">
+                                    <input type="text" class="form-control form-control-lg form-control-solid"
+                                        autocomplete="off" placeholder="" ngbDatepicker #x="ngbDatepicker"
+                                        formControlName="fecha_priorizacion_inicio" readonly="true" />
+                                    <div class="input-group-append" (click)="x.toggle()">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar calendar-input"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label>Fecha de priorización fin</label>
+                                <div class="input-group input-group-solid">
+                                    <input type="text" class="form-control form-control-lg form-control-solid"
+                                        autocomplete="off" placeholder="" ngbDatepicker #a="ngbDatepicker"
+                                        formControlName="fecha_priorizacion_fin" readonly="true" />
+                                    <div class="input-group-append" (click)="a.toggle()">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar calendar-input"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Fuente de Financiación  <span class="required-field">*</span></label>
+                                <select class="form-control form-control-lg form-control-solid"
+                                formControlName="fuente_financiacion">
+                                <option value="">Seleccionar</option>
+                                <option *ngFor="let option of formOptions.funding_source" [value]="option.id">{{
+                                    option.nombre }}</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'fuente_financiacion')">
+                                Fuente de Financiación es requerido
+                            </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Adjuntar Acta de Cantidades Finales de Obra</label>
+                                <div class="row mx-0">
+                                    <div class="col-7 col-lg-4 col-xl-7 p-0">
+                                        <input type="text" class="form-control form-control-lg form-control-solid file-name-input"
+                                            [id]="'nombre_acta_cantidades_finales'+countForm" [name]="nombre_acta_cantidades_finales" [formControl]="nombre_acta_cantidades_finales"  disabled />
+                                    </div>
+                                    <div class="col-5 col-lg-8 col-xl-5 p-0">
+                                        <input type="file" [id]="'input-file-'+countForm" hidden
+                                            (change)="onChangeFile($event, 'acta_cantidades_finales')">
+                                        <label [for]="'input-file-'+countForm"  class="btn btn-primary upload-file-button">
+                                            <span [inlineSVG]="'./assets/media/svg/icons/Files/Selected-file.svg'" cacheSVG="true"
+                                                class="svg-icon svg-icon-md mr-1">
+                                            </span>Examinar
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex justify-content-end" [ngClass]="{'mr-10' : isLoadingSave}">
+                        <!--  <a type="button" class="btn btn-light mr-2 px-12 py-3" routerLink="/escenarios/bienes-inmuebles">
+                    Cancelar
+                  </a> -->
+                        <a *ngIf="params.id" class="btn btn-light px-10 py-3 mr-4" (click)="goBack()">
+                            Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary px-10 py-3" [disabled]="!formIntervention.valid">
+                            Guardar Intervención
+                        </button>
+                        <ng-container *ngIf="isLoadingSave">
+                            <span class="spinner spinner-primary ml-5"></span>
+                        </ng-container>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- <pre>
+        {{formIntervention.value | json}}
+        {{formIntervention.valid}}
+
+      </pre> -->
+
+    </div>
+</div>

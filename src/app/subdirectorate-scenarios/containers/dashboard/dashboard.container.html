@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-lg-4">
+      <div class="card card-scenarios gutter-b">
+        <div class="card-body d-flex justify-content-between">
+          <div class="text-card">
+            <h5>Listado de<br>
+              <b>Escenarios Deportivos</b>
+            </h5>
+  
+            <div class="btn-card pt-10">
+              <a type="button" routerLink="/escenarios-subdireccion/lista" class="btn btn-primary">Escenarios Deportivos</a>
+            </div>
+          </div>
+          <div class="icon-card">
+            <span class="svg-inicio-icon" [inlineSVG]="'./assets/media/svg/icons/Clothes/Crown.svg'"
+              cacheSVG="true"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card card-scenarios gutter-b">
+        <div class="card-body d-flex justify-content-between">
+          <div class="text-card">
+            <h5>Diagnósticos de los<br>
+              <b>Escenarios Deportivos</b>
+            </h5>
+  
+            <div class="btn-card pt-10">
+              <a type="button" routerLink="/escenarios-subdireccion/diagnostico" class="btn btn-primary">Diagnósticos de Escenarios</a>
+            </div>
+          </div>
+          <div class="icon-card">
+            <span class="svg-inicio-icon" [inlineSVG]="'./assets/media/svg/icons/Home/Commode2.svg'" cacheSVG="true">
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card card-scenarios gutter-b">
+        <div class="card-body d-flex justify-content-between">
+          <div class="text-card">
+            <h5>Exportar<br>
+              <b>Ficha de Campo</b>
+            </h5>
+  
+            <div class="btn-card pt-10">
+              <a type="button" routerLink="/escenarios-subdireccion/diagnostico/exportar-ficha-campo" class="btn btn-primary">Exportar Ficha de Campo</a>
+            </div>
+          </div>
+          <div class="icon-card">
+            <span class="svg-inicio-icon" [inlineSVG]="'./assets/media/svg/icons/Files/Download.svg'" cacheSVG="true">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 container-tables">
+      <div class="card card-custom gutter-b">
+        <div class="card-header">
+          <div class="card-title">
+            <h3 class="card-label">{{configCard1.title}}</h3>
+          </div>
+          <div class="card-toolbar">
+            <a type="button" class="btn btn-primary" [routerLink]="configCard1.routerLinkBtn">{{configCard1.btnName}}</a>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <!-- begin:Table -->
+          <div class="example-container">
+            <app-general-table 
+            [dataTable]="dataScenarios" 
+            [configColumns]="columnsTableScenarios"
+            [displayElementTable]="configDisplayScenarios"
+            [paginator]="configPaginator"
+            (updateDisplayScenario)="changeDisplayScenario($event)"
+            ></app-general-table>
+          </div>
+        </div>
+      </div>
+      <div class="card card-custom gutter-b">
+        <div class="card-header">
+          <div class="card-title">
+            <h3 class="card-label">{{configCard2.title}}</h3>
+          </div>
+          <div class="card-toolbar">
+            <a type="button" class="btn btn-primary" [routerLink]="configCard2.routerLinkBtn">{{configCard2.btnName}}</a>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <!-- begin:Table -->
+          <div class="example-container">
+            <app-general-table 
+            [dataTable]="dataProperty" 
+            [configColumns]="columnsTableDiagnosis"
+            [displayElementTable]="configDisplayDiagnosis"
+            [paginator]="configPaginator"
+            (updateDisplayScenario)="changeDisplayScenario($event)"
+            ></app-general-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

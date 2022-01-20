@@ -1,0 +1,51 @@
+<div>
+    <!-- Form -->
+    <form action="#" class="form form-label-right" [formGroup]="formGroup" (ngSubmit)="save()">
+  
+      <!-- Scenario section -->
+      <div class="form-group row">
+        <div class="col-lg-4">
+          <label>Nombre del Escenario <span class="required-field">*</span></label>
+          <input type="text" (focus)="fetchScenarioOptions()" class="form-control form-control-lg form-control-solid" placeholder="Seleccionar" formControlName="nombre_escenario" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of scenariOptions" [value]="option.nombre" (click)="selectScenario(option.id)">
+              {{ option.nombre }}
+            </mat-option>
+          </mat-autocomplete>
+          <div class="invalid-feedback" *ngIf="controlHasError('required', 'nombre_escenario')">
+              Nombre del Escenario es requerido
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <label>Selecciona el tipo de Escenario</label>
+            <select class="form-control form-control-lg form-control-solid" name="tipo_escenario"
+              formControlName="tipo_escenario">
+              <option value="Piscina">Piscina</option>
+              <option value="Skate">Pista Skate</option>
+              <option value="Muro">Muro de Escalar</option>
+              <option value="Multiproposito">Pista Multiproposito</option>
+              <option value="GameKids">Juego Infantil</option>
+              <option value="Interactiva">Fuente interactiva</option>
+              <option value="Ludoteka">Ludoteka</option>
+              <option value="Nucleo">Nucleo</option>
+              <option value="Gym">Gimnasio</option>
+            </select>
+        </div>
+      </div>
+
+      <div *ngIf="formGroup.value.tipo_escenario">
+          <!-- Infrastructure section -->
+          <app-infrastructure
+            [typeScenario]="formGroup.value.tipo_escenario"
+          >
+          </app-infrastructure>
+
+          <!-- Environmental section -->
+          <app-environmental
+            [typeScenario]="formGroup.value.tipo_escenario"
+          >
+          </app-environmental>
+      </div>
+    </form>
+  </div>

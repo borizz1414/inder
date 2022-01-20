@@ -1,0 +1,98 @@
+
+<div class="card card-custom gutter-b">
+
+    <!-- Title -->
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label font-weight-bolder">
+                <ng-container *ngIf="id;else elseBlock;">
+                    Asignar Mantenimiento Correctivo - {{ formGroup.get('nombre_escenario').value }}
+                </ng-container>
+                <ng-template #elseBlock>
+                    Agregar Mantenimiento Correctivo
+                </ng-template>
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <a type="button" class="btn btn-primary px-9 py-3" (click)="goBack()">
+                <span [inlineSVG]="'./assets/media/svg/icons/Navigation/Arrow-left.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md mr-2">
+                </span>Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Spinner -->
+    <div class="d-flex w-100 justify-content-center align-items-center spinner-container" *ngIf="isLoading$ | async">
+        <span class="spinner spinner-primary mt-8"></span>
+    </div>
+
+    <div>
+        <form
+            action="#"
+            class="form form-label-right"
+            method="post"
+            enctype="multipart/form-data"
+            [formGroup]="formGroup"
+            (ngSubmit)="save()"
+        >
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <label>Nombre del Escenario <span class="required-field">*</span></label>
+                        <div>
+                            <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Ingresa el nombre del escenario"
+                                name="nombre_escenario" formControlName="nombre_escenario" 
+                                [matAutocomplete]="auto1" autocomplete="off"
+                            >
+                            <mat-autocomplete #auto1="matAutocomplete">
+                                <mat-option *ngFor="let option of scenarioOptions" [value]="option.nombre">
+                                    {{ option.nombre }}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </div>
+                    </div>
+    
+                    <div class="col-lg-4">
+                        <label>Tipo de Mantenimiento <span class="required-field">*</span></label>
+                        <select class="form-control form-control-lg form-control-solid" name="tipo_mantenimiento"
+                            formControlName="tipo_mantenimiento"
+                        >
+                            <option *ngFor="let option of typeMaintenanceOptions" [value]=option.id>{{ option.nombre }}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="col-lg-12">
+                            <label>Observaciones <span class="required-field">*</span></label>
+                            <input type="text" class="form-control form-control-lg form-control-solid" autocomplete="off" 
+                                placeholder="Ingresa las observaciones" name="observaciones" formControlName="observaciones" 
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Adjuntar Evidencia Inicial</label>
+                        <app-file-upload [files]="images" (sendFiles)="getImages($event)">
+                        </app-file-upload>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save button -->
+            <div class="card-body float-right mt-3" [ngClass]="{'mr-10' : isLoadingSave}">
+                <button class="btn btn-light mr-2 px-12 py-3" (click)="goBack()">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary px-10 py-3" [disabled]="formGroup.invalid"> 
+                    Guardar
+                </button>
+                <ng-container *ngIf="isLoadingSave">
+                    <span class="spinner spinner-primary ml-5"></span>
+                </ng-container>
+            </div>
+        </form>
+    </div>
+</div>

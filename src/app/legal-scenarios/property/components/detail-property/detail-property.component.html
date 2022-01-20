@@ -1,0 +1,110 @@
+<div class="form" [formGroup]="formGroup">
+    <div class="card-body">
+
+        <!--begin::Heading-->
+        <div class="row">
+            <label class="col-xl-3"></label>
+            <div class="col-lg-9 col-xl-6">
+                <h5 class="font-weight-bold mb-6">Información Básica</h5>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-3 col-xl-3 col-form-label detail-label">Nombre del Escenario</label>
+            <div class="col-lg-9 col-xl-5">
+                <div>
+                    <input readonly class="form-control form-control-lg form-control-solid" type="text" formControlName="nombre_escenario" />
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="col-lg-3 col-xl-3 col-form-label detail-label">Dirección</label>
+            <div class="col-lg-9 col-xl-5">
+                <div>
+                    <input readonly class="form-control form-control-lg form-control-solid" type="text" formControlName="direccion" />
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="col-lg-3 col-xl-3 col-form-label detail-label">Bien o Inmueble</label>
+            <div class="col-lg-9 col-xl-5">
+                <div>
+                    <input readonly class="form-control form-control-lg form-control-solid" type="text" formControlName="nombre" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-3 col-xl-3 col-form-label detail-label">Área</label>
+            <div class="col-lg-9 col-xl-5">
+                <div class="row mx-0">
+                    <div class="col-9 col-xl-10 p-0">
+                      <input readonly
+                        type="text"
+                        class="form-control form-control-lg form-control-solid file-name-input readonly"
+                        name="area"
+                        formControlName="area"
+                      />
+                    </div>
+                    <div class="col-3 col-xl-2 p-0">
+                      <label class="btn btn-primary input readonly-button">
+                        M2
+                      </label>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-3 col-xl-3 col-form-label detail-label">Matrícula</label>
+            <div class="col-lg-9 col-xl-5">
+                <div>
+                    <input readonly class="form-control form-control-lg form-control-solid" type="text" formControlName="matricula" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-3 col-xl-3 col-form-label detail-label">Código de activo fijo</label>
+            <div class="col-lg-9 col-xl-5">
+                <div>
+                    <input readonly class="form-control form-control-lg form-control-solid" type="text" formControlName="codigo_activo_fijo" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-3 col-xl-3 col-form-label detail-label">Valor Fiscal</label>
+            <div class="col-lg-9 col-xl-5">
+                <div class="row mx-0">
+                    <div class="col-9 col-lg-8 col-xl-9 p-0">
+                      <input readonly
+                          type="text"
+                          placeholder="0.00"
+                          class="form-control form-control-lg form-control-solid file-name-input readonly"
+                          name="valor_fiscal"
+                          formControlName="valor_fiscal"
+                      />
+                    </div>
+                    <div class="col-3 col-lg-4 col-xl-3 p-0">
+                      <label class="btn btn-primary input readonly-button">
+                        COP
+                      </label>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-lg-3 col-xl-3 col-form-label detail-label">Destinación del Bien Inmueble</label>
+            <div class="col-lg-9 col-xl-5">
+                <div>
+                    <input readonly class="form-control form-control-lg form-control-solid" type="text" formControlName="destination" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
